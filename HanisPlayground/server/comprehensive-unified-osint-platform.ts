@@ -411,16 +411,6 @@ export class ComprehensiveUnifiedOSINTPlatform {
     const profiles = [];
     
     try {
-      // Use authenticated APIs for social media intelligence
-      // const apiCredentials = await this.apiManager.getCredential('twitter_x');
-      if (/* apiCredentials */) {
-        profiles.push({
-          platform: 'Twitter/X',
-          analysis: 'Advanced social media profiling executed',
-          confidence: 0.88
-        });
-      }
-
       // Additional social platforms analysis
       for (const platform of this.platformConfig.socialPlatforms.mainstream) {
         profiles.push({
@@ -441,16 +431,6 @@ export class ComprehensiveUnifiedOSINTPlatform {
     const technical = [];
     
     try {
-      // Use IP geolocation APIs
-      // const ipCredentials = await this.apiManager.getCredential('ip_geolocation');
-      if (/* ipCredentials */) {
-        technical.push({
-          source: 'IP Geolocation',
-          analysis: 'Advanced geolocation and network analysis',
-          confidence: 0.92
-        });
-      }
-
       // Domain analysis using authenticated APIs
       for (const source of this.platformConfig.technicalSources.domainAnalysis) {
         technical.push({
