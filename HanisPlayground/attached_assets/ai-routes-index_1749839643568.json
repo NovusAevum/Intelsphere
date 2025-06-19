@@ -1,0 +1,54 @@
+{
+  "routes": [
+    {
+      "path": "/intelligence-network-map",
+      "title": "Intelligence Network Map",
+      "category": "OSINT Intelligence"
+    },
+    {
+      "path": "/smart-ai-assistant",
+      "title": "Smart AI Assistant",
+      "category": "AI Agents"
+    },
+    {
+      "path": "/smart-ai-assistant-v2",
+      "title": "Smart AI Assistant v2",
+      "category": "AI Agents"
+    },
+    {
+      "path": "/human-ai-assistant",
+      "title": "Human-AI Collaboration",
+      "category": "AI Agents"
+    },
+    {
+      "path": "/api/ai/command",
+      "title": "AI Command API",
+      "category": "System APIs"
+    },
+    {
+      "path": "/dashboard/market",
+      "title": "Market Intelligence Dashboard",
+      "category": "Business Intelligence"
+    },
+    {
+      "path": "/dashboard/news",
+      "title": "News & Media Monitoring",
+      "category": "Media Intelligence"
+    },
+    {
+      "path": "/threat/redcell-simulation",
+      "title": "RedCell Threat Simulation",
+      "category": "Adversarial Intelligence"
+    },
+    {
+      "path": "/gideon-apex",
+      "title": "GIDEON APEX Interface",
+      "category": "Strategic AI Frameworks"
+    },
+    {
+      "path": "/luxcore-control",
+      "title": "Luxcore Red Control",
+      "category": "Strategic AI Frameworks"
+    }
+  ]
+}

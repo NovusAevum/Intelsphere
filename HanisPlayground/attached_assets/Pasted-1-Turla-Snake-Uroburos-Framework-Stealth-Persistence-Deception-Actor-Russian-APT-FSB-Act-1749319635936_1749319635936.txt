@@ -1,0 +1,79 @@
+1. Turla (Snake/Uroburos Framework) – Stealth, Persistence & Deception
+
+Actor: Russian APT (FSB)
+Active Since: ~2008
+Key Features:
+	•	Encrypted, Stealthy C2 Channels: Uses HTTP/HTTPS, satellite-based communications, and DNS tunneling.
+	•	Fileless Execution & In-Memory Payloads: No hard disk trace.
+	•	Fake System Updates: Masquerades malicious files as part of system updates.
+	•	Anti-Forensics: Injects into Windows subsystems like svchost.exe.
+
+GIDEON Parallels:
+	•	Multi-tiered C2 resiliency.
+	•	Ghost payload techniques.
+	•	Decoy update artifacts.
+
+⸻
+
+2. Stuxnet – Modular Zero-Day Payload & Adaptive Logic
+
+Actor: Allegedly US/Israel
+Target: Iranian nuclear enrichment
+Key Features:
+	•	Four Zero-Day Exploits used at the time (very rare).
+	•	Highly Targeted Logic Bombs: Payload activates only if very specific Siemens PLC configurations are detected.
+	•	Code Obfuscation and Digital Certificate Forgery.
+	•	Self-Destruction in Unknown Environments.
+
+GIDEON Parallels:
+	•	Environmental awareness.
+	•	Payload self-suppression in sandbox environments.
+	•	Self-healing via modular dropper chain.
+
+⸻
+
+3. Flame Malware – DPI Evasion via Fake Certificates & Protocol Tunneling
+
+Actor: Nation-state, likely same as Stuxnet
+Key Features:
+	•	Spoofed Microsoft Certificate: To bypass deep inspection.
+	•	Modular Framework: Like an operating system of its own.
+	•	Bluetooth, Audio Recording, Screenshot Capture.
+	•	Custom Encrypted Channels (SSL Mimicry).
+
+GIDEON Parallels:
+	•	DPI evasion via protocol camouflage.
+	•	Covert surveillance modules.
+	•	Polymorphic payload updates.
+
+⸻
+
+4. APT29 (Cozy Bear) – Sophisticated Payload Delivery & Log Poisoning
+
+Actor: Russian SVR
+Tactics Noted:
+	•	Stealthy Phishing Campaigns: Targeting diplomatic and health sectors.
+	•	Memory-Only Malware: Like SUNBURST.
+	•	Uses WMI, Windows Registry for Persistence.
+	•	Fake TLS and DNS Tunneling for C2.
+
+GIDEON Parallels:
+	•	Fileless memory execution.
+	•	WMI Event Consumer triggers.
+	•	Encrypted C2 within DPI-friendly protocols.
+
+⸻
+
+5. FinFisher/FinSpy – Commercial Surveillance with AI-Level Adaptiveness
+
+Actor: Private-sector spyware (used by multiple governments)
+Capabilities:
+	•	Virtual Machine Detection.
+	•	Kernel-Level Rootkit Components.
+	•	Live Encryption Key Logging.
+	•	On-Demand Feature Activation Based on Target Behavior.
+
+GIDEON Parallels:
+	•	Adaptive payload activation.
+	•	Stealth based on OS fingerprinting.
+	•	Behavioral surveillance modules.

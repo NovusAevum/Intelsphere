@@ -1,0 +1,11 @@
+/* style.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Your custom styles (optional) */
+body {
+  font-family: 'Inter', sans-serif;
+}
+npx tailwindcss -i ./style.css -o ./dist/output.css --watch
+<link rel="stylesheet" href="style.css">

@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Matrix - Hanis AI Command Center</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 50%, #415a77 100%);
+    }
+    .orbitron { font-family: 'Orbitron', monospace; }
+    .holographic {
+      background: linear-gradient(45deg, rgba(0, 255, 0, 0.1), rgba(0, 128, 0, 0.1));
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .matrix-code {
+      font-family: 'Courier New', monospace;
+      color: #00ff41;
+      animation: matrix-rain 3s linear infinite;
+    }
+    @keyframes matrix-rain {
+      0% { opacity: 1; transform: translateY(-100%); }
+      100% { opacity: 0; transform: translateY(100vh); }
+    }
+    .ai-node {
+      animation: ai-pulse 2s ease-in-out infinite alternate;
+    }
+    @keyframes ai-pulse {
+      0% { box-shadow: 0 0 5px rgba(0, 255, 65, 0.5); }
+      100% { box-shadow: 0 0 20px rgba(0, 255, 65, 1), 0 0 30px rgba(0, 255, 65, 0.5); }
+    }
+  </style>
+</head>
+
+<body class="text-white min-h-screen relative overflow-hidden">
+  
+  <!-- Matrix Background -->
+  <div class="fixed inset-0 pointer-events-none z-0">
+    <div class="matrix-code absolute text-xs" style="left: 10%; animation-delay: 0s;">01001000 01000001 01001110 01001001 01010011</div>
+    <div class="matrix-code absolute text-xs" style="left: 30%; animation-delay: 1s;">01000001 01001001 00100000 01001101 01000001</div>
+    <div class="matrix-code absolute text-xs" style="left: 50%; animation-delay: 2s;">01010100 01010010 01001001 01011000 00100000</div>
+    <div class="matrix-code absolute text-xs" style="left: 70%; animation-delay: 0.5s;">01010111 01001111 01001110 01000100 01000101</div>
+    <div class="matrix-code absolute text-xs" style="left: 90%; animation-delay: 1.5s;">01010000 01000101 01010100 01010011 00100000</div>
+  </div>
+
+  <!-- Header -->
+  <header class="p-6 border-b border-gray-700 relative z-10">
+    <nav class="flex justify-between items-center">
+      <a href="index.html" class="text-2xl font-bold orbitron text-green-400">← HANIS.AI</a>
+      <h1 class="text-3xl font-bold orbitron text-center flex-1">AI MATRIX</h1>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="py-16 px-6 text-center relative z-10">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-5xl font-bold orbitron mb-6 text-green-400">THE AI MATRIX</h2>
+      <p class="text-xl text-gray-300 mb-8">Interconnected artificial intelligence ecosystem powering the future</p>
+      
+      <!-- AI Matrix Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 my-12">
+        <div class="ai-node holographic p-6 rounded-lg">
+          <div class="w-16 h-16 mx-auto mb-4 bg-green-500 rounded-full flex items-center justify-center">
+            <span class="text-2xl">🤖</span>
+          </div>
+          <h3 class="text-xl font-bold orbitron mb-2">AUTONOMOUS AI</h3>
+          <p class="text-sm text-gray-300">Self-evolving artificial intelligence systems with independent decision-making capabilities</p>
+        </div>
+        
+        <div class="ai-node holographic p-6 rounded-lg" style="animation-delay: 0.5s;">
+          <div class="w-16 h-16 mx-auto mb-4 bg-cyan-500 rounded-full flex items-center justify-center">
+            <span class="text-2xl">🧠</span>
+          </div>
+          <h3 class="text-xl font-bold orbitron mb-2">COGNITIVE MESH</h3>
+          <p class="text-sm text-gray-300">Distributed cognitive network enabling real-time knowledge sharing and learning</p>
+        </div>
+        
+        <div class="ai-node holographic p-6 rounded-lg" style="animation-delay: 1s;">
+          <div class="w-16 h-16 mx-auto mb-4 bg-purple-500 rounded-full flex items-center justify-center">
+            <span class="text-2xl">⚡</span>
+          </div>
+          <h3 class="text-xl font-bold orbitron mb-2">NEURAL FUSION</h3>
+          <p class="text-sm text-gray-300">Advanced neural architecture fusion for multi-modal AI processing</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Capabilities Matrix -->
+  <section class="py-12 px-6 relative z-10">
+    <div class="max-w-6xl mx-auto">
+      <h3 class="text-3xl font-bold orbitron mb-8 text-center">CAPABILITY MATRIX</h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="holographic p-6 rounded-lg text-center hover:scale-105 transition-transform">
+          <div class="text-3xl mb-4">🔍</div>
+          <h4 class="orbitron font-bold mb-2 text-green-400">ANALYSIS</h4>
+          <ul class="text-xs text-gray-300 space-y-1">
+            <li>• Real-time data processing</li>
+            <li>• Pattern recognition</li>
+            <li>• Predictive modeling</li>
+            <li>• Anomaly detection</li>
+          </ul>
+        </div>
+        
+        <div class="holographic p-6 rounded-lg text-center hover:scale-105 transition-transform">
+          <div class="text-3xl mb-4">🛡️</div>
+          <h4 class="orbitron font-bold mb-2 text-cyan-400">SECURITY</h4>
+          <ul class="text-xs text-gray-300 space-y-1">
+            <li>• Threat intelligence</li>
+            <li>• Vulnerability scanning</li>
+            <li>• Incident response</li>
+            <li>• Risk assessment</li>
+          </ul>
+        </div>
+        
+        <div class="holographic p-6 rounded-lg text-center hover:scale-105 transition-transform">
+          <div class="text-3xl mb-4">💡</div>
+          <h4 class="orbitron font-bold mb-2 text-purple-400">INNOVATION</h4>
+          <ul class="text-xs text-gray-300 space-y-1">
+            <li>• Creative problem solving</li>
+            <li>• Automated design</li>
+            <li>• Code generation</li>
+            <li>• Solution optimization</li>
+          </ul>
+        </div>
+        
+        <div class="holographic p-6 rounded-lg text-center hover:scale-105 transition-transform">
+          <div class="text-3xl mb-4">🌐</div>
+          <h4 class="orbitron font-bold mb-2 text-yellow-400">INTEGRATION</h4>
+          <ul class="text-xs text-gray-300 space-y-1">
+            <li>• API orchestration</li>
+            <li>• System connectivity</li>
+            <li>• Data synchronization</li>
+            <li>• Workflow automation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Agents Network -->
+  <section class="py-12 px-6 relative z-10">
+    <div class="max-w-4xl mx-auto text-center">
+      <h3 class="text-3xl font-bold orbitron mb-8">AGENT NETWORK</h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="holographic p-8 rounded-lg">
+          <img src="assets/linny.jpg" alt="Linny AI" class="w-20 h-20 rounded-full mx-auto mb-4 ring-4 ring-green-400">
+          <h4 class="text-xl font-bold orbitron mb-2 text-green-400">LINNY MATRIX</h4>
+          <p class="text-sm text-gray-300 mb-4">Strategic Intelligence Core</p>
+          <div class="text-xs text-green-300 orbitron">STATUS: ACTIVE</div>
+          <div class="text-xs text-gray-400 mt-2">Autonomous OSINT operations</div>
+        </div>
+        
+        <div class="holographic p-8 rounded-lg">
+          <img src="assets/tuck.jpeg" alt="Tuck AI" class="w-20 h-20 rounded-full mx-auto mb-4 ring-4 ring-cyan-400">
+          <h4 class="text-xl font-bold orbitron mb-2 text-cyan-400">TUCK MATRIX</h4>
+          <p class="text-sm text-gray-300 mb-4">Security Defense Grid</p>
+          <div class="text-xs text-green-300 orbitron">STATUS: MONITORING</div>
+          <div class="text-xs text-gray-400 mt-2">Real-time threat analysis</div>
+        </div>
+        
+        <div class="holographic p-8 rounded-lg">
+          <img src="assets/mingming.jpeg" alt="Ming-Ming AI" class="w-20 h-20 rounded-full mx-auto mb-4 ring-4 ring-purple-400">
+          <h4 class="text-xl font-bold orbitron mb-2 text-purple-400">MING-MING MATRIX</h4>
+          <p class="text-sm text-gray-300 mb-4">Innovation Engine</p>
+          <div class="text-xs text-green-300 orbitron">STATUS: CREATING</div>
+          <div class="text-xs text-gray-400 mt-2">Generative AI solutions</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Matrix Statistics -->
+  <section class="py-12 px-6 relative z-10">
+    <div class="max-w-4xl mx-auto">
+      <h3 class="text-3xl font-bold orbitron mb-8 text-center">MATRIX STATISTICS</h3>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="text-center">
+          <div class="text-3xl font-bold orbitron text-green-400 mb-2">99.7%</div>
+          <div class="text-sm text-gray-300">System Uptime</div>
+        </div>
+        
+        <div class="text-center">
+          <div class="text-3xl font-bold orbitron text-cyan-400 mb-2">1M+</div>
+          <div class="text-sm text-gray-300">Data Points/sec</div>
+        </div>
+        
+        <div class="text-center">
+          <div class="text-3xl font-bold orbitron text-purple-400 mb-2">3</div>
+          <div class="text-sm text-gray-300">Active AI Agents</div>
+        </div>
+        
+        <div class="text-center">
+          <div class="text-3xl font-bold orbitron text-yellow-400 mb-2">24/7</div>
+          <div class="text-sm text-gray-300">Autonomous Mode</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 px-6 border-t border-gray-700 text-center relative z-10">
+    <p class="text-gray-400 orbitron">AI MATRIX v4.0 | WONDER PETS NEURAL NETWORK</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,483 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Performance Marketing Mastery | Hanis Wonder Pets</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --marketing-primary: #ff6b35;
+      --marketing-secondary: #004e89;
+      --marketing-accent: #ffd23f;
+      --marketing-success: #06d6a0;
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .orbitron {
+      font-family: 'Orbitron', monospace;
+    }
+
+    .marketing-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .marketing-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .metric-counter {
+      font-size: 3rem;
+      font-weight: 900;
+      background: linear-gradient(45deg, var(--marketing-primary), var(--marketing-accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .campaign-showcase {
+      background: linear-gradient(45deg, rgba(255, 107, 53, 0.1), rgba(255, 210, 63, 0.1));
+      border-left: 4px solid var(--marketing-primary);
+    }
+
+    .certification-badge {
+      background: linear-gradient(135deg, var(--marketing-success), var(--marketing-secondary));
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      display: inline-block;
+      margin: 0.25rem;
+    }
+
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+  </style>
+</head>
+
+<body class="text-white" x-data="performanceMarketingApp()">
+  
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 marketing-card mx-4 mt-4">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 flex items-center justify-center">
+          <span class="text-white font-bold orbitron">📈</span>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold orbitron">PERFORMANCE MARKETING</h1>
+          <div class="text-xs text-orange-300 orbitron">Digital Growth Mastery</div>
+        </div>
+      </div>
+      
+      <div class="hidden md:flex space-x-4">
+        <a href="index.html" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 text-sm orbitron hover:bg-opacity-20 transition">HOME</a>
+        <a href="resume.html" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 text-sm orbitron hover:bg-opacity-20 transition">RESUME</a>
+        <a href="neural-net.html" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 text-sm orbitron hover:bg-opacity-20 transition">NEURAL NET</a>
+        <a href="quantum-lab.html" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 text-sm orbitron hover:bg-opacity-20 transition">QUANTUM LAB</a>
+        <a href="ai-matrix.html" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 text-sm orbitron hover:bg-opacity-20 transition">AI MATRIX</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6">
+    <div class="max-w-7xl mx-auto text-center">
+      <h1 class="text-5xl md:text-7xl font-black orbitron mb-8">
+        PERFORMANCE <span class="text-yellow-400">MARKETING</span>
+        <br><span class="text-orange-400">MASTERY</span>
+      </h1>
+      
+      <p class="text-xl md:text-2xl text-gray-200 max-w-4xl mx-auto mb-12">
+        Transforming digital presence into measurable growth through data-driven strategies, 
+        advanced automation, and innovative campaign optimization techniques.
+      </p>
+
+      <!-- Key Metrics -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+        <div class="marketing-card p-6 text-center">
+          <div class="metric-counter orbitron" x-text="animatedMetrics.growth"></div>
+          <div class="text-sm text-gray-300 orbitron">YoY Growth</div>
+        </div>
+        <div class="marketing-card p-6 text-center">
+          <div class="metric-counter orbitron" x-text="animatedMetrics.roas"></div>
+          <div class="text-sm text-gray-300 orbitron">Avg ROAS</div>
+        </div>
+        <div class="marketing-card p-6 text-center">
+          <div class="metric-counter orbitron" x-text="animatedMetrics.campaigns"></div>
+          <div class="text-sm text-gray-300 orbitron">Campaigns</div>
+        </div>
+        <div class="marketing-card p-6 text-center">
+          <div class="metric-counter orbitron" x-text="animatedMetrics.clients"></div>
+          <div class="text-sm text-gray-300 orbitron">Clients</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Google Ads Expertise -->
+  <section class="py-16 px-6">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-4xl md:text-5xl font-bold orbitron text-center mb-16">
+        GOOGLE ADS <span class="text-blue-400">SPECIALIZATION</span>
+      </h2>
+
+      <div class="strategy-grid">
+        <div class="marketing-card p-8">
+          <div class="text-4xl mb-4">🎯</div>
+          <h3 class="text-2xl font-bold orbitron text-orange-400 mb-4">Search Campaigns</h3>
+          <ul class="space-y-2 text-gray-200">
+            <li>• Advanced keyword research & optimization</li>
+            <li>• Smart bidding strategies implementation</li>
+            <li>• Ad copy testing & performance analysis</li>
+            <li>• Landing page experience optimization</li>
+            <li>• Conversion tracking & attribution</li>
+          </ul>
+          <div class="mt-6">
+            <span class="certification-badge">Google Ads Search Certified</span>
+          </div>
+        </div>
+
+        <div class="marketing-card p-8">
+          <div class="text-4xl mb-4">📱</div>
+          <h3 class="text-2xl font-bold orbitron text-blue-400 mb-4">Display & Video</h3>
+          <ul class="space-y-2 text-gray-200">
+            <li>• YouTube advertising optimization</li>
+            <li>• Display network targeting strategies</li>
+            <li>• Remarketing campaign development</li>
+            <li>• Creative asset optimization</li>
+            <li>• Cross-platform campaign management</li>
+          </ul>
+          <div class="mt-6">
+            <span class="certification-badge">Google Ads Display Certified</span>
+          </div>
+        </div>
+
+        <div class="marketing-card p-8">
+          <div class="text-4xl mb-4">🛍️</div>
+          <h3 class="text-2xl font-bold orbitron text-green-400 mb-4">Shopping Campaigns</h3>
+          <ul class="space-y-2 text-gray-200">
+            <li>• Product feed optimization</li>
+            <li>• Smart Shopping campaign setup</li>
+            <li>• Merchant Center management</li>
+            <li>• Product listing ad optimization</li>
+            <li>• E-commerce performance tracking</li>
+          </ul>
+          <div class="mt-6">
+            <span class="certification-badge">Google Shopping Specialist</span>
+          </div>
+        </div>
+
+        <div class="marketing-card p-8">
+          <div class="text-4xl mb-4">🤖</div>
+          <h3 class="text-2xl font-bold orbitron text-purple-400 mb-4">AI-Powered Ads</h3>
+          <ul class="space-y-2 text-gray-200">
+            <li>• Performance Max campaign optimization</li>
+            <li>• Smart bidding algorithm utilization</li>
+            <li>• Automated asset creation & testing</li>
+            <li>• Machine learning audience insights</li>
+            <li>• Predictive performance modeling</li>
+          </ul>
+          <div class="mt-6">
+            <span class="certification-badge">AI-Powered Ads Certified</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Studies -->
+  <section class="py-16 px-6 bg-black bg-opacity-20">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-4xl md:text-5xl font-bold orbitron text-center mb-16">
+        SUCCESS <span class="text-yellow-400">STORIES</span>
+      </h2>
+
+      <div class="space-y-12">
+        <div class="campaign-showcase marketing-card p-8">
+          <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 class="text-3xl font-bold orbitron text-orange-400 mb-4">E-Commerce Revolution</h3>
+              <p class="text-gray-200 mb-6">
+                Transformed a struggling online store into a market leader through strategic 
+                Google Ads optimization, advanced audience targeting, and conversion rate optimization.
+              </p>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="text-center">
+                  <div class="text-3xl font-bold text-green-400">300%</div>
+                  <div class="text-sm text-gray-300">Sales Growth</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-3xl font-bold text-blue-400">450%</div>
+                  <div class="text-sm text-gray-300">ROAS Improvement</div>
+                </div>
+              </div>
+            </div>
+            <div class="marketing-card p-6">
+              <h4 class="text-lg font-bold orbitron mb-4">Key Strategies Implemented:</h4>
+              <ul class="space-y-2 text-sm text-gray-200">
+                <li>✅ Advanced audience segmentation</li>
+                <li>✅ Dynamic remarketing campaigns</li>
+                <li>✅ Smart Shopping optimization</li>
+                <li>✅ Landing page A/B testing</li>
+                <li>✅ Conversion tracking setup</li>
+                <li>✅ Performance Max campaigns</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="campaign-showcase marketing-card p-8">
+          <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div class="marketing-card p-6">
+              <h4 class="text-lg font-bold orbitron mb-4">Technology Stack:</h4>
+              <ul class="space-y-2 text-sm text-gray-200">
+                <li>🔧 Google Ads Editor</li>
+                <li>🔧 Google Analytics 4</li>
+                <li>🔧 Google Tag Manager</li>
+                <li>🔧 Data Studio Dashboards</li>
+                <li>🔧 Conversion API Integration</li>
+                <li>🔧 AI-Powered Bidding</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="text-3xl font-bold orbitron text-blue-400 mb-4">B2B Lead Generation</h3>
+              <p class="text-gray-200 mb-6">
+                Developed a comprehensive lead generation system for B2B clients, utilizing 
+                advanced targeting, compelling ad creatives, and sophisticated funnel optimization.
+              </p>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="text-center">
+                  <div class="text-3xl font-bold text-purple-400">85%</div>
+                  <div class="text-sm text-gray-300">Cost Reduction</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-3xl font-bold text-yellow-400">220%</div>
+                  <div class="text-sm text-gray-300">Lead Quality</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Analytics & Tools -->
+  <section class="py-16 px-6">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-4xl md:text-5xl font-bold orbitron text-center mb-16">
+        ANALYTICS & <span class="text-cyan-400">OPTIMIZATION</span>
+      </h2>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="marketing-card p-8 text-center">
+          <div class="text-5xl mb-4">📊</div>
+          <h3 class="text-xl font-bold orbitron text-cyan-400 mb-4">Advanced Analytics</h3>
+          <ul class="space-y-2 text-gray-200 text-sm">
+            <li>• Google Analytics 4 mastery</li>
+            <li>• Custom conversion tracking</li>
+            <li>• Attribution modeling</li>
+            <li>• Audience insights analysis</li>
+            <li>• Performance forecasting</li>
+          </ul>
+        </div>
+
+        <div class="marketing-card p-8 text-center">
+          <div class="text-5xl mb-4">🔬</div>
+          <h3 class="text-xl font-bold orbitron text-purple-400 mb-4">Testing Framework</h3>
+          <ul class="space-y-2 text-gray-200 text-sm">
+            <li>• A/B testing methodologies</li>
+            <li>• Statistical significance analysis</li>
+            <li>• Multivariate testing</li>
+            <li>• Creative optimization</li>
+            <li>• Landing page experiments</li>
+          </ul>
+        </div>
+
+        <div class="marketing-card p-8 text-center">
+          <div class="text-5xl mb-4">⚡</div>
+          <h3 class="text-xl font-bold orbitron text-yellow-400 mb-4">Automation Tools</h3>
+          <ul class="space-y-2 text-gray-200 text-sm">
+            <li>• Smart bidding optimization</li>
+            <li>• Automated rule creation</li>
+            <li>• Performance monitoring</li>
+            <li>• Budget management</li>
+            <li>• Reporting automation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications -->
+  <section class="py-16 px-6 bg-black bg-opacity-20">
+    <div class="max-w-7xl mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-bold orbitron mb-16">
+        PROFESSIONAL <span class="text-green-400">CERTIFICATIONS</span>
+      </h2>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="marketing-card p-6">
+          <div class="text-4xl mb-4">🏆</div>
+          <h3 class="text-lg font-bold orbitron text-yellow-400 mb-2">Google Ads Professional</h3>
+          <p class="text-sm text-gray-300">Search, Display, Shopping, Video, Apps</p>
+        </div>
+
+        <div class="marketing-card p-6">
+          <div class="text-4xl mb-4">📈</div>
+          <h3 class="text-lg font-bold orbitron text-blue-400 mb-2">Google Analytics Certified</h3>
+          <p class="text-sm text-gray-300">GA4, Attribution, E-commerce</p>
+        </div>
+
+        <div class="marketing-card p-6">
+          <div class="text-4xl mb-4">🤖</div>
+          <h3 class="text-lg font-bold orbitron text-purple-400 mb-2">AI-Powered Performance</h3>
+          <p class="text-sm text-gray-300">Machine Learning & Automation</p>
+        </div>
+
+        <div class="marketing-card p-6">
+          <div class="text-4xl mb-4">🎯</div>
+          <h3 class="text-lg font-bold orbitron text-green-400 mb-2">Meta Business Certified</h3>
+          <p class="text-sm text-gray-300">Facebook & Instagram Ads</p>
+        </div>
+
+        <div class="marketing-card p-6">
+          <div class="text-4xl mb-4">📱</div>
+          <h3 class="text-lg font-bold orbitron text-red-400 mb-2">Apple Search Ads</h3>
+          <p class="text-sm text-gray-300">iOS App Store Optimization</p>
+        </div>
+
+        <div class="marketing-card p-6">
+          <div class="text-4xl mb-4">🌟</div>
+          <h3 class="text-lg font-bold orbitron text-cyan-400 mb-2">Digital Marketing Pro</h3>
+          <p class="text-sm text-gray-300">CertiProf International</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section class="py-16 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="marketing-card p-12">
+        <h2 class="text-4xl font-bold orbitron mb-6">
+          Ready to Scale Your <span class="text-orange-400">Digital Growth?</span>
+        </h2>
+        <p class="text-xl text-gray-200 mb-8">
+          Let's discuss how advanced performance marketing strategies can transform your business results.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="https://wa.me/60179275907" target="_blank" 
+             class="bg-gradient-to-r from-green-500 to-green-600 px-8 py-4 rounded-full text-lg orbitron font-bold hover:scale-105 transition-transform">
+            💬 WhatsApp Consultation
+          </a>
+          <a href="mailto:wmh.dirc@gmail.com" 
+             class="bg-gradient-to-r from-blue-500 to-purple-600 px-8 py-4 rounded-full text-lg orbitron font-bold hover:scale-105 transition-transform">
+            📧 Email Discussion
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 text-center text-gray-400">
+    <p>&copy; 2025 Hanis Wonder Pets - Performance Marketing Excellence 🚀</p>
+  </footer>
+
+  <script>
+    function performanceMarketingApp() {
+      return {
+        animatedMetrics: {
+          growth: '0%',
+          roas: '0x',
+          campaigns: '0+',
+          clients: '0+'
+        },
+
+        init() {
+          this.animateMetrics();
+        },
+
+        animateMetrics() {
+          const targets = {
+            growth: 300,
+            roas: 4.5,
+            campaigns: 150,
+            clients: 50
+          };
+
+          // Animate growth percentage
+          let currentGrowth = 0;
+          const growthInterval = setInterval(() => {
+            if (currentGrowth >= targets.growth) {
+              this.animatedMetrics.growth = `${targets.growth}%`;
+              clearInterval(growthInterval);
+            } else {
+              currentGrowth += 5;
+              this.animatedMetrics.growth = `${currentGrowth}%`;
+            }
+          }, 50);
+
+          // Animate ROAS
+          let currentRoas = 0;
+          const roasInterval = setInterval(() => {
+            if (currentRoas >= targets.roas) {
+              this.animatedMetrics.roas = `${targets.roas}x`;
+              clearInterval(roasInterval);
+            } else {
+              currentRoas += 0.1;
+              this.animatedMetrics.roas = `${currentRoas.toFixed(1)}x`;
+            }
+          }, 100);
+
+          // Animate campaigns
+          let currentCampaigns = 0;
+          const campaignsInterval = setInterval(() => {
+            if (currentCampaigns >= targets.campaigns) {
+              this.animatedMetrics.campaigns = `${targets.campaigns}+`;
+              clearInterval(campaignsInterval);
+            } else {
+              currentCampaigns += 3;
+              this.animatedMetrics.campaigns = `${currentCampaigns}+`;
+            }
+          }, 40);
+
+          // Animate clients
+          let currentClients = 0;
+          const clientsInterval = setInterval(() => {
+            if (currentClients >= targets.clients) {
+              this.animatedMetrics.clients = `${targets.clients}+`;
+              clearInterval(clientsInterval);
+            } else {
+              currentClients += 1;
+              this.animatedMetrics.clients = `${currentClients}+`;
+            }
+          }, 80);
+        }
+      }
+    }
+  </script>
+</body>
+</html>

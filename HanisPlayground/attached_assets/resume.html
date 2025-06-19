@@ -1,0 +1,681 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hanis Digital Resume - Wonder Pets AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-glow: #ff6b6b;
+      --secondary-glow: #4ecdc4;
+      --tertiary-glow: #45b7d1;
+      --purple-glow: #9b59b6;
+      --gold-glow: #f39c12;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: #000;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .orbitron {
+      font-family: 'Orbitron', monospace;
+    }
+
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -5;
+      pointer-events: none;
+    }
+
+    .holographic {
+      background: linear-gradient(45deg, 
+        rgba(255, 107, 107, 0.1), 
+        rgba(78, 205, 196, 0.1), 
+        rgba(69, 183, 209, 0.1), 
+        rgba(155, 89, 182, 0.1));
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 
+        0 8px 32px 0 rgba(31, 38, 135, 0.37),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .neon-glow {
+      animation: neonPulse 3s ease-in-out infinite alternate;
+      text-shadow: 
+        0 0 5px currentColor,
+        0 0 10px currentColor,
+        0 0 15px currentColor,
+        0 0 20px var(--primary-glow);
+    }
+
+    @keyframes neonPulse {
+      0% { text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor, 0 0 20px var(--primary-glow); }
+      100% { text-shadow: 0 0 2px currentColor, 0 0 5px currentColor, 0 0 8px currentColor, 0 0 12px var(--primary-glow); }
+    }
+
+    .floating-3d {
+      animation: float3d 6s ease-in-out infinite;
+      transform-style: preserve-3d;
+    }
+
+    @keyframes float3d {
+      0%, 100% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
+      25% { transform: translateY(-20px) rotateX(5deg) rotateY(5deg); }
+      50% { transform: translateY(-10px) rotateX(-5deg) rotateY(10deg); }
+      75% { transform: translateY(-30px) rotateX(10deg) rotateY(-5deg); }
+    }
+
+    .morphing-gradient {
+      background: linear-gradient(-45deg, 
+        #ff6b6b, #4ecdc4, #45b7d1, #9b59b6, #f39c12, #e74c3c, #2ecc71);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .section-spacing {
+      padding: 8rem 0;
+    }
+
+    .content-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 2rem;
+      margin: 2rem 0;
+      border-left: 4px solid var(--secondary-glow);
+      background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(69, 183, 209, 0.1));
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+    }
+
+    .certification-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .cert-card {
+      background: linear-gradient(135deg, rgba(155, 89, 182, 0.2), rgba(243, 156, 18, 0.2));
+      border-radius: 20px;
+      padding: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .cert-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(155, 89, 182, 0.3);
+    }
+
+    .download-btn {
+      background: linear-gradient(45deg, var(--primary-glow), var(--purple-glow));
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .download-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(255, 107, 107, 0.5);
+    }
+
+    .interactive-profile {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .skills-popup {
+      position: absolute;
+      top: 50%;
+      left: 120%;
+      transform: translateY(-50%);
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(30, 30, 30, 0.95));
+      border: 2px solid var(--secondary-glow);
+      border-radius: 20px;
+      padding: 2rem;
+      min-width: 350px;
+      z-index: 1000;
+      backdrop-filter: blur(20px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .interactive-profile:hover .skills-popup {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(-50%) scale(1);
+    }
+
+    .partnership-card {
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 15px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .partnership-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 255, 255, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      .skills-popup {
+        left: -150px;
+        top: 120%;
+        transform: translateX(0);
+      }
+
+      .interactive-profile:hover .skills-popup {
+        transform: translateX(0) scale(1);
+      }
+    }
+  </style>
+</head>
+
+<body class="text-white" x-data="resumeApp()">
+  <!-- Particle System -->
+  <div id="particles-js"></div>
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 holographic">
+    <nav class="content-container py-6 flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <a href="index.html" class="w-12 h-12 rounded-full morphing-gradient flex items-center justify-center">
+          <span class="text-white font-bold orbitron">H</span>
+        </a>
+        <h1 class="text-2xl font-bold orbitron neon-glow text-white">DIGITAL RESUME</h1>
+      </div>
+      
+      <div class="hidden md:flex space-x-6">
+        <a href="index.html" class="px-4 py-2 rounded-lg holographic text-sm orbitron hover:scale-105 transition-transform">HOME</a>
+        <a href="neural-net.html" class="px-4 py-2 rounded-lg holographic text-sm orbitron hover:scale-105 transition-transform">NEURAL NET</a>
+        <a href="quantum-lab.html" class="px-4 py-2 rounded-lg holographic text-sm orbitron hover:scale-105 transition-transform">QUANTUM LAB</a>
+        <a href="ai-matrix.html" class="px-4 py-2 rounded-lg holographic text-sm orbitron hover:scale-105 transition-transform">AI MATRIX</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="section-spacing flex flex-col justify-center items-center relative pt-32">
+    <div class="content-container text-center z-10">
+      
+      <!-- Interactive Profile Photo -->
+      <div class="interactive-profile mb-12">
+        <div class="floating-3d">
+          <img src="assets/hanis-profile.jpeg" alt="Wan Mohamad Hanis" 
+               class="w-64 h-64 rounded-full shadow-2xl ring-4 ring-cyan-400 hover:ring-red-400 transition-all duration-500" />
+        </div>
+        
+        <!-- Skills Popup -->
+        <div class="skills-popup">
+          <h3 class="text-xl font-bold text-cyan-400 orbitron mb-4">STRATEGIC EXPERTISE</h3>
+          <div class="grid grid-cols-2 gap-3 text-sm">
+            <div class="bg-red-500 bg-opacity-20 p-2 rounded text-center">
+              <div class="text-red-400 font-bold">OSINT</div>
+              <div class="text-xs text-gray-300">Expert Level</div>
+            </div>
+            <div class="bg-cyan-500 bg-opacity-20 p-2 rounded text-center">
+              <div class="text-cyan-400 font-bold">AI/ML</div>
+              <div class="text-xs text-gray-300">Advanced</div>
+            </div>
+            <div class="bg-green-500 bg-opacity-20 p-2 rounded text-center">
+              <div class="text-green-400 font-bold">Digital Marketing</div>
+              <div class="text-xs text-gray-300">Expert</div>
+            </div>
+            <div class="bg-purple-500 bg-opacity-20 p-2 rounded text-center">
+              <div class="text-purple-400 font-bold">Strategic Growth</div>
+              <div class="text-xs text-gray-300">Executive</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Title & Info -->
+      <h1 class="text-5xl md:text-7xl font-black orbitron neon-glow mb-6 leading-tight">
+        <span class="morphing-gradient bg-clip-text text-transparent">WAN MOHAMAD HANIS</span><br>
+        <span class="text-cyan-400 text-3xl md:text-4xl">Strategic Growth Leader | Digital Innovation Expert</span>
+      </h1>
+      
+      <div class="mb-8 space-y-4">
+        <p class="text-xl text-gray-300 max-w-4xl mx-auto">
+          AI Engineering & Integration • Strategic Partnerships • Performance Marketing • Digital Transformation
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 text-sm orbitron">
+          <span class="bg-cyan-500 bg-opacity-20 px-4 py-2 rounded-full">📧 wmh2u@proton.me</span>
+          <span class="bg-green-500 bg-opacity-20 px-4 py-2 rounded-full">📱 +60 17-927 5907</span>
+          <span class="bg-red-500 bg-opacity-20 px-4 py-2 rounded-full">🌍 Saujana Utama, Sungai Buloh</span>
+          <span class="bg-purple-500 bg-opacity-20 px-4 py-2 rounded-full">🎯 Available Immediately</span>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="flex flex-wrap justify-center gap-4 mb-12">
+        <a href="https://www.linkedin.com/in/wanmohamadhanis/" target="_blank" class="download-btn">
+          📱 LinkedIn Profile
+        </a>
+        <a href="https://wmh2u.my.canva.site/profile" target="_blank" class="download-btn">
+          🌐 Portfolio Website
+        </a>
+        <button @click="downloadResume()" class="download-btn">
+          📄 Download Resume
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Strategic Partnerships -->
+  <section class="section-spacing">
+    <div class="content-container">
+      <h2 class="text-4xl font-bold orbitron text-center mb-12 neon-glow text-gold-glow">
+        STRATEGIC TECHNOLOGY PARTNERSHIPS
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div class="partnership-card">
+          <h3 class="text-xl font-bold text-cyan-400 orbitron mb-3">🔵 IBM Partner Plus</h3>
+          <p class="text-sm text-green-400 mb-2">Admin (via Ingram Micro)</p>
+          <p class="text-gray-300 text-sm">Access to partner incentives, early-release solutions, Value Seller model, training & co-selling incentives</p>
+        </div>
+
+        <div class="partnership-card">
+          <h3 class="text-xl font-bold text-cyan-400 orbitron mb-3">☁️ AWS</h3>
+          <p class="text-sm text-green-400 mb-2">Root Admin</p>
+          <p class="text-gray-300 text-sm">Full cloud resource management, sandbox & production environments</p>
+        </div>
+
+        <div class="partnership-card">
+          <h3 class="text-xl font-bold text-cyan-400 orbitron mb-3">🟡 Google Cloud</h3>
+          <p class="text-sm text-green-400 mb-2">Partner Program Member</p>
+          <p class="text-gray-300 text-sm">Advanced tools access, platform scaling, marketing credits</p>
+        </div>
+
+        <div class="partnership-card">
+          <h3 class="text-xl font-bold text-cyan-400 orbitron mb-3">🟦 Microsoft Founders Hub</h3>
+          <p class="text-sm text-green-400 mb-2">Approved Partner</p>
+          <p class="text-gray-300 text-sm">Product credits, AI tools, startup mentorship & Azure access</p>
+        </div>
+
+        <div class="partnership-card">
+          <h3 class="text-xl font-bold text-cyan-400 orbitron mb-3">💼 CJ Affiliate</h3>
+          <p class="text-sm text-green-400 mb-2">Superuser</p>
+          <p class="text-gray-300 text-sm">Full control of campaigns, commission structures, publisher onboarding</p>
+        </div>
+
+        <div class="partnership-card">
+          <h3 class="text-xl font-bold text-cyan-400 orbitron mb-3">🌐 IONOS & Exabytes</h3>
+          <p class="text-sm text-green-400 mb-2">Hosting Partners</p>
+          <p class="text-gray-300 text-sm">White-label offerings, server provisioning, web infrastructure control</p>
+        </div>
+      </div>
+
+      <div class="text-center text-gray-400 italic">
+        All partnerships established independently. Access is recent and being actively developed.
+      </div>
+    </div>
+  </section>
+
+  <!-- Professional Experience Timeline -->
+  <section class="section-spacing">
+    <div class="content-container">
+      <h2 class="text-4xl font-bold orbitron text-center mb-12 neon-glow text-cyan-400">
+        PROFESSIONAL JOURNEY
+      </h2>
+      
+      <div class="space-y-8">
+        <div class="timeline-item">
+          <h3 class="text-2xl font-bold text-cyan-400 orbitron mb-2">Career Transition & Independent Upskilling</h3>
+          <p class="text-lg text-green-400 mb-4">May 2023 - Present</p>
+          <p class="text-gray-300 mb-4 italic">
+            "This period wasn't unemployment. It was my self-funded MBA, incubator, and R&D lab — combined into one."
+          </p>
+          <ul class="text-gray-300 space-y-2">
+            <li>• <strong>Digital Marketing & Emerging Technologies Training:</strong> Leveraged free resources, open-access education, and OSINT techniques to earn 100+ professional certifications</li>
+            <li>• <strong>Strategic Industry Partnerships:</strong> Established partnerships with global tech leaders including Google, IBM, AWS, Microsoft, Cisco</li>
+            <li>• <strong>Core Competencies:</strong> Digital Marketing & E-Commerce, SEO & SEM Performance Marketing, Digital Transformation, Emerging Technologies, Market Analysis & Insight</li>
+            <li>• <strong>Technology Integration:</strong> AI Engineering, Cloud Architecture, Cybersecurity fundamentals, OSINT operations</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <h3 class="text-2xl font-bold text-cyan-400 orbitron mb-2">Partner / Co-Founder - MM Mikail Group of Production</h3>
+          <p class="text-lg text-green-400 mb-4">October 2023 - May 2024</p>
+          <ul class="text-gray-300 space-y-2">
+            <li>• Invested in start-up business and spearheaded launch of new product line, including brand development</li>
+            <li>• Designed and developed SEO-optimized company website</li>
+            <li>• Led workflow planning and team progress tracking to improve operational efficiency and collaboration</li>
+            <li>• Strategic business development and market positioning</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <h3 class="text-2xl font-bold text-cyan-400 orbitron mb-2">E-Commerce Entrepreneur - WMH Resources</h3>
+          <p class="text-lg text-green-400 mb-4">July 2020 - July 2023</p>
+          <ul class="text-gray-300 space-y-2">
+            <li>• <strong>Built, scaled, and managed three online stores, achieving +300% YoY sales growth</strong></li>
+            <li>• <strong>Maintained 5-star ratings</strong> by focusing on after-sales service and customer loyalty</li>
+            <li>• Directed digital campaigns, leveraging market insights and customer behavior to craft effective strategies</li>
+            <li>• Directed end-to-end business operations, showcasing expertise in operational, marketing and sales</li>
+            <li>• Data-driven performance marketing and customer engagement initiatives</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <h3 class="text-2xl font-bold text-cyan-400 orbitron mb-2">Project Management & Site Operations</h3>
+          <p class="text-lg text-green-400 mb-4">May 2014 - October 2020</p>
+          <p class="text-sm text-gray-400 mb-3">Various Companies: DAV Engineering Sdn. Bhd., Virtual Space Sdn. Bhd., Lee Swee Construction & Trading Sdn. Bhd.</p>
+          <ul class="text-gray-300 space-y-2">
+            <li>• <strong>Delivered five major construction projects</strong> while ensuring safety, quality, and budget adherence</li>
+            <li>• Managed end-to-end project operations, ensuring compliance with project requirements, timelines, and budgets</li>
+            <li>• Coordinated with multidisciplinary teams, including designers, subcontractors, and stakeholders</li>
+            <li>• Implemented innovative resource management strategies, reducing project delays and enhancing efficiency</li>
+            <li>• Developed comprehensive documentation, including progress reports and project milestones</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Achievements -->
+  <section class="section-spacing">
+    <div class="content-container">
+      <h2 class="text-4xl font-bold orbitron text-center mb-12 neon-glow text-yellow-400">
+        KEY ACHIEVEMENTS
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="holographic p-8 rounded-xl">
+          <h3 class="text-2xl font-bold text-yellow-400 orbitron mb-6">🚀 Business Growth</h3>
+          <ul class="text-gray-300 space-y-3">
+            <li>• Grew e-commerce sales by over 300% through innovative marketing strategies</li>
+            <li>• Maintained 5-star ratings across all e-commerce platforms</li>
+            <li>• Successfully transitioned from setbacks across diverse industries</li>
+            <li>• Demonstrated adaptability, lifelong learning and resilience</li>
+          </ul>
+        </div>
+
+        <div class="holographic p-8 rounded-xl">
+          <h3 class="text-2xl font-bold text-yellow-400 orbitron mb-6">🏗️ Project Excellence</h3>
+          <ul class="text-gray-300 space-y-3">
+            <li>• Delivered five major construction projects on time and budget</li>
+            <li>• Ensured safety, quality, and budget adherence across all projects</li>
+            <li>• Led cross-functional teams and stakeholder management</li>
+            <li>• Implemented innovative resource management strategies</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Matrix -->
+  <section class="section-spacing">
+    <div class="content-container">
+      <h2 class="text-4xl font-bold orbitron text-center mb-12 neon-glow text-purple-400">
+        CORE STRENGTHS & EXPERTISE
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="holographic p-8 rounded-xl">
+          <h3 class="text-2xl font-bold text-red-400 orbitron mb-6">📈 Performance Marketing</h3>
+          <ul class="text-gray-300 space-y-2">
+            <li>• Brand Strategy & Positioning</li>
+            <li>• Growth Marketing & Digital Sales Infrastructure</li>
+            <li>• Funnel Optimization & Conversion Scaling</li>
+            <li>• Affiliate Revenue & Co-Selling Strategy</li>
+            <li>• GTM Planning & Execution</li>
+          </ul>
+        </div>
+
+        <div class="holographic p-8 rounded-xl">
+          <h3 class="text-2xl font-bold text-cyan-400 orbitron mb-6">📊 Data Analytics</h3>
+          <ul class="text-gray-300 space-y-2">
+            <li>• Business Intelligence & Data-Driven Insights</li>
+            <li>• Advanced Funnel & Sales Analytics</li>
+            <li>• Agile Ops & Workflow Automation</li>
+            <li>• Conversion Rate Optimization (CRO)</li>
+            <li>• Performance Metrics & KPI Management</li>
+          </ul>
+        </div>
+
+        <div class="holographic p-8 rounded-xl">
+          <h3 class="text-2xl font-bold text-green-400 orbitron mb-6">🤖 AI & Technology</h3>
+          <ul class="text-gray-300 space-y-2">
+            <li>• AI Engineering & Integration</li>
+            <li>• Software Development</li>
+            <li>• Digital Commerce & E-SaaS Platforms</li>
+            <li>• Cloud Architecture & Infrastructure</li>
+            <li>• Cybersecurity Fundamentals & OSINT</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section class="section-spacing">
+    <div class="content-container">
+      <h2 class="text-4xl font-bold orbitron text-center mb-12 neon-glow text-blue-400">
+        EDUCATION & QUALIFICATIONS
+      </h2>
+      
+      <div class="space-y-6">
+        <div class="holographic p-6 rounded-xl">
+          <h3 class="text-xl font-bold text-blue-400 orbitron mb-2">🎓 Universiti Sains Malaysia (USM)</h3>
+          <p class="text-lg text-green-400 mb-2">Bachelor of Science (Housing, Building & Planning) (Honours) - Construction Management</p>
+          <p class="text-sm text-gray-400">2011-2014 | Grade: 3.26 | Achievement: Dean's List Semester 3, 5 and 6</p>
+        </div>
+
+        <div class="holographic p-6 rounded-xl">
+          <h3 class="text-xl font-bold text-blue-400 orbitron mb-2">📚 Institut Smart Kota Bharu</h3>
+          <p class="text-lg text-green-400 mb-2">STPM/Higher Secondary/Pre-U/"A" Level (Self-studied)</p>
+          <p class="text-sm text-gray-400">2010 | Grade: 3.84 (4A & 1B)</p>
+        </div>
+
+        <div class="holographic p-6 rounded-xl">
+          <h3 class="text-xl font-bold text-blue-400 orbitron mb-2">🏫 Sekolah Adabi Pasir Puteh</h3>
+          <p class="text-lg text-green-400 mb-2">Malaysian Certificate of Education (SPM)</p>
+          <p class="text-sm text-gray-400">2008 | Achievement: 5A, 1B, 4C</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Certifications -->
+  <section class="section-spacing">
+    <div class="content-container">
+      <h2 class="text-4xl font-bold orbitron text-center mb-12 neon-glow text-yellow-400">
+        RECENT CERTIFICATIONS
+      </h2>
+      
+      <div class="certification-grid">
+        <div class="cert-card">
+          <h3 class="text-xl font-bold text-yellow-400 orbitron mb-3">💻 CS50's Computer Science for Business Professional</h3>
+          <p class="text-gray-300 mb-4">Harvard University - Completed 6 assignments with 2 Projects</p>
+          <div class="text-sm text-gray-400">Harvard University • 2024</div>
+        </div>
+
+        <div class="cert-card">
+          <h3 class="text-xl font-bold text-yellow-400 orbitron mb-3">🎯 Google Ads Search Professional</h3>
+          <p class="text-gray-300 mb-4">Passed Proctored Exam - Advanced search advertising strategies</p>
+          <div class="text-sm text-gray-400">Google Certified • 2024</div>
+        </div>
+
+        <div class="cert-card">
+          <h3 class="text-xl font-bold text-yellow-400 orbitron mb-3">📱 Advanced Mobile Marketing</h3>
+          <p class="text-gray-300 mb-4">Mobile app marketing and user acquisition strategies</p>
+          <div class="text-sm text-gray-400">Simplilearn • 2024</div>
+        </div>
+
+        <div class="cert-card">
+          <h3 class="text-xl font-bold text-yellow-400 orbitron mb-3">📊 Create a Social Media Marketing Campaign</h3>
+          <p class="text-gray-300 mb-4">Advanced social media campaign development and execution</p>
+          <div class="text-sm text-gray-400">University of Leeds • 2024</div>
+        </div>
+
+        <div class="cert-card">
+          <h3 class="text-xl font-bold text-yellow-400 orbitron mb-3">🚀 Digital Marketing Strategy</h3>
+          <p class="text-gray-300 mb-4">Comprehensive digital marketing planning and implementation</p>
+          <div class="text-sm text-gray-400">Simplilearn • 2024</div>
+        </div>
+
+        <div class="cert-card">
+          <h3 class="text-xl font-bold text-yellow-400 orbitron mb-3">📈 Social Media Marketing Crash Course</h3>
+          <p class="text-gray-300 mb-4">Intensive social media marketing strategies and tactics</p>
+          <div class="text-sm text-gray-400">Semrush • 2024</div>
+        </div>
+
+        <div class="cert-card">
+          <h3 class="text-xl font-bold text-yellow-400 orbitron mb-3">☁️ Microsoft Certified: Azure AI Engineer Associate</h3>
+          <p class="text-gray-300 mb-4">AI Skill-fest challenge winner - Proctored exam by June 15, 2025</p>
+          <div class="text-sm text-gray-400">Microsoft • In Progress</div>
+        </div>
+
+        <div class="cert-card">
+          <h3 class="text-xl font-bold text-yellow-400 orbitron mb-3">📚 100+ Professional Certifications</h3>
+          <p class="text-gray-300 mb-4">Comprehensive training across AI, cloud, marketing, and cybersecurity</p>
+          <div class="text-sm text-gray-400">Various Global Institutions • 2023-2024</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & External Links -->
+  <section class="section-spacing">
+    <div class="content-container text-center">
+      <h2 class="text-4xl font-bold orbitron mb-8 neon-glow text-cyan-400">
+        PROFESSIONAL CONTACT
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div class="holographic p-8 rounded-xl">
+          <div class="text-4xl mb-4">📧</div>
+          <h3 class="text-xl font-bold text-cyan-400 orbitron mb-2">EMAIL</h3>
+          <p class="text-gray-300 text-sm">wmh2u@proton.me</p>
+        </div>
+        
+        <div class="holographic p-8 rounded-xl">
+          <div class="text-4xl mb-4">📱</div>
+          <h3 class="text-xl font-bold text-cyan-400 orbitron mb-2">PHONE</h3>
+          <p class="text-gray-300 text-sm">+60 17-927 5907</p>
+        </div>
+        
+        <div class="holographic p-8 rounded-xl">
+          <div class="text-4xl mb-4">💼</div>
+          <h3 class="text-xl font-bold text-cyan-400 orbitron mb-2">LINKEDIN</h3>
+          <a href="https://www.linkedin.com/in/wanmohamadhanis/" target="_blank" 
+             class="text-blue-400 hover:text-blue-300 transition-colors text-sm">
+            Connect on LinkedIn
+          </a>
+        </div>
+        
+        <div class="holographic p-8 rounded-xl">
+          <div class="text-4xl mb-4">🌐</div>
+          <h3 class="text-xl font-bold text-cyan-400 orbitron mb-2">PORTFOLIO</h3>
+          <a href="https://wmh2u.my.canva.site/profile" target="_blank" 
+             class="text-purple-400 hover:text-purple-300 transition-colors text-sm">
+            View Full Portfolio
+          </a>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-6">
+        <button @click="downloadResume()" class="download-btn text-lg px-8 py-4">
+          📄 Download PDF Resume
+        </button>
+        <a href="https://www.linkedin.com/in/wanmohamadhanis/" target="_blank" class="download-btn text-lg px-8 py-4">
+          💼 LinkedIn Profile
+        </a>
+        <a href="https://wmh2u.my.canva.site/profile" target="_blank" class="download-btn text-lg px-8 py-4">
+          🌐 Full Portfolio
+        </a>
+      </div>
+
+      <div class="mt-12 text-center text-gray-400">
+        <p class="mb-4 orbitron">TARGET ROLE: Marketing Manager | Strategic Growth | Partnership Strategy</p>
+        <p class="text-green-400 font-bold">✅ Able to start immediately | Willing to relocation</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function resumeApp() {
+      return {
+        downloadResume() {
+          // Create download functionality
+          const link = document.createElement('a');
+          link.href = 'attached_assets/Resume june 2024.pdf';
+          link.download = 'Wan_Mohamad_Hanis_Strategic_Resume_2024.pdf';
+          link.click();
+        }
+      };
+    }
+
+    // Initialize Particles
+    function initParticles() {
+      particlesJS('particles-js', {
+        particles: {
+          number: { value: 80, density: { enable: true, value_area: 1000 } },
+          color: { value: ['#ff6b6b', '#4ecdc4', '#45b7d1', '#9b59b6'] },
+          shape: { type: 'circle' },
+          opacity: { value: 0.5, random: true },
+          size: { value: 3, random: true },
+          line_linked: { enable: true, distance: 150, color: '#4ecdc4', opacity: 0.3, width: 1 },
+          move: { enable: true, speed: 1, direction: 'none', random: true, out_mode: 'out' }
+        },
+        interactivity: {
+          detect_on: 'canvas',
+          events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } }
+        }
+      });
+    }
+
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      initParticles();
+    });
+  </script>
+</body>
+</html>

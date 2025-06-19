@@ -1,0 +1,300 @@
+/* Spy Mode Global Styles */
+.spy-mode-container {
+  transition: all 0.5s ease-in-out;
+}
+
+.spy-active {
+  filter: contrast(1.2) saturate(0.8);
+}
+
+.matrix-rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.matrix-column {
+  position: absolute;
+  top: -100px;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: bold;
+  text-shadow: 0 0 5px #00ff00;
+  opacity: 0.7;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.matrix-char {
+  display: block;
+  animation: matrix-glow 2s infinite alternate;
+}
+
+@keyframes matrix-glow {
+  0% { 
+    opacity: 0.3; 
+    text-shadow: 0 0 5px #00ff00; 
+  }
+  100% { 
+    opacity: 1; 
+    text-shadow: 0 0 15px #00ff00, 0 0 25px #00ff00; 
+  }
+}
+
+.spy-grid {
+  animation: spy-grid-pulse 4s ease-in-out infinite;
+}
+
+@keyframes spy-grid-pulse {
+  0%, 100% { opacity: 0.05; }
+  50% { opacity: 0.15; }
+}
+
+/* Global spy mode transformations */
+body.spy-mode {
+  background: radial-gradient(ellipse at center, #001100 0%, #000000 70%) !important;
+}
+
+.spy-mode * {
+  text-shadow: 0 0 3px currentColor;
+}
+
+.spy-mode .bg-gray-900 {
+  background: rgba(0, 20, 0, 0.9) !important;
+  border-color: rgba(0, 255, 0, 0.3) !important;
+}
+
+.spy-mode .bg-black {
+  background: rgba(0, 10, 0, 0.95) !important;
+}
+
+.spy-mode .text-white {
+  color: #00ff00 !important;
+}
+
+.spy-mode .text-cyan-400 {
+  color: #00ff88 !important;
+}
+
+.spy-mode .text-blue-400 {
+  color: #00ccff !important;
+}
+
+.spy-mode .text-purple-400 {
+  color: #88ff88 !important;
+}
+
+.spy-mode .text-red-400 {
+  color: #ffff00 !important;
+}
+
+.spy-mode .text-orange-400 {
+  color: #ff8800 !important;
+}
+
+.spy-mode .text-green-400 {
+  color: #00ff00 !important;
+}
+
+.spy-mode .border-cyan-500 {
+  border-color: rgba(0, 255, 0, 0.5) !important;
+}
+
+.spy-mode .border-blue-500 {
+  border-color: rgba(0, 255, 136, 0.5) !important;
+}
+
+.spy-mode .border-purple-500 {
+  border-color: rgba(136, 255, 136, 0.5) !important;
+}
+
+.spy-mode .border-red-500 {
+  border-color: rgba(255, 255, 0, 0.5) !important;
+}
+
+.spy-mode .border-orange-500 {
+  border-color: rgba(255, 136, 0, 0.5) !important;
+}
+
+.spy-mode .border-green-500 {
+  border-color: rgba(0, 255, 0, 0.5) !important;
+}
+
+.spy-mode button {
+  transition: all 0.3s ease;
+}
+
+.spy-mode button:hover {
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  transform: scale(1.02);
+}
+
+.spy-mode .bg-gradient-to-r {
+  background: linear-gradient(to right, rgba(0, 30, 0, 0.8), rgba(0, 50, 0, 0.8)) !important;
+}
+
+.spy-mode .bg-gradient-to-br {
+  background: linear-gradient(to bottom right, rgba(0, 30, 0, 0.8), rgba(0, 10, 0, 0.9)) !important;
+}
+
+/* Animated elements in spy mode */
+.spy-mode .animate-pulse {
+  animation: spy-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes spy-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 25px rgba(0, 255, 0, 0.8);
+  }
+}
+
+/* Spy mode loading animations */
+.spy-mode .animate-spin {
+  animation: spy-spin 1s linear infinite;
+}
+
+@keyframes spy-spin {
+  from {
+    transform: rotate(0deg);
+    filter: drop-shadow(0 0 5px #00ff00);
+  }
+  to {
+    transform: rotate(360deg);
+    filter: drop-shadow(0 0 15px #00ff00);
+  }
+}
+
+/* Enhanced input fields in spy mode */
+.spy-mode input {
+  background: rgba(0, 20, 0, 0.8) !important;
+  border-color: rgba(0, 255, 0, 0.3) !important;
+  color: #00ff00 !important;
+}
+
+.spy-mode input::placeholder {
+  color: rgba(0, 255, 0, 0.5) !important;
+}
+
+.spy-mode input:focus {
+  border-color: rgba(0, 255, 0, 0.8) !important;
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.3) !important;
+}
+
+/* Select elements in spy mode */
+.spy-mode select {
+  background: rgba(0, 20, 0, 0.8) !important;
+  border-color: rgba(0, 255, 0, 0.3) !important;
+  color: #00ff00 !important;
+}
+
+/* Progress bars in spy mode */
+.spy-mode .bg-gradient-to-r.from-cyan-500 {
+  background: linear-gradient(to right, #00ff00, #00ff88) !important;
+}
+
+.spy-mode .bg-gradient-to-r.from-green-500 {
+  background: linear-gradient(to right, #00ff00, #88ff00) !important;
+}
+
+/* Cards and panels in spy mode */
+.spy-mode .backdrop-blur-xl {
+  backdrop-filter: blur(12px) contrast(1.2) !important;
+}
+
+/* Cinematic entrance animations */
+.spy-mode-enter {
+  animation: spy-mode-enter 1s ease-out;
+}
+
+@keyframes spy-mode-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    filter: blur(5px);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-5px) scale(1.02);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Spy mode specific hover effects */
+.spy-mode .hover\:scale-105:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 0 25px rgba(0, 255, 0, 0.4) !important;
+  filter: brightness(1.2) !important;
+}
+
+/* Terminal-style typography */
+.spy-mode .font-mono {
+  font-family: 'Courier New', monospace !important;
+  letter-spacing: 0.5px;
+}
+
+/* Enhanced shadows and glows */
+.spy-mode .shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 255, 0, 0.1), 0 4px 6px -2px rgba(0, 255, 0, 0.05) !important;
+}
+
+.spy-mode .shadow-xl {
+  box-shadow: 0 20px 25px -5px rgba(0, 255, 0, 0.1), 0 10px 10px -5px rgba(0, 255, 0, 0.04) !important;
+}
+
+/* Scanning line animation for active elements */
+.spy-mode-scanning::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00ff00, transparent);
+  animation: spy-scan 2s linear infinite;
+}
+
+@keyframes spy-scan {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Data stream effect for backgrounds */
+.spy-mode-data-stream {
+  position: relative;
+  overflow: hidden;
+}
+
+.spy-mode-data-stream::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(90deg, transparent 0%, rgba(0, 255, 0, 0.03) 50%, transparent 100%),
+    linear-gradient(0deg, transparent 0%, rgba(0, 255, 0, 0.03) 50%, transparent 100%);
+  background-size: 20px 20px;
+  animation: spy-data-flow 3s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes spy-data-flow {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(20px, 20px); }
+}

@@ -1,0 +1,6 @@
+[
+  { "name": "Dashboard", "route": "/dashboard", "file": "dashboard" },
+  { "name": "Sales", "route": "/sales", "file": "sales" },
+  { "name": "Inventory", "route": "/inventory", "file": "inventory" },
+  { "name": "Profile", "route": "/profile", "file": "profile" }
+]

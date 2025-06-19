@@ -1,0 +1,9 @@
+version: '3'
+
+tasks:
+  install:
+    cmds:
+      - pip install flask
+  run:
+    cmds:
+      - python main.py

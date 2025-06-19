@@ -1,0 +1,1104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hanis Wonder Pets - Advanced Intelligence Center</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-glow: #ff6b6b;
+      --secondary-glow: #4ecdc4;
+      --tertiary-glow: #45b7d1;
+      --purple-glow: #9b59b6;
+      --gold-glow: #f39c12;
+      --cyber-blue: #00ffff;
+      --neon-green: #39ff14;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: #000;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .orbitron {
+      font-family: 'Orbitron', monospace;
+    }
+
+    /* 3D Background System */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -5;
+      pointer-events: none;
+    }
+
+    #three-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -10;
+      pointer-events: none;
+    }
+
+    /* Advanced Holographic Effects */
+    .holographic {
+      background: linear-gradient(45deg, 
+        rgba(255, 107, 107, 0.1), 
+        rgba(78, 205, 196, 0.1), 
+        rgba(69, 183, 209, 0.1), 
+        rgba(155, 89, 182, 0.1));
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 
+        0 8px 32px 0 rgba(31, 38, 135, 0.37),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .neon-glow {
+      animation: neonPulse 3s ease-in-out infinite alternate;
+      text-shadow: 
+        0 0 5px currentColor,
+        0 0 10px currentColor,
+        0 0 15px currentColor,
+        0 0 20px var(--primary-glow);
+    }
+
+    @keyframes neonPulse {
+      0% { text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor, 0 0 20px var(--primary-glow); }
+      100% { text-shadow: 0 0 2px currentColor, 0 0 5px currentColor, 0 0 8px currentColor, 0 0 12px var(--primary-glow); }
+    }
+
+    .floating-3d {
+      animation: float3d 6s ease-in-out infinite;
+      transform-style: preserve-3d;
+    }
+
+    @keyframes float3d {
+      0%, 100% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
+      25% { transform: translateY(-20px) rotateX(5deg) rotateY(5deg); }
+      50% { transform: translateY(-10px) rotateX(-5deg) rotateY(10deg); }
+      75% { transform: translateY(-30px) rotateX(10deg) rotateY(-5deg); }
+    }
+
+    .morphing-gradient {
+      background: linear-gradient(-45deg, 
+        #ff6b6b, #4ecdc4, #45b7d1, #9b59b6, #f39c12, #e74c3c, #2ecc71);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Section Spacing for Better Layout */
+    .hero-section {
+      min-height: 120vh;
+      padding: 12rem 0;
+    }
+
+    .character-section {
+      min-height: 100vh;
+      padding: 8rem 0;
+      margin: 4rem 0;
+    }
+
+    .features-section {
+      min-height: 80vh;
+      padding: 6rem 0;
+      margin: 3rem 0;
+    }
+
+    /* Enhanced Character Cards */
+    .character-card {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(30, 30, 30, 0.9));
+      border-radius: 25px;
+      padding: 3rem;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .character-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s;
+    }
+
+    .character-card:hover::before {
+      transform: translateX(100%);
+    }
+
+    .character-card:hover {
+      transform: translateY(-20px) scale(1.05);
+      box-shadow: 
+        0 25px 50px rgba(0, 255, 255, 0.3),
+        0 0 0 1px rgba(0, 255, 255, 0.5);
+    }
+
+    /* Advanced Feature Widgets */
+    .feature-widget {
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .feature-widget:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 255, 255, 0.2);
+      border-color: rgba(0, 255, 255, 0.6);
+    }
+
+    /* Sound Wave Animation */
+    .sound-wave {
+      display: inline-block;
+      position: relative;
+      margin: 0 5px;
+    }
+
+    .sound-wave::before,
+    .sound-wave::after {
+      content: '';
+      position: absolute;
+      width: 3px;
+      height: 20px;
+      background: var(--cyber-blue);
+      animation: soundWave 1s ease-in-out infinite alternate;
+    }
+
+    .sound-wave::before {
+      left: -8px;
+      animation-delay: -0.2s;
+    }
+
+    .sound-wave::after {
+      right: -8px;
+      animation-delay: 0.2s;
+    }
+
+    @keyframes soundWave {
+      0% { height: 10px; }
+      100% { height: 30px; }
+    }
+
+    /* Interactive Elements */
+    .interactive-element {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .interactive-element:hover {
+      transform: scale(1.1);
+      filter: brightness(1.2);
+    }
+
+    /* Certification Wall Styles */
+    .cert-wall {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      perspective: 1000px;
+    }
+
+    .cert-card {
+      background: linear-gradient(135deg, rgba(155, 89, 182, 0.2), rgba(243, 156, 18, 0.2));
+      border-radius: 15px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease;
+    }
+
+    .cert-card:hover {
+      transform: rotateY(10deg) rotateX(5deg);
+    }
+
+    /* AI Matrix Visualization */
+    .ai-matrix-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .matrix-node {
+      background: radial-gradient(circle, rgba(0, 255, 0, 0.2), transparent);
+      border: 1px solid #00ff00;
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .matrix-node::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.4), transparent);
+      animation: matrixScan 3s linear infinite;
+    }
+
+    @keyframes matrixScan {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero-section {
+        min-height: 100vh;
+        padding: 8rem 0;
+      }
+      
+      .character-section {
+        min-height: auto;
+        padding: 4rem 0;
+        margin: 2rem 0;
+      }
+
+      .character-card {
+        padding: 2rem;
+        margin: 1rem 0;
+      }
+    }
+
+    /* Profile Scanner Animation */
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Audio Visualization */
+    .audio-visualizer {
+      display: flex;
+      justify-content: center;
+      align-items: end;
+      height: 50px;
+      gap: 2px;
+    }
+
+    .audio-bar {
+      width: 4px;
+      background: linear-gradient(to top, #ff0000, #00ff00);
+      border-radius: 2px;
+      animation: audioViz 1s ease-in-out infinite alternate;
+    }
+
+    .audio-bar:nth-child(1) { animation-delay: 0s; }
+    .audio-bar:nth-child(2) { animation-delay: 0.1s; }
+    .audio-bar:nth-child(3) { animation-delay: 0.2s; }
+    .audio-bar:nth-child(4) { animation-delay: 0.3s; }
+    .audio-bar:nth-child(5) { animation-delay: 0.4s; }
+
+    @keyframes audioViz {
+      0% { height: 10px; }
+      100% { height: 40px; }
+    }
+  </style>
+</head>
+
+<body class="text-white" x-data="wonderPetsApp()">
+  <!-- 3D Background Canvas -->
+  <canvas id="three-canvas"></canvas>
+  
+  <!-- Particle System -->
+  <div id="particles-js"></div>
+
+  <!-- Audio Elements -->
+  <audio id="ambientSound" loop preload="auto">
+    <source src="https://www.soundjay.com/misc/sounds/beep-07a.wav" type="audio/wav">
+  </audio>
+
+  <!-- Navigation Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 holographic">
+    <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-full morphing-gradient flex items-center justify-center interactive-element">
+          <span class="text-white font-bold orbitron">H</span>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold orbitron neon-glow">HANIS WONDER PETS</h1>
+          <div class="text-xs text-cyan-400 orbitron">Advanced Intelligence Center</div>
+        </div>
+      </div>
+      
+      <div class="hidden md:flex space-x-4">
+        <a href="#hero" class="px-3 py-2 rounded-lg holographic text-xs orbitron hover:scale-105 transition-transform">HOME</a>
+        <a href="performance-marketing.html" class="px-3 py-2 rounded-lg holographic text-xs orbitron hover:scale-105 transition-transform bg-gradient-to-r from-orange-500 to-yellow-500 text-black font-bold">PERFORMANCE MARKETING</a>
+        <a href="resume.html" class="px-3 py-2 rounded-lg holographic text-xs orbitron hover:scale-105 transition-transform">RESUME</a>
+        <a href="neural-net.html" class="px-3 py-2 rounded-lg holographic text-xs orbitron hover:scale-105 transition-transform">NEURAL NET</a>
+        <a href="quantum-lab.html" class="px-3 py-2 rounded-lg holographic text-xs orbitron hover:scale-105 transition-transform">QUANTUM LAB</a>
+        <a href="ai-matrix.html" class="px-3 py-2 rounded-lg holographic text-xs orbitron hover:scale-105 transition-transform">AI MATRIX</a>
+      </div>
+
+      <!-- Contact Icons & Audio Control -->
+      <div class="flex items-center space-x-3">
+        <a href="https://wa.me/60179275907" target="_blank" 
+           class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center hover:scale-110 transition-transform" 
+           title="WhatsApp: +60 17-927 5907">
+          <span class="text-white text-lg">💬</span>
+        </a>
+        <a href="mailto:wmh.dirc@gmail.com" 
+           class="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center hover:scale-110 transition-transform"
+           title="Email: wmh.dirc@gmail.com">
+          <span class="text-white text-lg">📧</span>
+        </a>
+        <button @click="toggleAudio()" class="px-3 py-2 rounded-lg holographic interactive-element">
+          <span x-show="!audioPlaying">🔇</span>
+          <span x-show="audioPlaying">🔊</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero-section flex flex-col justify-center items-center relative">
+    <div class="max-w-7xl mx-auto px-6 text-center z-10">
+      
+      <!-- Enhanced Status Indicator with Advanced Interactions -->
+      <div class="mb-8 relative" x-data="{ profileHovered: false, scanningMode: false }">
+        <div class="floating-3d relative">
+          <img src="assets/hanis-profile.jpeg" alt="Hanis" 
+               @mouseenter="profileHovered = true; scanningMode = true" 
+               @mouseleave="profileHovered = false; setTimeout(() => scanningMode = false, 2000)"
+               :class="{ 'scale-110 ring-8 ring-cyan-300': profileHovered }"
+               class="w-48 h-48 rounded-full shadow-2xl ring-4 ring-cyan-400 mx-auto interactive-element cursor-pointer transition-all duration-500" />
+          
+          <!-- Advanced Scanning Effect -->
+          <div x-show="scanningMode" 
+               x-transition:enter="transition ease-out duration-300"
+               x-transition:enter-start="opacity-0 scale-95"
+               x-transition:enter-end="opacity-100 scale-100"
+               class="absolute inset-0 rounded-full pointer-events-none">
+            <div class="absolute inset-0 rounded-full border-2 border-cyan-400 animate-ping"></div>
+            <div class="absolute inset-2 rounded-full border-2 border-blue-400 animate-pulse"></div>
+            <div class="absolute inset-4 rounded-full border-2 border-purple-400" style="animation: rotate 2s linear infinite;"></div>
+          </div>
+          
+          <!-- Holographic Data Display -->
+          <div x-show="profileHovered" 
+               x-transition:enter="transition ease-out duration-300"
+               x-transition:enter-start="opacity-0 transform translate-y-4"
+               x-transition:enter-end="opacity-100 transform translate-y-0"
+               class="absolute -bottom-16 left-1/2 transform -translate-x-1/2 holographic p-4 rounded-lg text-xs orbitron text-center whitespace-nowrap">
+            <div class="text-cyan-400 font-bold">🧠 NEURAL SCAN ACTIVE</div>
+            <div class="text-green-400">⚡ Systems: OPERATIONAL</div>
+            <div class="text-yellow-400">🔍 OSINT: READY</div>
+            <div class="text-purple-400">🤖 AI: ENHANCED</div>
+          </div>
+        </div>
+        
+        <!-- Enhanced Status Ring -->
+        <div class="absolute -top-4 -right-4 w-16 h-16 holographic rounded-full flex items-center justify-center">
+          <span class="text-green-400 orbitron text-xs sound-wave">ONLINE</span>
+        </div>
+        
+        <!-- Pulse Rings -->
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+          <div class="w-48 h-48 rounded-full border border-cyan-400 opacity-20 animate-pulse" style="animation-delay: 0s;"></div>
+          <div class="w-64 h-64 rounded-full border border-blue-400 opacity-15 animate-pulse absolute -top-8 -left-8" style="animation-delay: 1s;"></div>
+          <div class="w-80 h-80 rounded-full border border-purple-400 opacity-10 animate-pulse absolute -top-16 -left-16" style="animation-delay: 2s;"></div>
+        </div>
+      </div>
+
+      <!-- Dynamic Title -->
+      <h1 class="text-5xl md:text-8xl font-black orbitron neon-glow mb-8 leading-tight">
+        <span class="morphing-gradient bg-clip-text text-transparent">HANIS</span><br>
+        <span class="text-cyan-400">DIGITAL UNIVERSE</span>
+      </h1>
+
+      <div class="mb-12 space-y-6">
+        <p class="text-xl md:text-3xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+          Where <span class="text-cyan-400 font-bold">Wonder Pets AI</span> meets 
+          <span class="text-red-400 font-bold">Advanced Intelligence</span>
+        </p>
+        <p class="text-lg text-gray-400 orbitron">OSINT Expert • AI Specialist • Digital Marketing • Innovation Strategy</p>
+        <p class="text-sm text-gray-500 orbitron">Revolutionary intelligence solutions • Next-generation security frameworks • Pioneering technologies</p>
+        <p class="text-xs text-gray-600 orbitron">100+ Global Certifications • AI/ML • OSINT • Cybersecurity • Quantum Computing</p>
+        
+        <!-- Audio Visualizer -->
+        <div class="audio-visualizer mx-auto w-32">
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+        </div>
+      </div>
+
+      <!-- Expertise Tags -->
+      <div class="flex flex-wrap justify-center gap-4 mb-12">
+        <span class="px-6 py-3 rounded-full bg-red-500 bg-opacity-20 border border-red-400 text-red-400 orbitron text-sm">
+          🔍 OSINT EXPERT
+        </span>
+        <span class="px-6 py-3 rounded-full bg-cyan-500 bg-opacity-20 border border-cyan-400 text-cyan-400 orbitron text-sm">
+          🤖 AI SPECIALIST
+        </span>
+        <span class="px-6 py-3 rounded-full bg-green-500 bg-opacity-20 border border-green-400 text-green-400 orbitron text-sm">
+          📈 DIGITAL MARKETING
+        </span>
+        <span class="px-6 py-3 rounded-full bg-purple-500 bg-opacity-20 border border-purple-400 text-purple-400 orbitron text-sm">
+          💡 INNOVATION STRATEGY
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wonder Pets Characters Section -->
+  <section class="character-section">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-4xl md:text-6xl font-black orbitron neon-glow text-center mb-16">
+        <span class="text-gold-glow">WONDER PETS</span> INTELLIGENCE TEAM
+      </h2>
+
+      <!-- Character Grid with Proper Spacing -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
+        
+        <!-- Linny OSINT Command -->
+        <div class="character-card group">
+          <div class="text-center mb-6">
+            <div class="floating-3d">
+              <img src="assets/linny.jpg" alt="Linny" 
+                   class="w-32 h-32 rounded-full mx-auto shadow-xl ring-4 ring-red-400 group-hover:ring-cyan-400 transition-all duration-500" />
+            </div>
+            <div class="mt-4">
+              <h3 class="text-2xl font-bold text-red-400 orbitron">LINNY OSINT COMMAND</h3>
+              <p class="text-cyan-400 text-sm orbitron">Strategic Intelligence & OSINT Expert</p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="grid grid-cols-2 gap-3">
+              <div class="bg-red-500 bg-opacity-20 p-3 rounded text-center">
+                <div class="text-red-400 font-bold text-xs orbitron">RECONNAISSANCE</div>
+                <div class="text-xs text-gray-300">Advanced Level</div>
+              </div>
+              <div class="bg-cyan-500 bg-opacity-20 p-3 rounded text-center">
+                <div class="text-cyan-400 font-bold text-xs orbitron">THREAT INTEL</div>
+                <div class="text-xs text-gray-300">Expert Level</div>
+              </div>
+              <div class="bg-yellow-500 bg-opacity-20 p-3 rounded text-center">
+                <div class="text-yellow-400 font-bold text-xs orbitron">SOCIAL ENGINEERING</div>
+                <div class="text-xs text-gray-300">Master Level</div>
+              </div>
+              <div class="bg-purple-500 bg-opacity-20 p-3 rounded text-center">
+                <div class="text-purple-400 font-bold text-xs orbitron">STRATEGIC ANALYSIS</div>
+                <div class="text-xs text-gray-300">Executive Level</div>
+              </div>
+            </div>
+
+            <div class="holographic p-4 rounded-lg">
+              <h4 class="text-sm font-bold text-red-400 orbitron mb-2">CAPABILITIES</h4>
+              <ul class="text-xs text-gray-300 space-y-1">
+                <li>• Advanced digital footprinting</li>
+                <li>• Social media intelligence</li>
+                <li>• Corporate intelligence gathering</li>
+                <li>• Threat landscape analysis</li>
+                <li>• Executive briefing reports</li>
+              </ul>
+            </div>
+
+            <button @click="activateAgent('linny')" 
+                    class="w-full bg-gradient-to-r from-red-500 to-cyan-500 px-4 py-3 rounded-lg text-sm orbitron font-bold hover:scale-105 transition-transform">
+              ACTIVATE LINNY OSINT
+            </button>
+          </div>
+        </div>
+
+        <!-- Tuck AI Specialist -->
+        <div class="character-card group">
+          <div class="text-center mb-6">
+            <div class="floating-3d">
+              <img src="assets/tuck.jpeg" alt="Tuck" 
+                   class="w-32 h-32 rounded-full mx-auto shadow-xl ring-4 ring-green-400 group-hover:ring-blue-400 transition-all duration-500" />
+            </div>
+            <div class="mt-4">
+              <h3 class="text-2xl font-bold text-green-400 orbitron">TUCK AI SPECIALIST</h3>
+              <p class="text-blue-400 text-sm orbitron">AI Engineering & Machine Learning</p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="grid grid-cols-2 gap-3">
+              <div class="bg-green-500 bg-opacity-20 p-3 rounded text-center">
+                <div class="text-green-400 font-bold text-xs orbitron">NEURAL NETWORKS</div>
+                <div class="text-xs text-gray-300">Expert Level</div>
+              </div>
+              <div class="bg-blue-500 bg-opacity-20 p-3 rounded text-center">
+                <div class="text-blue-400 font-bold text-xs orbitron">ML MODELS</div>
+                <div class="text-xs text-gray-300">Advanced Level</div>
+              </div>
+              <div class="bg-cyan-500 bg-opacity-20 p-3 rounded text-center">
+                <div class="text-cyan-400 font-bold text-xs orbitron">AUTOMATION</div>
+                <div class="text-xs text-gray-300">Master Level</div>
+              </div>
+              <div class="bg-purple-500 bg-opacity-20 p-3 rounded text-center">
+                <div class="text-purple-400 font-bold text-xs orbitron">AI INTEGRATION</div>
+                <div class="text-xs text-gray-300">Executive Level</div>
+              </div>
+            </div>
+
+            <div class="holographic p-4 rounded-lg">
+              <h4 class="text-sm font-bold text-green-400 orbitron mb-2">CAPABILITIES</h4>
+              <ul class="text-xs text-gray-300 space-y-1">
+                <li>• Custom AI model development</li>
+                <li>• Neural network optimization</li>
+                <li>• Intelligent automation systems</li>
+                <li>• Real-time data processing</li>
+                <li>• AI system architecture</li>
+              </ul>
+            </div>
+
+            <button @click="activateAgent('tuck')" 
+                    class="w-full bg-gradient-to-r from-green-500 to-blue-500 px-4 py-3 rounded-lg text-sm orbitron font-bold hover:scale-105 transition-transform">
+              ACTIVATE TUCK AI
+            </button>
+          </div>
+        </div>
+
+        <!-- Ming-Ming Digital Marketing -->
+        <div class="character-card group">
+          <div class="text-center mb-6">
+            <div class="floating-3d">
+              <img src="assets/mingming.jpeg" alt="Ming-Ming" 
+                   class="w-32 h-32 rounded-full mx-auto shadow-xl ring-4 ring-purple-400 group-hover:ring-yellow-400 transition-all duration-500" />
+            </div>
+            <div class="mt-4">
+              <h3 class="text-2xl font-bold text-purple-400 orbitron">MING-MING MARKETING</h3>
+              <p class="text-yellow-400 text-sm orbitron">Digital Marketing & Innovation Strategy</p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="grid grid-cols-2 gap-3">
+              <div class="bg-purple-500 bg-opacity-20 p-3 rounded text-center">
+                <div class="text-purple-400 font-bold text-xs orbitron">GOOGLE ADS</div>
+                <div class="text-xs text-gray-300">Expert Level</div>
+              </div>
+              <div class="bg-yellow-500 bg-opacity-20 p-3 rounded text-center">
+                <div class="text-yellow-400 font-bold text-xs orbitron">PERFORMANCE</div>
+                <div class="text-xs text-gray-300">Master Level</div>
+              </div>
+              <div class="bg-pink-500 bg-opacity-20 p-3 rounded text-center">
+                <div class="text-pink-400 font-bold text-xs orbitron">GROWTH HACKING</div>
+                <div class="text-xs text-gray-300">Advanced Level</div>
+              </div>
+              <div class="bg-orange-500 bg-opacity-20 p-3 rounded text-center">
+                <div class="text-orange-400 font-bold text-xs orbitron">INNOVATION</div>
+                <div class="text-xs text-gray-300">Executive Level</div>
+              </div>
+            </div>
+
+            <div class="holographic p-4 rounded-lg">
+              <h4 class="text-sm font-bold text-purple-400 orbitron mb-2">CAPABILITIES</h4>
+              <ul class="text-xs text-gray-300 space-y-1">
+                <li>• Google Ads optimization</li>
+                <li>• Social media strategy</li>
+                <li>• Conversion rate optimization</li>
+                <li>• Creative campaign development</li>
+                <li>• Growth strategy planning</li>
+              </ul>
+            </div>
+
+            <button @click="activateAgent('mingming')" 
+                    class="w-full bg-gradient-to-r from-purple-500 to-yellow-500 px-4 py-3 rounded-lg text-sm orbitron font-bold hover:scale-105 transition-transform">
+              ACTIVATE MING-MING MARKETING
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Status Dashboard -->
+      <div class="holographic p-8 rounded-xl">
+        <h3 class="text-2xl font-bold text-center text-cyan-400 orbitron mb-6">TEAM STATUS DASHBOARD</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="text-center">
+            <div class="text-3xl mb-2">🔍</div>
+            <div class="text-red-400 font-bold orbitron">LINNY STATUS</div>
+            <div class="text-sm text-gray-300" x-text="agentStatus.linny"></div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl mb-2">🤖</div>
+            <div class="text-green-400 font-bold orbitron">TUCK STATUS</div>
+            <div class="text-sm text-gray-300" x-text="agentStatus.tuck"></div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl mb-2">📈</div>
+            <div class="text-purple-400 font-bold orbitron">MING-MING STATUS</div>
+            <div class="text-sm text-gray-300" x-text="agentStatus.mingming"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section with Enhanced Spacing -->
+  <section class="features-section">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-4xl md:text-6xl font-black orbitron neon-glow text-center mb-16">
+        ADVANCED <span class="text-cyber-blue">CAPABILITIES</span>
+      </h2>
+
+      <!-- Feature Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        
+        <!-- Resume Widget -->
+        <div class="feature-widget">
+          <div class="text-center mb-4">
+            <div class="text-4xl mb-2">📄</div>
+            <h3 class="text-xl font-bold text-cyan-400 orbitron">RESUME</h3>
+          </div>
+          <p class="text-sm text-gray-300 mb-4">Comprehensive professional profile with 100+ certifications and strategic partnerships.</p>
+          <a href="resume.html" class="block bg-cyan-500 bg-opacity-20 px-4 py-2 rounded text-center text-cyan-400 hover:bg-opacity-30 transition-all">
+            VIEW RESUME
+          </a>
+        </div>
+
+        <!-- Neural Net Widget -->
+        <div class="feature-widget">
+          <div class="text-center mb-4">
+            <div class="text-4xl mb-2">🧠</div>
+            <h3 class="text-xl font-bold text-green-400 orbitron">NEURAL NET</h3>
+          </div>
+          <p class="text-sm text-gray-300 mb-4">Advanced AI neural network visualization and machine learning model analytics.</p>
+          <a href="neural-net.html" class="block bg-green-500 bg-opacity-20 px-4 py-2 rounded text-center text-green-400 hover:bg-opacity-30 transition-all">
+            EXPLORE NEURAL NET
+          </a>
+        </div>
+
+        <!-- Quantum Lab Widget -->
+        <div class="feature-widget">
+          <div class="text-center mb-4">
+            <div class="text-4xl mb-2">⚛️</div>
+            <h3 class="text-xl font-bold text-purple-400 orbitron">QUANTUM LAB</h3>
+          </div>
+          <p class="text-sm text-gray-300 mb-4">Quantum computing research and advanced computational experiments.</p>
+          <a href="quantum-lab.html" class="block bg-purple-500 bg-opacity-20 px-4 py-2 rounded text-center text-purple-400 hover:bg-opacity-30 transition-all">
+            ENTER QUANTUM LAB
+          </a>
+        </div>
+
+        <!-- AI Matrix Widget -->
+        <div class="feature-widget">
+          <div class="text-center mb-4">
+            <div class="text-4xl mb-2">🔮</div>
+            <h3 class="text-xl font-bold text-yellow-400 orbitron">AI MATRIX</h3>
+          </div>
+          <p class="text-sm text-gray-300 mb-4">Advanced AI decision matrix and intelligent automation systems.</p>
+          <a href="ai-matrix.html" class="block bg-yellow-500 bg-opacity-20 px-4 py-2 rounded text-center text-yellow-400 hover:bg-opacity-30 transition-all">
+            ACCESS AI MATRIX
+          </a>
+        </div>
+      </div>
+
+      <!-- Digital Marketing Specializations -->
+      <div class="holographic p-8 rounded-xl mb-16">
+        <h3 class="text-3xl font-bold text-center text-gold-glow orbitron mb-8">DIGITAL MARKETING EXPERTISE</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="text-center p-4 bg-gradient-to-b from-red-500/20 to-transparent rounded-lg">
+            <div class="text-3xl mb-2">🎯</div>
+            <div class="text-sm orbitron text-red-400">GOOGLE ADS</div>
+            <div class="text-xs text-gray-400">Search & Display</div>
+          </div>
+          <div class="text-center p-4 bg-gradient-to-b from-blue-500/20 to-transparent rounded-lg">
+            <div class="text-3xl mb-2">📊</div>
+            <div class="text-sm orbitron text-blue-400">ANALYTICS</div>
+            <div class="text-xs text-gray-400">GA4 & GTM</div>
+          </div>
+          <div class="text-center p-4 bg-gradient-to-b from-green-500/20 to-transparent rounded-lg">
+            <div class="text-3xl mb-2">📱</div>
+            <div class="text-sm orbitron text-green-400">SOCIAL MEDIA</div>
+            <div class="text-xs text-gray-400">Multi-Platform</div>
+          </div>
+          <div class="text-center p-4 bg-gradient-to-b from-purple-500/20 to-transparent rounded-lg">
+            <div class="text-3xl mb-2">🔄</div>
+            <div class="text-sm orbitron text-purple-400">AUTOMATION</div>
+            <div class="text-xs text-gray-400">AI-Powered</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certification Preview -->
+      <div class="holographic p-8 rounded-xl">
+        <h3 class="text-3xl font-bold text-center text-cyan-400 orbitron mb-8">CERTIFICATION HIGHLIGHTS</h3>
+        <div class="cert-wall">
+          <div class="cert-card">
+            <div class="text-center mb-3">
+              <div class="text-2xl mb-2">🎓</div>
+              <h4 class="text-lg font-bold text-yellow-400 orbitron">GOOGLE CERTIFIED</h4>
+            </div>
+            <ul class="text-sm text-gray-300 space-y-1">
+              <li>• Google Ads Professional</li>
+              <li>• Analytics Certified</li>
+              <li>• AI-Powered Ads</li>
+            </ul>
+          </div>
+          <div class="cert-card">
+            <div class="text-center mb-3">
+              <div class="text-2xl mb-2">🔒</div>
+              <h4 class="text-lg font-bold text-red-400 orbitron">CYBERSECURITY</h4>
+            </div>
+            <ul class="text-sm text-gray-300 space-y-1">
+              <li>• Ethical Hacking</li>
+              <li>• OSINT Specialist</li>
+              <li>• Threat Analysis</li>
+            </ul>
+          </div>
+          <div class="cert-card">
+            <div class="text-center mb-3">
+              <div class="text-2xl mb-2">☁️</div>
+              <h4 class="text-lg font-bold text-blue-400 orbitron">CLOUD PLATFORMS</h4>
+            </div>
+            <ul class="text-sm text-gray-300 space-y-1">
+              <li>• AWS Partner</li>
+              <li>• Azure AI Engineer</li>
+              <li>• Google Cloud</li>
+            </ul>
+          </div>
+        </div>
+        <div class="text-center mt-8">
+          <a href="projects.html" class="bg-gradient-to-r from-gold-glow to-purple-glow px-8 py-4 rounded-full text-lg orbitron font-bold hover:scale-105 transition-transform">
+            VIEW ALL 100+ CERTIFICATIONS
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chat Interface Section -->
+  <section class="character-section">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="holographic p-8 rounded-xl">
+        <h2 class="text-3xl font-bold text-center text-cyan-400 orbitron mb-8">WONDER PETS AI COMMAND CENTER</h2>
+        
+        <!-- Chat Output -->
+        <div id="chatOutput" class="h-96 overflow-y-auto mb-6 p-4 bg-black bg-opacity-50 rounded-lg">
+          <!-- Chat messages will appear here -->
+        </div>
+
+        <!-- Input Area -->
+        <div class="flex space-x-4">
+          <input type="text" id="userInput" placeholder="Enter your command..." 
+                 class="flex-1 px-4 py-3 bg-black bg-opacity-50 border border-cyan-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-300">
+          <button onclick="handleSend()" 
+                  class="px-6 py-3 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg orbitron font-bold hover:scale-105 transition-transform">
+            SEND
+          </button>
+        </div>
+
+        <!-- Quick Commands -->
+        <div class="flex flex-wrap gap-2 mt-4">
+          <button onclick="executeQuickCommand('status')" 
+                  class="px-3 py-1 bg-gray-700 rounded text-xs orbitron hover:bg-gray-600 transition-colors">
+            SYSTEM STATUS
+          </button>
+          <button onclick="executeQuickCommand('scan')" 
+                  class="px-3 py-1 bg-red-700 rounded text-xs orbitron hover:bg-red-600 transition-colors">
+            OSINT SCAN
+          </button>
+          <button onclick="executeQuickCommand('analyze')" 
+                  class="px-3 py-1 bg-green-700 rounded text-xs orbitron hover:bg-green-600 transition-colors">
+            AI ANALYSIS
+          </button>
+          <button onclick="executeQuickCommand('research')" 
+                  class="px-3 py-1 bg-purple-700 rounded text-xs orbitron hover:bg-purple-600 transition-colors">
+            MARKET RESEARCH
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 text-center text-gray-400">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="mb-8">
+        <h3 class="text-xl font-bold orbitron text-cyan-400 mb-4">CONTACT THE COMMAND CENTER</h3>
+        <div class="flex flex-wrap justify-center gap-6">
+          <span class="text-sm">📧 wmh2u@proton.me</span>
+          <span class="text-sm">📱 +60 17-927 5907</span>
+          <span class="text-sm">🌍 Malaysia</span>
+        </div>
+      </div>
+      <p>&copy; 2025 Hanis Wonder Pets Intelligence Center - Advanced AI Solutions 🚀</p>
+      <p class="text-xs mt-2">Powered by Wonder Pets AI • Built with Innovation • Secured by OSINT</p>
+    </div>
+  </footer>
+
+  <!-- Alpine.js App -->
+  <script>
+    function wonderPetsApp() {
+      return {
+        audioPlaying: false,
+        agentStatus: {
+          linny: 'ONLINE - OSINT Ready',
+          tuck: 'ONLINE - AI Systems Active', 
+          mingming: 'ONLINE - Marketing Engine Ready'
+        },
+
+        toggleAudio() {
+          const audio = document.getElementById('ambientSound');
+          if (this.audioPlaying) {
+            audio.pause();
+            this.audioPlaying = false;
+          } else {
+            audio.play().catch(e => console.log('Audio play failed:', e));
+            this.audioPlaying = true;
+          }
+        },
+
+        activateAgent(agent) {
+          // Switch to specific agent
+          if (typeof switchAgent === 'function') {
+            switchAgent(agent);
+          }
+          
+          // Update status
+          this.agentStatus[agent] = 'ACTIVATED - Standing By';
+          
+          // Scroll to chat
+          document.getElementById('chatOutput').scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }
+
+    // Initialize enhanced systems
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize 3D background
+      init3DBackground();
+      
+      // Initialize particles
+      initParticles();
+      
+      // Initialize chat system
+      if (typeof initChatSystem === 'function') {
+        initChatSystem();
+      }
+      
+      // Auto-start ambient sound (user interaction required)
+      document.addEventListener('click', function() {
+        const audio = document.getElementById('ambientSound');
+        if (audio && audio.paused) {
+          audio.play().catch(e => console.log('Audio autoplay blocked'));
+        }
+      }, { once: true });
+    });
+
+    // Enhanced 3D Background initialization with Interactive Stars
+    function init3DBackground() {
+      const canvas = document.getElementById('three-canvas');
+      if (!canvas || !window.THREE) return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+      
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setClearColor(0x000000, 0);
+
+      // Enhanced star field with more particles
+      const starGeometry = new THREE.BufferGeometry();
+      const starVertices = [];
+      const starColors = [];
+      const starSizes = [];
+
+      for (let i = 0; i < 5000; i++) {
+        starVertices.push(
+          (Math.random() - 0.5) * 4000,
+          (Math.random() - 0.5) * 4000,
+          (Math.random() - 0.5) * 4000
+        );
+        
+        // Create varied star colors (blue, cyan, white, purple, gold)
+        const colorType = Math.random();
+        if (colorType < 0.2) {
+          starColors.push(0, 1, 1); // Cyan
+        } else if (colorType < 0.4) {
+          starColors.push(0.5, 0.5, 1); // Light blue
+        } else if (colorType < 0.6) {
+          starColors.push(1, 1, 1); // White
+        } else if (colorType < 0.8) {
+          starColors.push(0.8, 0.4, 1); // Purple
+        } else {
+          starColors.push(1, 0.8, 0.2); // Gold
+        }
+        
+        // Varied star sizes
+        starSizes.push(Math.random() * 3 + 1);
+      }
+
+      starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+      starGeometry.setAttribute('color', new THREE.Float32BufferAttribute(starColors, 3));
+      starGeometry.setAttribute('size', new THREE.Float32BufferAttribute(starSizes, 1));
+
+      const starMaterial = new THREE.PointsMaterial({ 
+        size: 3,
+        sizeAttenuation: true,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.9,
+        blending: THREE.AdditiveBlending
+      });
+
+      const stars = new THREE.Points(starGeometry, starMaterial);
+      scene.add(stars);
+
+      // Add nebula-like clouds
+      const cloudGeometry = new THREE.BufferGeometry();
+      const cloudVertices = [];
+      const cloudColors = [];
+
+      for (let i = 0; i < 200; i++) {
+        cloudVertices.push(
+          (Math.random() - 0.5) * 3000,
+          (Math.random() - 0.5) * 3000,
+          (Math.random() - 0.5) * 3000
+        );
+        
+        cloudColors.push(
+          Math.random() * 0.3,
+          Math.random() * 0.5 + 0.3,
+          Math.random() * 0.3 + 0.7
+        );
+      }
+
+      cloudGeometry.setAttribute('position', new THREE.Float32BufferAttribute(cloudVertices, 3));
+      cloudGeometry.setAttribute('color', new THREE.Float32BufferAttribute(cloudColors, 3));
+
+      const cloudMaterial = new THREE.PointsMaterial({ 
+        size: 15,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.3,
+        blending: THREE.AdditiveBlending
+      });
+
+      const clouds = new THREE.Points(cloudGeometry, cloudMaterial);
+      scene.add(clouds);
+
+      camera.position.z = 1000;
+
+      // Mouse interaction
+      let mouseX = 0;
+      let mouseY = 0;
+      let targetRotationX = 0;
+      let targetRotationY = 0;
+
+      document.addEventListener('mousemove', (event) => {
+        mouseX = (event.clientX - window.innerWidth / 2) * 0.0005;
+        mouseY = (event.clientY - window.innerHeight / 2) * 0.0005;
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+        
+        // Enhanced rotation with mouse interaction
+        targetRotationX = mouseY * 0.5;
+        targetRotationY = mouseX * 0.5;
+        
+        stars.rotation.x += (targetRotationX - stars.rotation.x) * 0.02;
+        stars.rotation.y += (targetRotationY - stars.rotation.y) * 0.02;
+        stars.rotation.x += 0.0005;
+        stars.rotation.y += 0.001;
+        
+        clouds.rotation.x -= 0.0002;
+        clouds.rotation.y -= 0.0003;
+        
+        // Pulsing effect for stars
+        const time = Date.now() * 0.001;
+        starMaterial.opacity = 0.6 + Math.sin(time) * 0.3;
+        
+        renderer.render(scene, camera);
+      }
+
+      animate();
+
+      // Handle window resize
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    }
+
+    // Enhanced particle system
+    function initParticles() {
+      if (typeof particlesJS === 'undefined') return;
+      
+      particlesJS('particles-js', {
+        particles: {
+          number: { value: 100, density: { enable: true, value_area: 1000 } },
+          color: { value: ['#ff6b6b', '#4ecdc4', '#45b7d1', '#9b59b6', '#f39c12'] },
+          shape: { type: 'circle' },
+          opacity: { value: 0.6, random: true },
+          size: { value: 3, random: true },
+          line_linked: { 
+            enable: true, 
+            distance: 150, 
+            color: '#4ecdc4', 
+            opacity: 0.4, 
+            width: 1 
+          },
+          move: { 
+            enable: true, 
+            speed: 2, 
+            direction: 'none', 
+            random: true, 
+            out_mode: 'out' 
+          }
+        },
+        interactivity: {
+          detect_on: 'canvas',
+          events: { 
+            onhover: { enable: true, mode: 'repulse' }, 
+            onclick: { enable: true, mode: 'push' } 
+          }
+        }
+      });
+    }
+  </script>
+
+  <!-- Load external scripts -->
+  <script src="script.js"></script>
+</body>
+</html>

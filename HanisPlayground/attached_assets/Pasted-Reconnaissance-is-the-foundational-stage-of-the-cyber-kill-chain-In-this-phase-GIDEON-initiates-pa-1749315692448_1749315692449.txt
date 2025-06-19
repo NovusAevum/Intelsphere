@@ -1,0 +1,55 @@
+Reconnaissance is the foundational stage of the cyber kill chain. In this phase, GIDEON initiates passive and active intelligence-gathering operations to identify potential attack vectors, surface-level vulnerabilities, and organizational blind spots—without triggering early detection systems.
+
+Powered by LLMs and adaptive intelligence models, the AETHER.SCAN module autonomously navigates open-source environments, deep/dark web indexes, and synthetic identities to replicate the behavior of real-world adversaries. It transforms fragmented, publicly available data into actionable threat models.
+
+⸻
+
+Key Functions
+
+🔍 AI-Augmented OSINT Collection
+	•	Scrapes and correlates intelligence from:
+	•	Social media (LinkedIn, Facebook, GitHub)
+	•	Domain WHOIS records
+	•	Pastebin & dark web leaks
+	•	Shodan/Censys/ZoomEye
+	•	Job postings, public CVs, company blogs
+	•	LLM-enhanced parsing for:
+	•	Pattern detection
+	•	Organizational mapping
+	•	Attack surface reconstruction
+
+🧠 Target Prioritization Engine
+	•	Behavioral fingerprinting to detect:
+	•	Executive-level targets
+	•	Privileged system owners
+	•	Email & endpoint clustering
+	•	Ranks targets based on:
+	•	Access level
+	•	Risk posture
+	•	Response likelihood
+
+🧬 Metadata Correlation & Entity Linking
+	•	Uses NLP to extract named entities and organizational structures
+	•	Correlates domain/email/IP associations
+	•	Maps known CVEs to discovered tech stack
+
+🕵️ Digital Persona Simulation
+	•	Deploys synthetic attacker personas for:
+	•	Social engineering scenario testing
+	•	Threat actor behavioral mirroring
+	•	Mimics attacker profiling including geolocation, language use, interaction pacing
+
+🛰️ Infrastructure Mapping
+	•	Identifies external infrastructure using:
+	•	DNS enumeration
+	•	Subdomain brute-forcing
+	•	TLS/SSL certificate harvesting
+	•	CDN and WAF fingerprinting
+	•	Conducts passive reconnaissance to avoid IDS/IPS triggers
+
+⸻
+
+Built-in Integrations
+	•	Toolchains: Spiderfoot, FOCA, Maltego, Recon-ng, TheHarvester, OSINT Framework
+	•	Feeds: Recorded Future, GreyNoise, AlienVault OTX, CISA advisories
+	•	Threat Modeling: MITRE PRE-ATT&CK alignment for adversarial intent simulation

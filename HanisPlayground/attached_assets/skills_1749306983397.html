@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wan Mohamad Hanis | Skills & Expertise - Wonderpet Theme</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset & Base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #E0F7FA; /* light aqua */
+      color: #004D40; /* dark teal */
+      padding: 2rem 1rem;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 30px;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+      padding: 2rem 3rem 3rem;
+    }
+
+    h1 {
+      font-family: 'Fredoka One', cursive;
+      color: #00796B;
+      font-size: 3.4rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
+      text-shadow: 1px 1px 2px #B2DFDB;
+    }
+
+    h2 {
+      font-weight: 600;
+      font-size: 1.8rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      border-left: 6px solid #00796B;
+      padding-left: 1rem;
+      color: #004D40;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8rem 2.2rem;
+    }
+
+    .skill-card {
+      background: #B2DFDB;
+      border-radius: 25px;
+      padding: 1.6rem 1.8rem;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      cursor: default;
+      user-select: none;
+      transition: transform 0.25s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+    .skill-card:hover,
+    .skill-card:focus {
+      outline: none;
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 10px 30px rgba(0, 121, 107, 0.5);
+      background: #80CBC4;
+      color: #004D40;
+    }
+
+    .skill-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      color: #004D40;
+    }
+
+    ul.skill-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      color: #004D40dd;
+      font-weight: 500;
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+    ul.skill-list li {
+      position: relative;
+      padding-left: 1.4rem;
+      margin-bottom: 0.7rem;
+      transition: color 0.3s ease;
+    }
+    ul.skill-list li::before {
+      content: "🐾";
+      position: absolute;
+      left: 0;
+      font-size: 1.2rem;
+      line-height: 1;
+      color: #00796B;
+    }
+    .skill-card:hover ul.skill-list li {
+      color: #00251a;
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #004D40aa;
+      text-align: center;
+      font-style: italic;
+      user-select: none;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 1rem 1rem;
+      }
+      .container {
+        padding: 1.5rem 2rem 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container" role="main" aria-label="Skills and Expertise of Wan Mohamad Hanis">
+    <h1>Skills & Expertise</h1>
+
+    <section aria-labelledby="marketing-strategy">
+      <h2 id="marketing-strategy">Marketing & Growth</h2>
+      <div class="skills-grid">
+        <article class="skill-card" tabindex="0">
+          <h3 class="skill-title">Performance Marketing</h3>
+          <ul class="skill-list">
+            <li>Brand Strategy & Positioning</li>
+            <li>Growth Marketing & Digital Sales Infrastructure</li>
+            <li>Funnel Optimization & Conversion Scaling</li>
+            <li>Affiliate Revenue & Co-Selling Strategy</li>
+            <li>GTM Planning & Execution</li>
+          </ul>
+        </article>
+
+        <article class="skill-card" tabindex="0">
+          <h3 class="skill-title">Data Analytics & Intelligence</h3>
+          <ul class="skill-list">
+            <li>Business Intelligence & Data-Driven Insights</li>
+            <li>Advanced Funnel & Sales Analytics</li>
+            <li>Agile Ops & Workflow Automation</li>
+            <li>Conversion Rate Optimization (CRO)</li>
+          </ul>
+        </article>
+
+        <article class="skill-card" tabindex="0">
+          <h3 class="skill-title">Digital Marketing & Commerce</h3>
+          <ul class="skill-list">
+            <li>SEO & SEM Performance Marketing</li>
+            <li>Digital Transformation & Emerging Technologies</li>
+            <li>AI Solutions & Automation Integration</li>
+            <li>Digital Commerce & E-SaaS Platforms</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="tech-cybersecurity">
+      <h2 id="tech-cybersecurity">Technology & Cybersecurity</h2>
+      <div class="skills-grid">
+        <article class="skill-card" tabindex="0">
+          <h3 class="skill-title">Cybersecurity Fundamentals</h3>
+          <ul class="skill-list">
+            <li>Red Teaming & OSINT Expertise</li>
+            <li>Ethical Hacking & Vulnerability Analysis</li>
+            <li>Risk Assessment & Threat Mitigation</li>
+          </ul>
+        </article>
+
+        <article class="skill-card" tabindex="0">
+          <h3 class="skill-title">Software & Cloud Engineering</h3>
+          <ul class="skill-list">
+            <li>Basic Web Design & Development</li>
+            <li>Cloud Architecture & SaaS Integration</li>
+            <li>AI Engineering & Automation</li>
+            <li>Technology Enablement for Business</li>
+          </ul>
+        </article>
+
+        <article class="skill-card" tabindex="0">
+          <h3 class="skill-title">Project & Operation Management</h3>
+          <ul class="skill-list">
+            <li>Agile Leadership & Cross-Functional Teaming</li>
+            <li>Workflow & Process Optimization</li>
+            <li>Strategic Planning & Execution</li>
+            <li>Operation Excellence & Delivery</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="creative-skills">
+      <h2 id="creative-skills">Creative & Strategic</h2>
+      <div class="skills-grid">
+        <article class="skill-card" tabindex="0">
+          <h3 class="skill-title">Design & Editing</h3>
+          <ul class="skill-list">
+            <li>Graphic Design Fundamentals</li>
+            <li>Video & Photo Editing</li>
+            <li>Brand Visual Storytelling</li>
+          </ul>
+        </article>
+
+        <article class="skill-card" tabindex="0">
+          <h3 class="skill-title">Strategic Thinking & Business Dev</h3>
+          <ul class="skill-list">
+            <li>Strategic Partnerships & Co-Selling</li>
+            <li>Business Development & Market Analysis</li>
+            <li>Emerging Tech Insight & Trends</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      &copy; 2025 Wan Mohamad Hanis bin Wan Hassan &mdash; Keep Pushing Forward
+    </footer>
+  </main>
+</body>
+</html>

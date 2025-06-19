@@ -1,0 +1,438 @@
+OSINT collection
+
+
+EmobileTracerMalaysia
+
+Building an OSINT Reconnaissance Tool from Scratch
+
+Icanlookup-ip mapping
+
+Social Searcher — Real Time Monitoring and Social Search Links
+
+Intelligence Gethering Indexed
+
+Step by Step Intelligence Gathering
+
+Who should use TOR
+
+
+
+
+Worldwide OSINT Map (cyberdetective)
+
+Comprehensive OSINT Tools 
+
+OSINT Team
+
+OSINT official Links
+
+NASA Satellite (geomap)
+
+Cyber Detective's OSINT tools collection
+
+OSINTtechnique
+ cipher387 / osint_stuff_tool_collection
+
+https://github.com/cipher387/osint_stuff_tool_collection?tab=readme-ov-file#darknetdeepweb-search-tools
+ Social media analytics
+https://www.brandwatch.com/p/social-analytics/?cq_src=google_ads&cq_cmp=20930108814&cq_term=social%20media%20analytics&cq_plac=&cq_net=s&cq_plt=gp&gad_source=5
+
+CCTV
+https://github.com/IvanGlinkin/CCTV
+
+UNDERATED OSINT (VERY LIMITED)
+https://osintia.com/forums/topic/a-list-of-underrated-osint-github-tools-very-limited/
+
+Marketing intelligence
+https://www.audiense.com/
+
+Dark Web Dictionary
+International Anti Crime Academy https://iaca-darkweb-tools.com/dictionary/
+ Cyber Detective's OSINT tools collection
+https://github.com/cipher387/osint_stuff_tool_collection?tab=readme-ov-file#visualization-tools
+ 
+---------------
+
+Cyber Detective's website
+Welcome!
+Every day I write about OSINT (Open Source Intelligence) tools and techniques.
+
+https://cybdetective.com/ 
+OSINT TRACKERS
+https://app.osintracker.com/resources
+
+List of social networking services
+
+API for Osint
+This is a Collection of APIs that will be useful for automating various tasks in OSINT.
+
+https://github.com/cipher387/API-s-for-OSINT
+
+ Cyber Ditective Struff
+https://github.com/cipher387/osint_stuff_tool_collection?tab=readme-ov-file#darknetdeepweb-search-tools
+
+Osint Industries/
+https://app.osint.industries/
+ bookmark osint
+file:///Users/wanmohamadhanis/Downloads/bookmarks_OSINT%20Stack_2024.html
+
+OSINT FOR FINDING PEOPLE
+https://docs.google.com/spreadsheets/d/1JxBbMt4JvGr--G0Pkl3jP9VDTBunR2uD3_faZXDvhxc/edit?gid=603724104#gid=603724104
+  ONION LIST 
+http://onionsf6djgxyaxyqsc5hdaqxiygfzsyby4vdfpz2q6gmevnuopxncqd.onion/onions/cat/0/page/53
+
+BANK HACKING 
+http://onionsf6djgxyaxyqsc5hdaqxiygfzsyby4vdfpz2q6gmevnuopxncqd.onion/onions/cat/0/page/53
+
+ONION HOSTING
+http://dwebkjkovsjobzrb45dz6prnlifnapiyp2dba33vcmcsaikr2re4d5qd.onion/
+
+
+IP2 ROUTER
+http://incoghostm2dytlqdiaj3lmtn7x2l5gb76jhabb6ywbqhjfzcoqq6aad.onion/i2p-routers
+
+TORLIB (DARKNET CATALOG)
+http://torlib7fmhyvfv2k7s77xigdds3rosio6k6bxnn256xmtzlbgyizduqd.onion/
+ AMNESIA TOR SEARCH ENGINE
+http://amnesia7u5odx5xbwtpnqk3edybgud5bmiagu75bnqx2crntw5kry7ad.onion/
+
+
+GPS VISUALIZATION
+https://www.gpsvisualizer.com/geocode
+
+Aperi'Solve is an online platform which performs layer analysis on image. The platform also uses zsteg, steghide, outguess, exiftool, binwalk, foremost and strings for deeper steganography analysis. The platform supports the following images format: .png, .jpg, .gif, .bmp, .jpeg, .jfif, .jpe, .tiff...
+https://www.aperisolve.com/
+
+CURATED LIST
+https://osint.be/curated-list/
+ Extract metadata photo
+https://www.aperisolve.com/c426ed28cef011bdc7dd146027c6ed42
+
+https://osint.be/cse/
+
+https://start.me/p/DPYPMz/the-ultimate-osint-collection
+
+https://ohshint.gitbook.io/oh-shint-its-a-blog
+
+Authority control databased
+https://en.wikipedia.org/wiki/Open-source_intelligence
+
+
+Surprise 
+Dangerous spyware
+https://en.wikipedia.org/wiki/Magic_Lantern_(spyware)#Methodology
+
+
+Here are some powerful **free OSINT tools** that can help with detection and intelligence gathering, compatible with macOS Silicon:
+
+1. **OSINT Framework**: This is a web-based directory of OSINT tools that can help you gather information from various data sources, including emails, social media, domains, and more. It's a good starting point if you're new to OSINT as it organizes tools by categories like username searches, IP tracking, and metadata extraction.
+  
+2. **Maltego CE**: This is a community edition of a widely-used OSINT tool that maps relationships between different data points like social media profiles, IP addresses, and email addresses. It's great for visualizing connections and networks, making it useful for threat detection and investigation.
+
+3. **Shodan**: Known as the "search engine for the Internet of Things," Shodan helps detect vulnerabilities in connected devices. It can identify services running on Internet-connected devices by scanning IP addresses.
+
+4. **Recon-ng**: A command-line tool that simplifies the process of gathering intelligence. It has built-in modules for searching different data sources like domains, subdomains, and social media accounts.
+
+5. **Have I Been Pwned**: This free tool helps you discover if your email or accounts have been compromised in data breaches. It alerts you to potential threats or leaks of personal data.
+
+6. **Epieos**: A specialized tool for tracking online accounts through email addresses, useful for detecting unauthorized or suspicious activity tied to specific emails.
+
+These tools offer a robust starting point for conducting open-source intelligence operations without the need for paid services. They support macOS and are excellent for gathering, analyzing, and visualizing data.
+
+You can explore more about these tools and their usage at sources like Forensic OSINT and Comparitech [oai_citation:2,Top 11 OSINT Tools in 2024: Unveiling the Game Changers in Digital Investigations](https://www.forensicosint.com/top-osint-tools) [oai_citation:1,8 Best OSINT Tools for 2024 (Paid & Free)](https://www.comparitech.com/net-admin/osint-tools/).
+search anyone
+
+https://docs.google.com/spreadsheets/d/1JxBbMt4JvGr--G0Pkl3jP9VDTBunR2uD3_faZXDvhxc/edit?usp=sharing
+
+
+https://abhijithb200.github.io/investigator/
+
+Dark manipulation skills
+
+Astronomy and mystical analysis (give your birth date I able to told all your life story
+
+file:///Users/wanmohamadhanis/Downloads/bookmarks_21_08_2024.html
+
+https://www.osintcombine.com/tools
+
+https://epieos.com
+
+https://browserleaks.com/ip
+https://db-ip.com/api/
+
+https://www.character-generator.org.uk/bio/
+
+https://thisresumedoesnotexist.com
+
+https://www.fakenamegenerator.com/advanced.php
+
+https://enhancv.com/resources/resume-checker/
+
+https://www.character-generator.org.uk/bio/
+
+https://pentest-tools.com/information-gathering/google-hacking
+
+
+https://www.earthcam.com/mapsearch/
+
+https://hackerfactor.com/index.php
+
+https://hintfo.com
+
+https://haveibeenpwned.com
+
+https://iaca-darkweb-tools.com/
+
+https://academy.osintcombine.com/courses/osint-knowledge/lectures/45420504
+
+
+AL-jazeera
+https://webapps.aljazeera.net/aje/tips/
+
+http://jkta32w5gvk6pmqdfwj67psojot3l2iwoqbdvrvywi5bkudfeandq7id.onion
+
+
+
+TorDex Search Engine
+This list contains the search engines most requested by the community on the deep web.
+http://darknetmdzfznq7zxywqzqnskp6b6thm3yy2uvuxqijrpzltvrdxuyyd.onion/dark-net-search-engines
+
+THE RICH MAN (BUY CREDIT CARD CLONE)
+http://torbaymimewskrgqn5iur36oequsg5eqvypf5gx5yoedpopmbxcea5qd.onion/vendor/the-rich-man
+
+
+MALAYSIA CENTRAL: Leading Malaysia-Centric Info Portal & Malaysian Local Search Directory
+https://www.mycen.com.my/
+Main page
+https://www.searchenginelinks.co.uk/
+
+
+https://en.wikipedia.org/wiki/List_of_social_networking_services
+
+
+
+https://viperone.gitbook.io/pentest-everything
+
+deep web
+ http://search7tdrcvri22rieiwgi5g46qnwsesvnubqav2xakhezv4hjzkkad.onion/
+
+
+OSINT TOOLSET
+https://osint.link
+
+BOOKS 
+http://zqktlwiuavvvqqt4ybvgvi7tyo4hjl5xgfuvpdf6otjiycgwqbym2qad.onion/wiki/index.php/Main_Page#Books_/_Archives
+
+
+BOOKS (NOT DEEPWEB)
+https://www.gutenberg.org/
+ detached_yard_lion707
+
+Detached-yard-lion
+Restinapeace
+
+ONION ACHIEVE WEB
+https://web-archive.activetk.jp/?
+
+
+FOR MY THREADS
+
+https://abhijithb200.github.io/investigator/
+
+http://vivsawnkbum46uhlqnsbzlwbsvc4yyi2o7nci6qqafuam3vqwzu652yd.onion/
+
+https://bbgate.com/
+ measure online
+https://app.measuremaponline.com/dashboard/subscription
+
+Drug lab 
+https://bbgate.com/
+
+https://bbgate.com/media/meth-via-ephedrine-hypophosphorous-acid-synthesis.111/
+
+
+https://bbgate.com/media/sixteen-amphetamine-salts-part-1.108/
+
+https://iaca-darkweb-tools.com/
+ Cyber Detective's OSINT tools collection
+https://github.com/cipher387/osint_stuff_tool_collection?tab=readme-ov-file#visualization-tools
+
+
+bookmark Tor
+file:///Users/wanmohamadhanis/Downloads/bookmarks-tor.html
+ My deep web link to start chat with
+
+http://search7tdrcvri22rieiwgi5g46qnwsesvnubqav2xakhezv4hjzkkad.onion/mail/newmsg.php?user=mike johnout
+
+
+https://en.wikipedia.org/wiki/List_of_social_networking_services
+
+BlackHats (Vendor)
+We are the only hackers that offer FREE sample of DDOS Onion site and Email Bomber . The Nr1 in Phone cracking , real time monitoring and Phone surveillance
+http://emarketczeg6fqtc5wmivoecbzp754kysnjzkbj5aq7ru6mczvzqogqd.onion/product-category/blackhats-vendor/
+
+
+
+
+VERIFIED TOR LINKS
+http://torbei4f6x2jbr2g6bxnou7tkmxfaampxtz4nffxxphhcgesmd62cead.onion/
+
+ANOTHER LEVEL OF DEEP
+http://torlib7fmhyvfv2k7s77xigdds3rosio6k6bxnn256xmtzlbgyizduqd.onion/category/search_engines 
+Hidden ski
+
+http://zqktlwkvmv5ipqnik77wyxtb74bg6gtlwifjntdbanvprue7qqzaqlid.onion/wiki/index.php?title=Main_Page
+
+ E-BOOK FREE & resources -just another library
+http://libraryfyuybp7oyidyya3ah5xvwgyx6weauoini7zyz555litmmumad.onion/
+
+Forbidden dark links
+http://deepmlzxkh7tpnuiv32nzzg6oxza4nvpd6b7ukujwxzgxj2f33johuqd.onion/
+
+
+Dumb site link
+http://dump6tapzduyhdxdfu5ctjfpd7uevqbrufzqchbdaph4ce4johwxskad.onion/
+
+Deeplink
+http://deepmlzxkh7tpnuiv32nzzg6oxzaTh4nvpd6b7ukujwxzgxj2f33johuqd.onion/
+
+Satanic goat onion list links
+http://satanhcfockylbm5ewfpftsazinjwumzqrbsrxcuaiiw5wzisjdrk6id.onion/
+
+Tor777 search engine
+http://777topalcjomgpfmxbgtnpodgkkifm4qoqjzbc7thpmtq3k4sksmj3yd.onion/
+
+
+Darkerst web links
+http://darkwebentyk2elhhh6okholnrookap7zfbun2is7ouspzxcpkqjxxad.onion/
+
+
+2024 updated deep web links
+http://ue5sfh6yl74zon64c2swxomyojsyipiunod5w3eyhwt3ft6ladtgflad.onion/
+
+
+Dark Web Site Links
+http://darkwebentyk2elhhh6okholnrookap7zfbun2is7ouspzxcpkqjxxad.onion/
+ Onion Directories
+http://oniondiricuc4x2y5qbucg4jyp2ael5rxy7aahy5f4fbars2jkkf7vad.onion/
+
+102 Deep Dive in the Dark Web OSINT Style Kirby Plessas (YouTube)
+
+https://www.youtube.com/watch?v=fzd3zkAI_o4
+
+
+Deep web Hacker CTF links
+http://g7ejphhubv5idbbu3hb3wawrs5adw7tkx7yjabnf65xtzztgg4hcsqqd.onion/html/defcon-26/dc-26-contests-events.html#osintctf
+
+DuckduckGo wiki links
+http://duckdfcygebarbf4xngzc7ogiwl4uswjjekfolu6cmubo5774oy6d6qd.onion/
+
+Hiddenwiki Fresh 2024
+http://kfj2am4ee2asdqflt4tuxxwbeuzmh6tv64ojbqscc4u55skrechsxzad.onion/#introduction_pointssearch_engines
+
+
+Welcome to the Deep Search Message Center !
+
+Messages are stored anonymous and end-to-end encrypted for 90 days on the server.
+
+We invite you to share these link with others to allow them to start a communication with you. :
+
+My Deep search message center links
+
+http://search7tdrcvri22rieiwgi5g46qnwsesvnubqav2xakhezv4hjzkkad.onion/mail/newmsg.php?user=detached-yard-lion
+
+King Regards,  Deep Search [@admin]
+
+Restinapeace
+
+DarkWeb Archive - ActiveTK.jp
+https://web-archive.activetk.jp/
+
+
+For data & project (not try yet)
+http://btdigggink2pdqzqrik3blmqemsbntpzwxottujilcdjfz56jumzfsyd.onion/56aa49f9653ba545f48df2e33679f014d2829c10/coursera-capstone-free-resources
+
+
+
+Dark web onion links / Deep web websites
+http://justdirs5iebdkegiwbp3k6vwgwyr5mce7pztld23hlluy22ox4r3iad.onion/
+
+
+https://controlcompass.github.io/threat-model
+
+MY MAIL
+
+http://mail2torjgmxgexntbrmhvgluavhj7ouul5yar6ylbvjkxwqf6ixkwyd.onion/squirrelmail/src/webmail.php
+
+detached_yard_lion707@mail2tor.com
+Restinapeace
+
+MITRE ATTACK
+https://mitre-attack.github.io/attack-navigator/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FtropChaud%2FCategorized-Adversary-TTPs%2Fmain%2Fdocs%2Fheatmaps%2Findustries%2FAerospace.json
+
+
+Learn Masterdon
+Mastodon is a free and open-source software platform for running self-hosted social networking services, similar to Twitter. It allows users to post short messages, known as "toots," and interact with others across a decentralized network of independently run servers, each with its own rules and policies.
+
+Welcome to TORLib!
+Darknet Catalog
+http://torlib7fmhyvfv2k7s77xigdds3rosio6k6bxnn256xmtzlbgyizduqd.onion/?_i=__DARKNET_CATALOG__&ccgc=kZZ1eGkufsybr40KzLD6hyTMYXjomnK0W6lalsJxLws=
+
+
+Dark Web OSINT Bookmark
+file:///Users/wanmohamadhanis/Downloads/bookmarks-tor.html
+
+
+ONION KING
+http://deepkingilny34ryb5rgixwxijvfmg5ffp6yysuf43jvzsutobu4kgid.onion/
+
+DND
+http://t3g5mz7kgivhgzua64vxmu7ieyyoyzgd423itqjortjhh64lcvspyayd.onion/
+
+Choose better
+http://ujuwmruwekgs7ekzlpzrmvkgj7bmsykrcqbmhup3hinpm7lhl2howbqd.onion/hacking.php
+
+TOR TOP
+http://tortopaik2kzc277jfuxmzvc74ekpdvfd7b3bkftkfvku2qiinbzlhid.onion/
+  HERE
+http://justdirs5iebdkegiwbp3k6vwgwyr5mce7pztld23hlluy22ox4r3iad.onion/search/the+internet+layers
+
+
+Deep Links Dump
+Unsensored deep links directories
+http://deepqelxz6iddqi5obzla2bbwh5ssyqqobxin27uzkr624wtubhto3ad.onion/
+
+DEEP LINK GUIDE - Legit Dark Net Vendor List
+http://deepmlzxkh7tpnuiv32nzzg6oxza4nvpd6b7ukujwxzgxj2f33johuqd.onion/
+
+X HACKER
+http://z4odvem6bfypjqmwhsgtdaqtkkwgbxhe63dzq2lpnrmnmb6bgoafirad.onion/index.html
+
+
+HOW TO ACCESS DARKWEB AND DEEP WEB
+http://dwebkjkovsjobzrb45dz6prnlifnapiyp2dba33vcmcsaikr2re4d5qd.onion/knowledge/how-to-access-the-dark-net-and-deep-web
+
+
+Query is a place to gain and share knowledge. A platform to ask questions and connect with other people.
+http://ruc4i7xn5qu5uc7fu2sc34r6xl55xhgvxbcs56t4ayvbqo2fmp4pehqd.onion/
+
+
+ONION RANK (CURRENTLY BLOOD MOON WIKI AT TOP)
+http://rankspeslx4jwbalykpdrn4zsdfuqq25wiioy3ibvjlbgshfph7jtqad.onion/popular
+
+BLOOD MOON WIKI
+http://bloodnhpdyd7h2lure3moezdruvwu2n4ggkycal2yktyvteaq5ghlsad.onion/
+
+
+HACKERS
+http://hackltxlmapssd5u6wro4ms7cn3tjbtyij5iuhfgaoxjmpwcc224ibyd.onion/
+
+UPDATED MIDDLE EAST WAR
+https://www.haaretz.com/israel-news/2024-10-14/ty-article-live/palestinians-report-at-least-20-killed-in-israeli-attack-in-central-gaza/00000192-8919-df08-a9bf-bf3f88490000
+
+👇 START FROM HERE
+http://leftychans5gstl4zee2ecopkv6qvzsrbikwxnejpylwcho2yvh4owad.onion/overboard/
+
+Catalog onion sites
+http://deepweb4wt3m4dhutpxpe7d7wxdftfdf4hhag4sizgon6th5lcefloid.onion/
+ THE CRYPT Welcome to The Crypt, the only Uncensored Directory of the DARKNET. We share all links, regardless of their morality. 👍 http://crypts5slavncejjmyilpmxdri6phmvgdm4dwt5p3ukeqe3p6y5hj6yd.onion/

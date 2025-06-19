@@ -1,0 +1,927 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wall of Certifications - Hanis Wonder Pets</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-glow: #ff6b6b;
+      --secondary-glow: #4ecdc4;
+      --tertiary-glow: #45b7d1;
+      --purple-glow: #9b59b6;
+      --gold-glow: #f39c12;
+      --cyber-blue: #00ffff;
+      --neon-green: #39ff14;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: #000;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .orbitron {
+      font-family: 'Orbitron', monospace;
+    }
+
+    /* 3D Background System */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -5;
+      pointer-events: none;
+    }
+
+    #three-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -10;
+      pointer-events: none;
+    }
+
+    .holographic {
+      background: linear-gradient(45deg, 
+        rgba(255, 107, 107, 0.1), 
+        rgba(78, 205, 196, 0.1), 
+        rgba(69, 183, 209, 0.1), 
+        rgba(155, 89, 182, 0.1));
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 
+        0 8px 32px 0 rgba(31, 38, 135, 0.37),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .neon-glow {
+      animation: neonPulse 3s ease-in-out infinite alternate;
+      text-shadow: 
+        0 0 5px currentColor,
+        0 0 10px currentColor,
+        0 0 15px currentColor,
+        0 0 20px var(--primary-glow);
+    }
+
+    @keyframes neonPulse {
+      0% { text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor, 0 0 20px var(--primary-glow); }
+      100% { text-shadow: 0 0 2px currentColor, 0 0 5px currentColor, 0 0 8px currentColor, 0 0 12px var(--primary-glow); }
+    }
+
+    /* Enhanced Certification Wall */
+    .cert-wall-container {
+      perspective: 1500px;
+      padding: 4rem 0;
+    }
+
+    .cert-category {
+      margin: 4rem 0;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .cert-category:nth-child(1) { animation-delay: 0.1s; }
+    .cert-category:nth-child(2) { animation-delay: 0.2s; }
+    .cert-category:nth-child(3) { animation-delay: 0.3s; }
+    .cert-category:nth-child(4) { animation-delay: 0.4s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .cert-card {
+      background: linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.9), 
+        rgba(30, 30, 30, 0.8));
+      border-radius: 20px;
+      padding: 2rem;
+      border: 2px solid transparent;
+      backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      transform-style: preserve-3d;
+    }
+
+    .cert-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.1), 
+        transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s;
+    }
+
+    .cert-card:hover::before {
+      transform: translateX(100%);
+    }
+
+    .cert-card:hover {
+      transform: translateY(-20px) rotateY(10deg) rotateX(5deg);
+      border-color: var(--cyber-blue);
+      box-shadow: 
+        0 25px 50px rgba(0, 255, 255, 0.3),
+        0 0 0 1px rgba(0, 255, 255, 0.5);
+    }
+
+    /* Category-specific colors */
+    .cert-marketing {
+      border-color: rgba(255, 107, 107, 0.5);
+    }
+
+    .cert-marketing:hover {
+      border-color: #ff6b6b;
+      box-shadow: 0 25px 50px rgba(255, 107, 107, 0.3);
+    }
+
+    .cert-ai {
+      border-color: rgba(78, 205, 196, 0.5);
+    }
+
+    .cert-ai:hover {
+      border-color: #4ecdc4;
+      box-shadow: 0 25px 50px rgba(78, 205, 196, 0.3);
+    }
+
+    .cert-security {
+      border-color: rgba(155, 89, 182, 0.5);
+    }
+
+    .cert-security:hover {
+      border-color: #9b59b6;
+      box-shadow: 0 25px 50px rgba(155, 89, 182, 0.3);
+    }
+
+    .cert-cloud {
+      border-color: rgba(243, 156, 18, 0.5);
+    }
+
+    .cert-cloud:hover {
+      border-color: #f39c12;
+      box-shadow: 0 25px 50px rgba(243, 156, 18, 0.3);
+    }
+
+    /* Interactive elements */
+    .cert-badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    /* Filter system */
+    .filter-controls {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 2rem 0 4rem 0;
+    }
+
+    .filter-btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      border: 2px solid transparent;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Orbitron', monospace;
+      font-weight: bold;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--cyber-blue);
+      color: black;
+      transform: scale(1.05);
+    }
+
+    /* Stats dashboard */
+    .stats-dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 2rem;
+      border-radius: 15px;
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+      border: 1px solid rgba(0, 255, 255, 0.3);
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: bold;
+      background: linear-gradient(45deg, var(--cyber-blue), var(--purple-glow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Floating animations */
+    .floating {
+      animation: floating 6s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    /* Search functionality */
+    .search-container {
+      position: relative;
+      max-width: 500px;
+      margin: 0 auto 3rem auto;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      border-radius: 25px;
+      border: 2px solid var(--cyber-blue);
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .search-input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Hidden class for filtering */
+    .hidden {
+      display: none !important;
+    }
+
+    /* Achievement badges */
+    .achievement-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .achievement {
+      padding: 0.5rem 1rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .achievement-google {
+      background: linear-gradient(45deg, #4285f4, #ea4335);
+    }
+
+    .achievement-aws {
+      background: linear-gradient(45deg, #ff9900, #232f3e);
+    }
+
+    .achievement-microsoft {
+      background: linear-gradient(45deg, #00bcf2, #0078d4);
+    }
+
+    .achievement-ibm {
+      background: linear-gradient(45deg, #1261fb, #000000);
+    }
+  </style>
+</head>
+
+<body class="text-white" x-data="certificationWall()">
+  <!-- 3D Background Canvas -->
+  <canvas id="three-canvas"></canvas>
+  
+  <!-- Particle System -->
+  <div id="particles-js"></div>
+
+  <!-- Navigation Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 holographic">
+    <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-full morphing-gradient flex items-center justify-center">
+          <span class="text-white font-bold orbitron">H</span>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold orbitron neon-glow">CERTIFICATION WALL</h1>
+          <div class="text-xs text-cyan-400 orbitron">100+ Professional Achievements</div>
+        </div>
+      </div>
+      
+      <div class="hidden md:flex space-x-6">
+        <a href="index.html" class="px-4 py-2 rounded-lg holographic text-sm orbitron hover:scale-105 transition-transform">HOME</a>
+        <a href="resume.html" class="px-4 py-2 rounded-lg holographic text-sm orbitron hover:scale-105 transition-transform">RESUME</a>
+        <a href="neural-net.html" class="px-4 py-2 rounded-lg holographic text-sm orbitron hover:scale-105 transition-transform">NEURAL NET</a>
+        <a href="quantum-lab.html" class="px-4 py-2 rounded-lg holographic text-sm orbitron hover:scale-105 transition-transform">QUANTUM LAB</a>
+        <a href="ai-matrix.html" class="px-4 py-2 rounded-lg holographic text-sm orbitron hover:scale-105 transition-transform">AI MATRIX</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="min-h-screen flex flex-col justify-center items-center relative pt-32">
+    <div class="max-w-7xl mx-auto px-6 text-center z-10">
+      <h1 class="text-5xl md:text-8xl font-black orbitron neon-glow mb-8 leading-tight">
+        <span class="text-gold-glow">WALL OF</span><br>
+        <span class="morphing-gradient bg-clip-text text-transparent">CERTIFICATIONS</span>
+      </h1>
+      
+      <p class="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-8">
+        A comprehensive showcase of <span class="text-cyan-400 font-bold">100+ professional certifications</span> 
+        spanning AI, cybersecurity, digital marketing, and cloud technologies
+      </p>
+
+      <!-- Achievement Badges -->
+      <div class="achievement-row">
+        <div class="achievement achievement-google">Google Certified Professional</div>
+        <div class="achievement achievement-aws">AWS Partner Accredited</div>
+        <div class="achievement achievement-microsoft">Microsoft Azure Certified</div>
+        <div class="achievement achievement-ibm">IBM Specialist</div>
+      </div>
+
+      <!-- Stats Dashboard -->
+      <div class="stats-dashboard">
+        <div class="stat-card floating">
+          <div class="stat-number" x-text="stats.total"></div>
+          <div class="orbitron text-cyan-400">Total Certifications</div>
+        </div>
+        <div class="stat-card floating" style="animation-delay: 0.5s;">
+          <div class="stat-number" x-text="stats.categories"></div>
+          <div class="orbitron text-purple-400">Categories</div>
+        </div>
+        <div class="stat-card floating" style="animation-delay: 1s;">
+          <div class="stat-number" x-text="stats.institutions"></div>
+          <div class="orbitron text-yellow-400">Institutions</div>
+        </div>
+        <div class="stat-card floating" style="animation-delay: 1.5s;">
+          <div class="stat-number" x-text="stats.recent"></div>
+          <div class="orbitron text-green-400">Recent (2024)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Search and Filter Section -->
+  <section class="py-12">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Search Bar -->
+      <div class="search-container">
+        <input type="text" 
+               x-model="searchTerm" 
+               @input="filterCertifications()"
+               placeholder="Search certifications..." 
+               class="search-input orbitron">
+      </div>
+
+      <!-- Filter Controls -->
+      <div class="filter-controls">
+        <button @click="setFilter('all')" 
+                :class="activeFilter === 'all' ? 'active' : ''" 
+                class="filter-btn">
+          ALL CERTIFICATIONS
+        </button>
+        <button @click="setFilter('marketing')" 
+                :class="activeFilter === 'marketing' ? 'active' : ''" 
+                class="filter-btn">
+          📈 DIGITAL MARKETING
+        </button>
+        <button @click="setFilter('ai')" 
+                :class="activeFilter === 'ai' ? 'active' : ''" 
+                class="filter-btn">
+          🤖 AI & MACHINE LEARNING
+        </button>
+        <button @click="setFilter('security')" 
+                :class="activeFilter === 'security' ? 'active' : ''" 
+                class="filter-btn">
+          🔒 CYBERSECURITY & OSINT
+        </button>
+        <button @click="setFilter('cloud')" 
+                :class="activeFilter === 'cloud' ? 'active' : ''" 
+                class="filter-btn">
+          ☁️ CLOUD & INFRASTRUCTURE
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certification Wall -->
+  <section class="cert-wall-container">
+    <div class="max-w-7xl mx-auto px-6">
+
+      <!-- Digital Marketing & E-Commerce -->
+      <div class="cert-category" data-category="marketing">
+        <h2 class="text-4xl font-bold orbitron text-red-400 text-center mb-8">
+          📈 DIGITAL MARKETING & E-COMMERCE
+        </h2>
+        <div class="cert-grid">
+          
+          <!-- Google Certifications -->
+          <div class="cert-card cert-marketing" @click="showDetails('google-ads')">
+            <div class="cert-badge bg-blue-500">🎯</div>
+            <h3 class="text-xl font-bold text-red-400 orbitron mb-3">Google Ads Professional Suite</h3>
+            <div class="space-y-2 mb-4">
+              <div class="text-sm text-gray-300">• Google Ads Search Professional Certification</div>
+              <div class="text-sm text-gray-300">• Conversion Optimization Certification</div>
+              <div class="text-sm text-gray-300">• AI-Powered Performance Ads Certification</div>
+              <div class="text-sm text-gray-300">• Google Analytics Certification</div>
+              <div class="text-sm text-gray-300">• Advanced Omnichannel Certificate</div>
+            </div>
+            <div class="text-xs text-gray-400 orbitron">GOOGLE SKILLSHOP • 2024</div>
+          </div>
+
+          <!-- Digital Marketing Professional -->
+          <div class="cert-card cert-marketing" @click="showDetails('digital-marketing')">
+            <div class="cert-badge bg-purple-500">📊</div>
+            <h3 class="text-xl font-bold text-red-400 orbitron mb-3">Digital Marketing Excellence</h3>
+            <div class="space-y-2 mb-4">
+              <div class="text-sm text-gray-300">• Google Digital Marketing & E-Commerce Professional</div>
+              <div class="text-sm text-gray-300">• Digital Marketing Strategy (Simplilearn)</div>
+              <div class="text-sm text-gray-300">• Social Media Marketing Crash Course (Semrush)</div>
+              <div class="text-sm text-gray-300">• Advanced Mobile Marketing</div>
+              <div class="text-sm text-gray-300">• Apple Ads Certified</div>
+            </div>
+            <div class="text-xs text-gray-400 orbitron">MULTIPLE INSTITUTIONS • 2024</div>
+          </div>
+
+          <!-- Sales & CRM -->
+          <div class="cert-card cert-marketing" @click="showDetails('sales-crm')">
+            <div class="cert-badge bg-green-500">💼</div>
+            <h3 class="text-xl font-bold text-red-400 orbitron mb-3">Sales & CRM Mastery</h3>
+            <div class="space-y-2 mb-4">
+              <div class="text-sm text-gray-300">• Sales Management (HubSpot Academy)</div>
+              <div class="text-sm text-gray-300">• Sales Enablement (HubSpot Academy)</div>
+              <div class="text-sm text-gray-300">• Frictionless Sales (HubSpot Academy)</div>
+              <div class="text-sm text-gray-300">• Introduction to CRM with HubSpot</div>
+              <div class="text-sm text-gray-300">• Business Intelligence Foundation</div>
+            </div>
+            <div class="text-xs text-gray-400 orbitron">HUBSPOT & CERTIPROF • 2024</div>
+          </div>
+
+          <!-- Campaign Creation -->
+          <div class="cert-card cert-marketing" @click="showDetails('campaigns')">
+            <div class="cert-badge bg-yellow-500">🎨</div>
+            <h3 class="text-xl font-bold text-red-400 orbitron mb-3">Campaign Development</h3>
+            <div class="space-y-2 mb-4">
+              <div class="text-sm text-gray-300">• Create a Social Media Marketing Campaign</div>
+              <div class="text-sm text-gray-300">• Viral Marketing & Contagious Content</div>
+              <div class="text-sm text-gray-300">• Create and Design Digital Products</div>
+              <div class="text-sm text-gray-300">• Organic Marketing for Small Businesses</div>
+              <div class="text-sm text-gray-300">• Search Engine Optimization (SEO)</div>
+            </div>
+            <div class="text-xs text-gray-400 orbitron">UNIVERSITY OF LEEDS & OTHERS • 2024</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI & Machine Learning -->
+      <div class="cert-category" data-category="ai">
+        <h2 class="text-4xl font-bold orbitron text-cyan-400 text-center mb-8">
+          🤖 AI & MACHINE LEARNING
+        </h2>
+        <div class="cert-grid">
+          
+          <!-- IBM AI Specializations -->
+          <div class="cert-card cert-ai" @click="showDetails('ibm-ai')">
+            <div class="cert-badge bg-blue-600">🧠</div>
+            <h3 class="text-xl font-bold text-cyan-400 orbitron mb-3">IBM AI Foundations</h3>
+            <div class="space-y-2 mb-4">
+              <div class="text-sm text-gray-300">• IBM AI Foundations for Business Specialization</div>
+              <div class="text-sm text-gray-300">• IBM Machine Learning Specialist - Associate</div>
+              <div class="text-sm text-gray-300">• Advanced Machine Learning Analysis for Marketing</div>
+              <div class="text-sm text-gray-300">• Create a Chatbot with Open Source LLMs</div>
+              <div class="text-sm text-gray-300">• Enterprise Design Thinking for AI</div>
+            </div>
+            <div class="text-xs text-gray-400 orbitron">IBM • 2024</div>
+          </div>
+
+          <!-- Microsoft Azure AI -->
+          <div class="cert-card cert-ai" @click="showDetails('azure-ai')">
+            <div class="cert-badge bg-cyan-500">☁️</div>
+            <h3 class="text-xl font-bold text-cyan-400 orbitron mb-3">Microsoft Azure AI Engineer</h3>
+            <div class="space-y-2 mb-4">
+              <div class="text-sm text-gray-300">• Microsoft Certified: Azure AI Engineer Associate</div>
+              <div class="text-sm text-gray-300">• AI Skill-fest Challenge Winner</div>
+              <div class="text-sm text-gray-300">• Proctored Exam by June 15, 2025</div>
+              <div class="text-sm text-gray-300">• Advanced AI Model Deployment</div>
+              <div class="text-sm text-gray-300">• Cognitive Services Integration</div>
+            </div>
+            <div class="text-xs text-gray-400 orbitron">MICROSOFT • IN PROGRESS</div>
+          </div>
+
+          <!-- Google AI & Data -->
+          <div class="cert-card cert-ai" @click="showDetails('google-ai')">
+            <div class="cert-badge bg-red-500">📊</div>
+            <h3 class="text-xl font-bold text-cyan-400 orbitron mb-3">Google AI & Analytics</h3>
+            <div class="space-y-2 mb-4">
+              <div class="text-sm text-gray-300">• Google Advanced Data Analytics Professional</div>
+              <div class="text-sm text-gray-300">• Google Business Intelligence Professional</div>
+              <div class="text-sm text-gray-300">• Cloud Technical Series AI Deep Dive</div>
+              <div class="text-sm text-gray-300">• AI-Powered Search Ads for Strategists</div>
+              <div class="text-sm text-gray-300">• Machine Learning Fundamentals</div>
+            </div>
+            <div class="text-xs text-gray-400 orbitron">GOOGLE CLOUD • 2024</div>
+          </div>
+
+          <!-- Academic AI Programs -->
+          <div class="cert-card cert-ai" @click="showDetails('academic-ai')">
+            <div class="cert-badge bg-purple-500">🎓</div>
+            <h3 class="text-xl font-bold text-cyan-400 orbitron mb-3">Academic AI Excellence</h3>
+            <div class="space-y-2 mb-4">
+              <div class="text-sm text-gray-300">• CS50's Computer Science for Business (Harvard)</div>
+              <div class="text-sm text-gray-300">• Neural Basis of Imagination (Dartmouth)</div>
+              <div class="text-sm text-gray-300">• Biohacking Your Brain's Health (Emory)</div>
+              <div class="text-sm text-gray-300">• Generative AI for Executives (IBM)</div>
+              <div class="text-sm text-gray-300">• Self-Determination Theory (Rochester)</div>
+            </div>
+            <div class="text-xs text-gray-400 orbitron">TOP UNIVERSITIES • 2024</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cybersecurity & OSINT -->
+      <div class="cert-category" data-category="security">
+        <h2 class="text-4xl font-bold orbitron text-purple-400 text-center mb-8">
+          🔒 CYBERSECURITY & OSINT
+        </h2>
+        <div class="cert-grid">
+          
+          <!-- Ethical Hacking -->
+          <div class="cert-card cert-security" @click="showDetails('ethical-hacking')">
+            <div class="cert-badge bg-red-600">🕵️</div>
+            <h3 class="text-xl font-bold text-purple-400 orbitron mb-3">Ethical Hacking Specialization</h3>
+            <div class="space-y-2 mb-4">
+              <div class="text-sm text-gray-300">• Certified Ethical Hacking (v12) Specialization</div>
+              <div class="text-sm text-gray-300">• Cybersecurity Attack and Defense Fundamentals</div>
+              <div class="text-sm text-gray-300">• Introduction to Cybersecurity (Cisco)</div>
+              <div class="text-sm text-gray-300">• Ethical Hacker (Cisco Networking Academy)</div>
+              <div class="text-sm text-gray-300">• Cyber Threat Management (Cisco)</div>
+            </div>
+            <div class="text-xs text-gray-400 orbitron">EC-COUNCIL & CISCO • 2024</div>
+          </div>
+
+          <!-- OSINT Intelligence -->
+          <div class="cert-card cert-security" @click="showDetails('osint')">
+            <div class="cert-badge bg-green-600">🔍</div>
+            <h3 class="text-xl font-bold text-purple-400 orbitron mb-3">Open Source Intelligence</h3>
+            <div class="space-y-2 mb-4">
+              <div class="text-sm text-gray-300">• Open Source Intelligence (Basel Institute)</div>
+              <div class="text-sm text-gray-300">• Maltego for Cybersecurity Investigation</div>
+              <div class="text-sm text-gray-300">• Maltego for Cybercrime Investigation</div>
+              <div class="text-sm text-gray-300">• Maltego Monitor Training</div>
+              <div class="text-sm text-gray-300">• Advanced OSINT Techniques</div>
+            </div>
+            <div class="text-xs text-gray-400 orbitron">BASEL INSTITUTE & MALTEGO • 2024</div>
+          </div>
+
+          <!-- Security Standards -->
+          <div class="cert-card cert-security" @click="showDetails('security-standards')">
+            <div class="cert-badge bg-yellow-600">🛡️</div>
+            <h3 class="text-xl font-bold text-purple-400 orbitron mb-3">Security Standards & Compliance</h3>
+            <div class="space-y-2 mb-4">
+              <div class="text-sm text-gray-300">• ISO/IEC 27001: Information Security Associate</div>
+              <div class="text-sm text-gray-300">• Understanding OWASP Top 10 Security Threats</div>
+              <div class="text-sm text-gray-300">• Cybersecurity Awareness Professional</div>
+              <div class="text-sm text-gray-300">• Introduction to Threat Landscape 2.0</div>
+              <div class="text-sm text-gray-300">• Digital Sovereignty (AWS)</div>
+            </div>
+            <div class="text-xs text-gray-400 orbitron">SKILLFRONT & LINUX FOUNDATION • 2024</div>
+          </div>
+
+          <!-- Threat Intelligence -->
+          <div class="cert-card cert-security" @click="showDetails('threat-intel')">
+            <div class="cert-badge bg-cyan-600">⚠️</div>
+            <h3 class="text-xl font-bold text-purple-400 orbitron mb-3">Threat Intelligence & Analysis</h3>
+            <div class="space-y-2 mb-4">
+              <div class="text-sm text-gray-300">• Advanced Threat Detection Methods</div>
+              <div class="text-sm text-gray-300">• Digital Forensics and Investigation</div>
+              <div class="text-sm text-gray-300">• Network Security Monitoring</div>
+              <div class="text-sm text-gray-300">• Incident Response and Recovery</div>
+              <div class="text-sm text-gray-300">• Security Operations Center (SOC)</div>
+            </div>
+            <div class="text-xs text-gray-400 orbitron">MULTIPLE VENDORS • 2024</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cloud & Infrastructure -->
+      <div class="cert-category" data-category="cloud">
+        <h2 class="text-4xl font-bold orbitron text-yellow-400 text-center mb-8">
+          ☁️ CLOUD & INFRASTRUCTURE
+        </h2>
+        <div class="cert-grid">
+          
+          <!-- AWS Partnership -->
+          <div class="cert-card cert-cloud" @click="showDetails('aws')">
+            <div class="cert-badge bg-orange-500">🚀</div>
+            <h3 class="text-xl font-bold text-yellow-400 orbitron mb-3">AWS Partner Accreditation</h3>
+            <div class="space-y-2 mb-4">
+              <div class="text-sm text-gray-300">• AWS Partner: Technical Accredited</div>
+              <div class="text-sm text-gray-300">• AWS Partner: Sales Accreditation (Business)</div>
+              <div class="text-sm text-gray-300">• AWS Partner: Digital Sovereignty</div>
+              <div class="text-sm text-gray-300">• Cloud Architecture Fundamentals</div>
+              <div class="text-sm text-gray-300">• Scalable System Design</div>
+            </div>
+            <div class="text-xs text-gray-400 orbitron">AMAZON WEB SERVICES • 2024</div>
+          </div>
+
+          <!-- Google Cloud -->
+          <div class="cert-card cert-cloud" @click="showDetails('google-cloud')">
+            <div class="cert-badge bg-blue-500">🌐</div>
+            <h3 class="text-xl font-bold text-yellow-400 orbitron mb-3">Google Cloud Expertise</h3>
+            <div class="space-y-2 mb-4">
+              <div class="text-sm text-gray-300">• Cloud Technical Series AI Deep Dive</div>
+              <div class="text-sm text-gray-300">• Google Cloud Partner Program Member</div>
+              <div class="text-sm text-gray-300">• Platform Scaling and Optimization</div>
+              <div class="text-sm text-gray-300">• Advanced Tools Access</div>
+              <div class="text-sm text-gray-300">• Marketing Credits and Resources</div>
+            </div>
+            <div class="text-xs text-gray-400 orbitron">GOOGLE CLOUD ASIA PACIFIC • 2024</div>
+          </div>
+
+          <!-- Quantum Computing -->
+          <div class="cert-card cert-cloud" @click="showDetails('quantum')">
+            <div class="cert-badge bg-purple-500">⚛️</div>
+            <h3 class="text-xl font-bold text-yellow-400 orbitron mb-3">Quantum Computing</h3>
+            <div class="space-y-2 mb-4">
+              <div class="text-sm text-gray-300">• Fundamentals of Quantum Computing</div>
+              <div class="text-sm text-gray-300">• Quantum Computing Essentials for Senior Leaders</div>
+              <div class="text-sm text-gray-300">• Quantum Business Foundations (IBM)</div>
+              <div class="text-sm text-gray-300">• Basics of Quantum Information</div>
+              <div class="text-sm text-gray-300">• Quantum Algorithm Development</div>
+            </div>
+            <div class="text-xs text-gray-400 orbitron">LINUX FOUNDATION & IBM • 2024</div>
+          </div>
+
+          <!-- Business Automation -->
+          <div class="cert-card cert-cloud" @click="showDetails('automation')">
+            <div class="cert-badge bg-green-500">⚙️</div>
+            <h3 class="text-xl font-bold text-yellow-400 orbitron mb-3">Business Automation</h3>
+            <div class="space-y-2 mb-4">
+              <div class="text-sm text-gray-300">• Business Automation Manager Open Editions</div>
+              <div class="text-sm text-gray-300">• Asana Certified Workflow Specialist</div>
+              <div class="text-sm text-gray-300">• Process Optimization and Management</div>
+              <div class="text-sm text-gray-300">• Workflow Design and Implementation</div>
+              <div class="text-sm text-gray-300">• Digital Transformation Strategies</div>
+            </div>
+            <div class="text-xs text-gray-400 orbitron">IBM & ASANA • 2024</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <div class="holographic p-8 rounded-xl">
+        <h2 class="text-3xl font-bold orbitron text-cyan-400 mb-6">CONTINUOUS LEARNING MINDSET</h2>
+        <p class="text-lg text-gray-300 mb-8">
+          This certification wall represents a commitment to lifelong learning and staying at the forefront of technology. 
+          Each certification is a testament to dedication, expertise, and the pursuit of excellence in digital innovation.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="resume.html" class="bg-gradient-to-r from-cyan-500 to-purple-500 px-8 py-4 rounded-full orbitron font-bold hover:scale-105 transition-transform">
+            VIEW FULL RESUME
+          </a>
+          <a href="index.html" class="bg-gradient-to-r from-yellow-500 to-red-500 px-8 py-4 rounded-full orbitron font-bold hover:scale-105 transition-transform">
+            EXPLORE CAPABILITIES
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 text-center text-gray-400">
+    <div class="max-w-7xl mx-auto px-6">
+      <p>&copy; 2025 Hanis Wonder Pets Intelligence Center - Certified Excellence 🏆</p>
+      <p class="text-xs mt-2">100+ Certifications • Global Recognition • Continuous Innovation</p>
+    </div>
+  </footer>
+
+  <!-- Alpine.js App -->
+  <script>
+    function certificationWall() {
+      return {
+        searchTerm: '',
+        activeFilter: 'all',
+        stats: {
+          total: 100,
+          categories: 4,
+          institutions: 25,
+          recent: 47
+        },
+
+        setFilter(category) {
+          this.activeFilter = category;
+          this.filterCertifications();
+        },
+
+        filterCertifications() {
+          const categories = document.querySelectorAll('.cert-category');
+          const cards = document.querySelectorAll('.cert-card');
+          
+          categories.forEach(category => {
+            const categoryType = category.getAttribute('data-category');
+            const shouldShow = this.activeFilter === 'all' || this.activeFilter === categoryType;
+            
+            if (shouldShow) {
+              category.classList.remove('hidden');
+            } else {
+              category.classList.add('hidden');
+            }
+          });
+
+          // Search filter
+          if (this.searchTerm) {
+            cards.forEach(card => {
+              const text = card.textContent.toLowerCase();
+              const shouldShow = text.includes(this.searchTerm.toLowerCase());
+              
+              if (shouldShow) {
+                card.classList.remove('hidden');
+              } else {
+                card.classList.add('hidden');
+              }
+            });
+          }
+        },
+
+        showDetails(certId) {
+          // Show certification details modal or redirect
+          console.log('Showing details for:', certId);
+          
+          // Add visual feedback
+          event.target.closest('.cert-card').style.transform = 'scale(0.95)';
+          setTimeout(() => {
+            event.target.closest('.cert-card').style.transform = '';
+          }, 150);
+        }
+      }
+    }
+
+    // Initialize 3D background and particles
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize 3D rotating certification symbols
+      init3DCertBackground();
+      
+      // Initialize particles
+      initCertParticles();
+    });
+
+    function init3DCertBackground() {
+      const canvas = document.getElementById('three-canvas');
+      if (!canvas || !window.THREE) return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+      
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setClearColor(0x000000, 0);
+
+      // Create floating certification badges
+      const badges = [];
+      const badgeGeometry = new THREE.RingGeometry(0.5, 1, 8);
+      
+      for (let i = 0; i < 50; i++) {
+        const material = new THREE.MeshBasicMaterial({ 
+          color: new THREE.Color().setHSL(Math.random(), 0.8, 0.6),
+          transparent: true,
+          opacity: 0.3
+        });
+        
+        const badge = new THREE.Mesh(badgeGeometry, material);
+        badge.position.set(
+          (Math.random() - 0.5) * 1000,
+          (Math.random() - 0.5) * 1000,
+          (Math.random() - 0.5) * 1000
+        );
+        badge.rotation.x = Math.random() * Math.PI;
+        badge.rotation.y = Math.random() * Math.PI;
+        
+        scene.add(badge);
+        badges.push(badge);
+      }
+
+      camera.position.z = 500;
+
+      function animate() {
+        requestAnimationFrame(animate);
+        
+        badges.forEach((badge, index) => {
+          badge.rotation.x += 0.005 + index * 0.0001;
+          badge.rotation.y += 0.003 + index * 0.0001;
+          badge.position.y += Math.sin(Date.now() * 0.001 + index) * 0.1;
+        });
+        
+        renderer.render(scene, camera);
+      }
+
+      animate();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    }
+
+    function initCertParticles() {
+      if (typeof particlesJS === 'undefined') return;
+      
+      particlesJS('particles-js', {
+        particles: {
+          number: { value: 120, density: { enable: true, value_area: 1000 } },
+          color: { value: ['#ff6b6b', '#4ecdc4', '#9b59b6', '#f39c12', '#00ffff'] },
+          shape: { 
+            type: 'polygon',
+            polygon: { nb_sides: 6 }
+          },
+          opacity: { value: 0.4, random: true },
+          size: { value: 4, random: true },
+          line_linked: { 
+            enable: true, 
+            distance: 120, 
+            color: '#4ecdc4', 
+            opacity: 0.3, 
+            width: 1 
+          },
+          move: { 
+            enable: true, 
+            speed: 1.5, 
+            direction: 'none', 
+            random: true, 
+            out_mode: 'out' 
+          }
+        },
+        interactivity: {
+          detect_on: 'canvas',
+          events: { 
+            onhover: { enable: true, mode: 'grab' }, 
+            onclick: { enable: true, mode: 'push' } 
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

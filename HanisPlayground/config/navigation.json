@@ -1,0 +1,120 @@
+{
+  "navigation": {
+    "primary": [
+      {
+        "id": "ai-chat",
+        "label": "AI Chat",
+        "path": "/chat",
+        "icon": "🤖",
+        "component": "AIChatPage",
+        "description": "Engage with advanced AI models",
+        "active": true,
+        "order": 1
+      },
+      {
+        "id": "business-intelligence",
+        "label": "Business Intelligence",
+        "path": "/business",
+        "icon": "📊",
+        "component": "BusinessIntelligencePage",
+        "description": "Comprehensive business analysis",
+        "active": true,
+        "order": 2
+      },
+      {
+        "id": "market-research",
+        "label": "Market Research",
+        "path": "/research",
+        "icon": "🔍",
+        "component": "MarketResearchPage",
+        "description": "In-depth market analysis",
+        "active": true,
+        "order": 3
+      }
+    ],
+    "secondary": [
+      {
+        "id": "osint-intelligence",
+        "label": "OSINT Intelligence",
+        "path": "/osint",
+        "icon": "🕵️",
+        "component": "OSINTPage",
+        "description": "Open Source Intelligence gathering",
+        "active": false,
+        "order": 4
+      },
+      {
+        "id": "financial-analysis",
+        "label": "Financial Analysis",
+        "path": "/finance",
+        "icon": "💰",
+        "component": "FinancialPage",
+        "description": "Advanced financial modeling",
+        "active": false,
+        "order": 5
+      },
+      {
+        "id": "threat-intelligence",
+        "label": "Threat Intelligence",
+        "path": "/threats",
+        "icon": "⚠️",
+        "component": "ThreatIntelligencePage",
+        "description": "Security threat analysis",
+        "active": false,
+        "order": 6
+      },
+      {
+        "id": "social-intelligence",
+        "label": "Social Intelligence",
+        "path": "/social",
+        "icon": "👥",
+        "component": "SocialIntelligencePage",
+        "description": "Social media and network analysis",
+        "active": false,
+        "order": 7
+      }
+    ],
+    "admin": [
+      {
+        "id": "system-status",
+        "label": "System Status",
+        "path": "/status",
+        "icon": "⚙️",
+        "component": "SystemStatusPage",
+        "description": "System health and diagnostics",
+        "active": true,
+        "order": 98
+      },
+      {
+        "id": "settings",
+        "label": "Settings",
+        "path": "/settings",
+        "icon": "🔧",
+        "component": "SettingsPage",
+        "description": "Platform configuration",
+        "active": true,
+        "order": 99
+      }
+    ]
+  },
+  "apiEndpoints": {
+    "ai-chat": ["/api/chat"],
+    "business-intelligence": ["/api/business-analysis"],
+    "market-research": ["/api/market-research"],
+    "osint-intelligence": ["/api/osint"],
+    "financial-analysis": ["/api/financial"],
+    "threat-intelligence": ["/api/threats"],
+    "social-intelligence": ["/api/social"],
+    "system-status": ["/api/status", "/api/health"],
+    "settings": ["/api/config"]
+  },
+  "capabilities": {
+    "ai-chat": ["conversation", "analysis", "assistance", "multimodal"],
+    "business-intelligence": ["analysis", "competitive-intelligence", "market-positioning", "strategic-planning"],
+    "market-research": ["market-analysis", "competitor-research", "industry-trends", "consumer-insights"],
+    "osint-intelligence": ["intelligence-gathering", "data-analysis", "threat-assessment", "reconnaissance"],
+    "financial-analysis": ["financial-modeling", "risk-assessment", "portfolio-analysis", "market-forecasting"],
+    "threat-intelligence": ["security-analysis", "vulnerability-assessment", "incident-response", "threat-hunting"],
+    "social-intelligence": ["sentiment-analysis", "influence-mapping", "trend-detection", "network-analysis"]
+  }
+}
