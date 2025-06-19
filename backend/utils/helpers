@@ -1,0 +1,9 @@
+import requests
+import os
+
+SHODAN_API_KEY = os.getenv('SHODAN_API_KEY')
+
+def shodan_search(query):
+    url = f"https://api.shodan.io/shodan/host/search?key={SHODAN_API_KEY}&query={query}"
+    response = requests.get(url)
+    return response.json()
