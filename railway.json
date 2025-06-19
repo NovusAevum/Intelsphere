@@ -13,5 +13,12 @@
       "port": 3000
     }
   ],
-  "notes": "After deploy, add your GitHub custom domain in the Railway dashboard under the frontend service > Settings > Domains. Follow the DNS instructions to point your domain (e.g., CNAME to Railway)."
+  "notes": "After deploy, add your GitHub custom domain in the Railway dashboard under the frontend service > Settings > Domains. Follow the DNS instructions to point your domain (e.g., CNAME to Railway).",
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" }
+  ],
+  "builds": [
+    { "src": "frontend/package.json", "use": "@vercel/static-build", "config": { "distDir": "build" } },
+    { "src": "api/index.py", "use": "@vercel/python" }
+  ]
 } 
