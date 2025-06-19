@@ -1,0 +1,17 @@
+{
+  "services": [
+    {
+      "name": "backend",
+      "root": "backend",
+      "dockerfilePath": "backend/Dockerfile",
+      "port": 8000
+    },
+    {
+      "name": "frontend",
+      "root": "frontend",
+      "dockerfilePath": "frontend/Dockerfile",
+      "port": 3000
+    }
+  ],
+  "notes": "After deploy, add your GitHub custom domain in the Railway dashboard under the frontend service > Settings > Domains. Follow the DNS instructions to point your domain (e.g., CNAME to Railway)."
+} 
