@@ -1,5 +1,5 @@
 import express from 'express';
-import { universalAPIManager } from './universal-api-manager';
+// import { universalAPIManager } from './universal-api-manager';
 import { advancedAIEngine } from './advanced-ai-engine';
 import axios from 'axios';
 import Anthropic from '@anthropic-ai/sdk';
@@ -848,8 +848,6 @@ export class GIDEONCompleteArchitecture {
       last_updated: new Date().toISOString()
     };
   }
-
-
 
   private async matchExploits(target: any): Promise<any> {
     // Query authentic exploit databases

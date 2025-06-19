@@ -1,5 +1,5 @@
+// import { universalAPIManager } from './universal-api-manager';
 import express from 'express';
-import { universalAPIManager } from './universal-api-manager';
 
 // State-Sponsored Adversarial Intelligence Engine
 // Authentic implementation based on GIDEON framework documentation

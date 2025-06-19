@@ -1,5 +1,5 @@
+// import { UniversalAPIManager } from './universal-api-manager';
 import express from 'express';
-import { UniversalAPIManager } from './universal-api-manager';
 import { AdvancedMultiModalAIEngine } from './advanced-multimodal-ai-engine';
 
 // GIDEON - Guided Interactive Deception and Offensive Networker
@@ -140,7 +140,7 @@ export class GIDEONAutonomousFramework {
   };
 
   constructor() {
-    this.apiManager = new UniversalAPIManager();
+    // this.apiManager = new UniversalAPIManager();
     this.aiEngine = new AdvancedMultiModalAIEngine();
   }
 

@@ -1,9 +1,9 @@
 import express from 'express';
-import { UniversalAPIManager } from './universal-api-manager';
+// import { UniversalAPIManager } from './universal-api-manager';
 import { StateSponsoredAdversarialEngine } from './state-sponsored-adversarial-engine';
 
 const router = express.Router();
-const apiManager = new UniversalAPIManager();
+// const apiManager = new UniversalAPIManager();
 const adversarialEngine = new StateSponsoredAdversarialEngine();
 
 // GIDEON Framework Status

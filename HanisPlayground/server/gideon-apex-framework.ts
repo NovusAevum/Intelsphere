@@ -1,5 +1,5 @@
 import express from 'express';
-import { universalAPIManager } from './universal-api-manager';
+// import { universalAPIManager } from './universal-api-manager';
 import { advancedAIEngine } from './advanced-ai-engine';
 
 // GIDEON APEX Framework - State-Sponsored Adversarial AI Platform

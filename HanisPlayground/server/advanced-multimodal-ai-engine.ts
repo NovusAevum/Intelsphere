@@ -4,7 +4,7 @@
  * Supports 150+ languages with advanced NLP processing
  */
 
-import { universalAPIManager } from './universal-api-manager';
+// import { universalAPIManager } from './universal-api-manager';
 import { storage } from './storage';
 
 interface AIModelConfig {
