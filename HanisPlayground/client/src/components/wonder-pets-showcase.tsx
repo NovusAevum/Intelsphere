@@ -38,6 +38,8 @@ export default function WonderPetsShowcase() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previouslyFocusedElement = useRef<HTMLElement | null>(null);
 
   const wonderPets: WonderPet[] = [
     {
@@ -256,6 +258,37 @@ export default function WonderPetsShowcase() {
     }, 1000);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    if (selectedPet) {
+      previouslyFocusedElement.current = document.activeElement as HTMLElement;
+      modalRef.current?.focus();
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') setSelectedPet(null);
+        if (e.key === 'Tab' && modalRef.current) {
+          const focusableEls = modalRef.current.querySelectorAll<HTMLElement>(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          );
+          const firstEl = focusableEls[0];
+          const lastEl = focusableEls[focusableEls.length - 1];
+          if (!e.shiftKey && document.activeElement === lastEl) {
+            e.preventDefault();
+            firstEl.focus();
+          } else if (e.shiftKey && document.activeElement === firstEl) {
+            e.preventDefault();
+            lastEl.focus();
+          }
+        }
+      };
+      document.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+        if (previouslyFocusedElement.current) {
+          previouslyFocusedElement.current.focus();
+        }
+      };
+    }
+  }, [selectedPet]);
 
   const getTrendIcon = (trend: 'up' | 'down' | 'stable') => {
     if (trend === 'up') return '↗️';
@@ -488,6 +521,10 @@ export default function WonderPetsShowcase() {
         <AnimatePresence>
           {selectedPet && selectedPetData && (
             <motion.div
+              ref={modalRef}
+              tabIndex={-1}
+              aria-modal="true"
+              role="dialog"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}

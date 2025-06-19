@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -18,6 +18,42 @@ interface TutorialOverlayProps {
 
 export default function TutorialOverlay({ isOpen, onClose, steps, title }: TutorialOverlayProps) {
   const [currentStep, setCurrentStep] = useState(0);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const previouslyFocusedElement = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      previouslyFocusedElement.current = document.activeElement as HTMLElement;
+      // Focus the overlay
+      overlayRef.current?.focus();
+      // Trap focus
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          resetAndClose();
+        }
+        if (e.key === 'Tab' && overlayRef.current) {
+          const focusableEls = overlayRef.current.querySelectorAll<HTMLElement>(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          );
+          const firstEl = focusableEls[0];
+          const lastEl = focusableEls[focusableEls.length - 1];
+          if (!e.shiftKey && document.activeElement === lastEl) {
+            e.preventDefault();
+            firstEl.focus();
+          } else if (e.shiftKey && document.activeElement === firstEl) {
+            e.preventDefault();
+            lastEl.focus();
+          }
+        }
+      };
+      document.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    } else if (previouslyFocusedElement.current) {
+      previouslyFocusedElement.current.focus();
+    }
+  }, [isOpen]);
 
   const nextStep = () => {
     if (currentStep < steps.length - 1) {
@@ -40,6 +76,10 @@ export default function TutorialOverlay({ isOpen, onClose, steps, title }: Tutor
     <AnimatePresence>
       {isOpen && (
         <motion.div
+          ref={overlayRef}
+          tabIndex={-1}
+          aria-modal="true"
+          role="dialog"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
