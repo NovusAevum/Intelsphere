@@ -15,6 +15,7 @@ import SystemStatusPage from './pages/SystemStatusPage';
 import SettingsPage from './pages/SettingsPage';
 import ApexIntelligenceDashboard from './components/apex-intelligence-dashboard';
 import AIControlDeck from './components/ai-control-deck';
+import IntelSphere from './pages/intelsphere';
 
 function HomePage() {
   return (
@@ -37,7 +38,7 @@ export default function App() {
       
       <main className="flex-1 overflow-auto">
         <Switch>
-          <Route path="/" component={HomePage} />
+          <Route path="/" component={IntelSphere} />
           <Route path="/chat" component={AIChatPage} />
           <Route path="/business" component={BusinessIntelligencePage} />
           <Route path="/research" component={MarketResearchPage} />
