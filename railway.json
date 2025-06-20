@@ -20,5 +20,9 @@
   "builds": [
     { "src": "frontend/package.json", "use": "@vercel/static-build", "config": { "distDir": "build" } },
     { "src": "api/index.py", "use": "@vercel/python" }
-  ]
+  ],
+  "error": {
+    "message": "Build failed in 4.25s",
+    "details": "error during build: [vite:load-fallback] Could not load /vercel/path0/HanisPlayground/client/src/lib/utils (imported by client/src/components/ui/card.tsx): ENOENT: no such file or directory, open '/vercel/path0/HanisPlayground/client/src/lib/utils' at async open (node:internal/fs/promises:633:25) ... Error: Command \"npm run build\" exited with 1"
+  }
 } 

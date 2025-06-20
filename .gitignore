@@ -193,3 +193,4 @@ dmypy.json
 *.avi
 *.mov
 *.wmv HanisPlayground/attached_assets/
+.vercel
