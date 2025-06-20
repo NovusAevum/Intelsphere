@@ -27,6 +27,7 @@ export function NavigationRenderer() {
   const [location] = useLocation();
   const [navigationConfig, setNavigationConfig] = useState<NavigationConfig | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchNavigationConfig();
@@ -39,23 +40,8 @@ export function NavigationRenderer() {
       setNavigationConfig(data.navigation);
     } catch (error) {
       console.error('Failed to load navigation config:', error);
-      // Fallback to basic navigation
-      setNavigationConfig({
-        primary: [
-          {
-            id: 'ai-chat',
-            label: 'AI Chat',
-            path: '/chat',
-            icon: '🤖',
-            component: 'AIChatPage',
-            description: 'AI Chat Interface',
-            active: true,
-            order: 1
-          }
-        ],
-        secondary: [],
-        admin: []
-      });
+      setError('Navigation unavailable: Backend API is not reachable.');
+      setNavigationConfig(null);
     } finally {
       setLoading(false);
     }
@@ -92,6 +78,14 @@ export function NavigationRenderer() {
             <div key={i} className="h-10 bg-gray-700 rounded"></div>
           ))}
         </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="w-64 bg-gray-800 p-4 text-center text-red-400">
+        {error}
       </div>
     );
   }
