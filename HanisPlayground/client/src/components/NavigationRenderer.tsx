@@ -38,10 +38,27 @@ export function NavigationRenderer() {
       const response = await fetch('/api/navigation-config');
       const data = await response.json();
       setNavigationConfig(data.navigation);
+      setError(null);
     } catch (error) {
       console.error('Failed to load navigation config:', error);
-      setError('Navigation unavailable: Backend API is not reachable.');
-      setNavigationConfig(null);
+      // Fallback to basic navigation
+      setNavigationConfig({
+        primary: [
+          {
+            id: 'ai-chat',
+            label: 'AI Chat',
+            path: '/chat',
+            icon: '🤖',
+            component: 'AIChatPage',
+            description: 'AI Chat Interface',
+            active: true,
+            order: 1
+          }
+        ],
+        secondary: [],
+        admin: []
+      });
+      setError('Navigation unavailable: Backend API is not reachable. Showing minimal navigation.');
     } finally {
       setLoading(false);
     }
@@ -82,32 +99,16 @@ export function NavigationRenderer() {
     );
   }
 
-  if (error) {
-    return (
-      <div className="w-64 bg-gray-800 p-4 text-center text-red-400">
-        {error}
-      </div>
-    );
-  }
-
-  if (!navigationConfig) {
-    return (
-      <div className="w-64 bg-gray-800 p-4 text-center text-gray-400">
-        Navigation unavailable
-      </div>
-    );
-  }
-
   return (
     <nav className="w-64 bg-gray-800 border-r border-gray-700 flex flex-col">
       <div className="p-4 border-b border-gray-700">
         <h2 className="text-xl font-bold text-white">IntelSphere</h2>
+        {error && <div className="text-xs text-red-400 mt-2">{error}</div>}
       </div>
-      
       <div className="flex-1 p-4 space-y-6 overflow-y-auto">
-        {renderNavigationSection(navigationConfig.primary, 'Core Modules')}
-        {renderNavigationSection(navigationConfig.secondary, 'Advanced')}
-        {renderNavigationSection(navigationConfig.admin, 'System')}
+        {navigationConfig && renderNavigationSection(navigationConfig.primary, 'Core Modules')}
+        {navigationConfig && renderNavigationSection(navigationConfig.secondary, 'Advanced')}
+        {navigationConfig && renderNavigationSection(navigationConfig.admin, 'System')}
       </div>
     </nav>
   );
