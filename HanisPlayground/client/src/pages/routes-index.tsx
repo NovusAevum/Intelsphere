@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'wouter';
 import { Search, ExternalLink, Grid3x3, List, Filter } from 'lucide-react';
 
@@ -6,10 +6,6 @@ interface RouteEntry {
   path: string;
   title: string;
   category: string;
-}
-
-interface AIIndex {
-  routes: RouteEntry[];
 }
 
 const RoutesIndex: React.FC = () => {
@@ -20,29 +16,66 @@ const RoutesIndex: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch('/ai-routes-index.json')
-      .then((res) => res.json())
-      .then((data: AIIndex) => {
-        setRoutes(data.routes || []);
-        setFilteredRoutes(data.routes || []);
-        setLoading(false);
-      })
-      .catch(() => {
-        console.error("Failed to load AI Routes Index");
-        setLoading(false);
-      });
+  // Build a route registry by scanning page files. Exclude helper pages not intended for direct navigation.
+  const discoveredRoutes = useMemo(() => {
+    const pageFiles = import.meta.glob('../pages/*.tsx', { eager: true });
+    const entries: RouteEntry[] = [];
+
+    Object.keys(pageFiles).forEach((key) => {
+      const fileName = key.split('/').pop() || '';
+      const base = fileName.replace(/\.tsx$/, '');
+
+      // Skip internal-only or placeholder files if needed
+      const excluded = [
+        'not-found',
+        'mission-control',
+        'enhanced-chat',
+        'home',
+      ];
+      if (excluded.includes(base)) return;
+
+      // Titleize
+      const title = base
+        .replace(/-/g, ' ')
+        .replace(/\b\w/g, (c) => c.toUpperCase());
+
+      // Categorize by simple heuristics
+      const category = (
+        base.includes('intelsphere') ? 'Platform Core' :
+        base.includes('ai') || base.includes('assistant') ? 'AI Intelligence' :
+        base.includes('osint') || base.includes('threat') || base.includes('security') ? 'OSINT Intelligence' :
+        base.includes('gideon') ? 'GIDEON Framework' :
+        base.includes('market') || base.includes('sales') || base.includes('business') ? 'Business Intelligence' :
+        base.includes('financial') ? 'Financial Intelligence' :
+        base.includes('social') ? 'Social Intelligence' :
+        base.includes('premium') || base.includes('enhanced') ? 'Premium Features' :
+        'Navigation'
+      );
+
+      // Map to route path; special-case the main landing page
+      const path = base === 'intelsphere' ? '/' : `/${base}`;
+
+      entries.push({ path, title, category });
+    });
+
+    // Ensure deterministic ordering
+    entries.sort((a, b) => a.path.localeCompare(b.path));
+    return entries;
   }, []);
+
+  useEffect(() => {
+    setRoutes(discoveredRoutes);
+    setFilteredRoutes(discoveredRoutes);
+    setLoading(false);
+  }, [discoveredRoutes]);
 
   useEffect(() => {
     let filtered = routes;
 
-    // Filter by category
     if (selectedCategory !== 'all') {
       filtered = filtered.filter(route => route.category === selectedCategory);
     }
 
-    // Filter by search term
     if (searchTerm) {
       filtered = filtered.filter(route =>
         route.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -54,12 +87,12 @@ const RoutesIndex: React.FC = () => {
     setFilteredRoutes(filtered);
   }, [routes, searchTerm, selectedCategory]);
 
-  const categories = Array.from(new Set(routes.map(route => route.category))).sort();
-  const grouped = filteredRoutes.reduce((acc: Record<string, RouteEntry[]>, route) => {
+  const categories = useMemo(() => Array.from(new Set(routes.map(route => route.category))).sort(), [routes]);
+  const grouped = useMemo(() => filteredRoutes.reduce((acc: Record<string, RouteEntry[]>, route) => {
     if (!acc[route.category]) acc[route.category] = [];
     acc[route.category].push(route);
     return acc;
-  }, {});
+  }, {}), [filteredRoutes]);
 
   const getCategoryIcon = (category: string): string => {
     switch (category) {
@@ -251,5 +284,9 @@ const RoutesIndex: React.FC = () => {
     </div>
   );
 };
+
+function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
+  return <Search {...props} />;
+}
 
 export default RoutesIndex;

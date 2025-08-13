@@ -4,11 +4,11 @@ import { CohereClient } from 'cohere-ai';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export class Enhanced8ModelAPIManager {
-  private openai: OpenAI;
-  private anthropic: Anthropic;
-  private cohere: CohereClient;
-  private xai: OpenAI;
-  private google: GoogleGenerativeAI;
+  private openai?: OpenAI;
+  private anthropic?: Anthropic;
+  private cohere?: CohereClient;
+  private xai?: OpenAI;
+  private google?: GoogleGenerativeAI;
   private serviceStatus: { 
     openai: boolean; 
     anthropic: boolean; 
@@ -30,180 +30,135 @@ export class Enhanced8ModelAPIManager {
   };
 
   constructor() {
-    // Initialize all AI services
-    this.openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
+    // Initialize all AI services only if keys are provided
+    if (process.env.OPENAI_API_KEY) {
+      this.openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    }
 
-    this.anthropic = new Anthropic({
-      apiKey: process.env.ANTHROPIC_API_KEY,
-    });
+    if (process.env.ANTHROPIC_API_KEY) {
+      this.anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+    }
 
-    this.cohere = new CohereClient({
-      token: process.env.COHERE_API_KEY,
-    });
+    if (process.env.COHERE_API_KEY) {
+      this.cohere = new CohereClient({ token: process.env.COHERE_API_KEY });
+    }
 
-    this.xai = new OpenAI({
-      baseURL: "https://api.x.ai/v1",
-      apiKey: process.env.XAI_API_KEY,
-    });
+    if (process.env.XAI_API_KEY) {
+      this.xai = new OpenAI({ baseURL: "https://api.x.ai/v1", apiKey: process.env.XAI_API_KEY });
+    }
 
-    this.google = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || '');
+    if (process.env.GOOGLE_API_KEY) {
+      this.google = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+    }
 
     this.initializeAllServices();
   }
 
   private async initializeAllServices() {
-    console.log('🔄 Initializing all 8 AI services...');
-    
-    await Promise.allSettled([
-      this.testOpenAI(),
-      this.testAnthropic(),
-      this.testCohere(),
-      this.testXAI(),
-      this.testGoogle(),
-      this.testMistral(),
-      this.testVoyage(),
-      this.testWeatherStack()
-    ]);
+    console.log('🔄 Initializing available AI services...');
+    const tests: Array<Promise<boolean>> = [];
+    if (this.openai) tests.push(this.testOpenAI());
+    if (this.anthropic) tests.push(this.testAnthropic());
+    if (this.cohere) tests.push(this.testCohere());
+    if (this.xai) tests.push(this.testXAI());
+    if (this.google) tests.push(this.testGoogle());
+    tests.push(this.testMistral());
+    tests.push(this.testVoyage());
+    tests.push(this.testWeatherStack());
 
+    await Promise.allSettled(tests);
     this.logServiceStatus();
   }
 
   private async testOpenAI(): Promise<boolean> {
     try {
+      if (!this.openai) return false;
       const completion = await this.openai.chat.completions.create({
         model: 'gpt-4o-mini',
         messages: [{ role: 'user', content: 'test' }],
         max_tokens: 5,
       });
-      
       if (completion.choices && completion.choices.length > 0) {
         this.serviceStatus.openai = true;
         console.log('✅ OpenAI API: Connected and accessible');
         return true;
       }
-      
       this.serviceStatus.openai = false;
       console.log('⚠️  OpenAI API: Response format unexpected');
       return false;
-    } catch (error: any) {
+    } catch {
       this.serviceStatus.openai = false;
-      if (error?.status === 403 || error?.status === 429) {
-        console.log('⚠️  OpenAI API: Access limited - insufficient permissions or credits');
-      } else {
-        console.log('⚠️  OpenAI API: Connection failed');
-      }
+      console.log('⚠️  OpenAI API: Connection failed or key missing');
       return false;
     }
   }
 
   private async testAnthropic(): Promise<boolean> {
     try {
+      if (!this.anthropic) return false;
       const message = await this.anthropic.messages.create({
         model: 'claude-3-haiku-20240307',
         max_tokens: 10,
         messages: [{ role: 'user', content: 'test' }],
       });
-      
       if (message.content && message.content.length > 0) {
         this.serviceStatus.anthropic = true;
         console.log('✅ Anthropic API: Connected and accessible');
         return true;
       }
-      
       this.serviceStatus.anthropic = false;
       console.log('⚠️  Anthropic API: Response format unexpected');
       return false;
-    } catch (error: any) {
+    } catch {
       this.serviceStatus.anthropic = false;
-      if (error?.status === 403 || error?.status === 429) {
-        console.log('⚠️  Anthropic API: Access limited - insufficient credits');
-      } else {
-        console.log('⚠️  Anthropic API: Connection failed');
-      }
+      console.log('⚠️  Anthropic API: Connection failed or key missing');
       return false;
     }
   }
 
   private async testCohere(): Promise<boolean> {
     try {
-      const response = await this.cohere.generate({
-        model: 'command-light',
-        prompt: 'test',
-        maxTokens: 5,
-      });
-      
-      if (response.generations && response.generations.length > 0) {
-        this.serviceStatus.cohere = true;
-        console.log('✅ Cohere API: Connected and accessible');
-        return true;
-      }
-      
+      if (!this.cohere) return false;
+      await this.cohere.checkApiKey();
+      this.serviceStatus.cohere = true;
+      console.log('✅ Cohere API: Connected and accessible');
+      return true;
+    } catch {
       this.serviceStatus.cohere = false;
-      console.log('⚠️  Cohere API: Response format unexpected');
-      return false;
-    } catch (error: any) {
-      this.serviceStatus.cohere = false;
-      if (error?.status === 403 || error?.status === 429) {
-        console.log('⚠️  Cohere API: Access limited - insufficient credits');
-      } else {
-        console.log('⚠️  Cohere API: Connection failed');
-      }
+      console.log('⚠️  Cohere API: Connection failed or key missing');
       return false;
     }
   }
 
   private async testXAI(): Promise<boolean> {
     try {
+      if (!this.xai) return false;
       const completion = await this.xai.chat.completions.create({
         model: 'grok-beta',
         messages: [{ role: 'user', content: 'test' }],
         max_tokens: 5,
       });
-      
-      if (completion.choices && completion.choices.length > 0) {
-        this.serviceStatus.xai = true;
-        console.log('✅ xAI (Grok) API: Connected and accessible');
-        return true;
-      }
-      
+      this.serviceStatus.xai = !!completion;
+      console.log('✅ XAI Grok: Connected and accessible');
+      return true;
+    } catch {
       this.serviceStatus.xai = false;
-      console.log('⚠️  xAI API: Response format unexpected');
-      return false;
-    } catch (error: any) {
-      this.serviceStatus.xai = false;
-      if (error?.status === 403 || error?.status === 429) {
-        console.log('⚠️  xAI API: Access limited - insufficient credits');
-      } else {
-        console.log('⚠️  xAI API: Connection failed');
-      }
+      console.log('⚠️  XAI Grok: Connection failed or key missing');
       return false;
     }
   }
 
   private async testGoogle(): Promise<boolean> {
     try {
-      const model = this.google.getGenerativeModel({ model: "gemini-pro" });
-      const result = await model.generateContent("test");
-      const response = await result.response;
-      
-      if (response.text()) {
-        this.serviceStatus.google = true;
-        console.log('✅ Google (Gemini) API: Connected and accessible');
-        return true;
-      }
-      
+      if (!this.google) return false;
+      const model = this.google.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      await model.generateContent({ contents: [{ role: 'user', parts: [{ text: 'test' }] }] as any });
+      this.serviceStatus.google = true;
+      console.log('✅ Google AI: Connected and accessible');
+      return true;
+    } catch {
       this.serviceStatus.google = false;
-      console.log('⚠️  Google API: Response format unexpected');
-      return false;
-    } catch (error: any) {
-      this.serviceStatus.google = false;
-      if (error?.status === 403 || error?.status === 429) {
-        console.log('⚠️  Google API: Access limited - insufficient credits');
-      } else {
-        console.log('⚠️  Google API: Connection failed');
-      }
+      console.log('⚠️  Google AI: Connection failed or key missing');
       return false;
     }
   }
@@ -349,6 +304,7 @@ export class Enhanced8ModelAPIManager {
   }
 
   private async executeOpenAI(message: string) {
+    if (!this.openai) throw new Error('OpenAI API not initialized');
     const completion = await this.openai.chat.completions.create({
       model: 'gpt-4o',
       messages: [{ role: 'user', content: message }],
@@ -364,6 +320,7 @@ export class Enhanced8ModelAPIManager {
   }
 
   private async executeAnthropic(message: string) {
+    if (!this.anthropic) throw new Error('Anthropic API not initialized');
     const completion = await this.anthropic.messages.create({
       model: 'claude-sonnet-4-20250514',
       max_tokens: 1500,
@@ -380,6 +337,7 @@ export class Enhanced8ModelAPIManager {
   }
 
   private async executeCohere(message: string) {
+    if (!this.cohere) throw new Error('Cohere API not initialized');
     const response = await this.cohere.generate({
       model: 'command-r-plus',
       prompt: message,
@@ -395,6 +353,7 @@ export class Enhanced8ModelAPIManager {
   }
 
   private async executeXAI(message: string) {
+    if (!this.xai) throw new Error('xAI API not initialized');
     const completion = await this.xai.chat.completions.create({
       model: 'grok-2-1212',
       messages: [{ role: 'user', content: message }],
@@ -410,6 +369,7 @@ export class Enhanced8ModelAPIManager {
   }
 
   private async executeGoogle(message: string) {
+    if (!this.google) throw new Error('Google API not initialized');
     const model = this.google.getGenerativeModel({ model: "gemini-pro" });
     const result = await model.generateContent(message);
     const response = await result.response;
@@ -423,6 +383,7 @@ export class Enhanced8ModelAPIManager {
   }
 
   private async executeMistral(message: string) {
+    if (!process.env.MISTRAL_API_KEY) throw new Error('Mistral API key not configured');
     const response = await fetch('https://api.mistral.ai/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -456,6 +417,7 @@ export class Enhanced8ModelAPIManager {
   }
 
   private async executeWeatherStack(message: string) {
+    if (!process.env.WEATHER_STACK_API_KEY) throw new Error('WeatherStack API key not configured');
     // Extract location from message if possible
     const locationMatch = message.match(/weather.*?(?:in|for|at)\s+([a-zA-Z\s,]+)/i);
     const location = locationMatch ? locationMatch[1].trim() : 'New York';

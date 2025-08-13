@@ -16,6 +16,8 @@ import SettingsPage from './pages/SettingsPage';
 import ApexIntelligenceDashboard from './components/apex-intelligence-dashboard';
 import AIControlDeck from './components/ai-control-deck';
 import IntelSphere from './pages/intelsphere';
+import RoutesIndex from './pages/routes-index';
+import DynamicPageRoute from './components/DynamicPageRoute';
 
 function HomePage() {
   return (
@@ -39,6 +41,8 @@ export default function App() {
       <main className="flex-1 overflow-auto">
         <Switch>
           <Route path="/" component={IntelSphere} />
+          <Route path="/intelsphere" component={IntelSphere} />
+          <Route path="/routes-index" component={RoutesIndex} />
           <Route path="/chat" component={AIChatPage} />
           <Route path="/business" component={BusinessIntelligencePage} />
           <Route path="/research" component={MarketResearchPage} />
@@ -51,7 +55,10 @@ export default function App() {
           <Route path="/apex" component={ApexIntelligenceDashboard} />
           <Route path="/console" component={AIControlDeck} />
           <Route path="/ai-deck" component={AIControlDeck} />
-          
+
+          {/* Dynamic file-based route fallback for other pages */}
+          <DynamicPageRoute />
+
           {/* Fallback for unknown routes */}
           <Route>
             <div className="flex-1 flex items-center justify-center">

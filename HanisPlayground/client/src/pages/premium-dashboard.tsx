@@ -42,7 +42,7 @@ import {
   HelpCircle
 } from 'lucide-react';
 import { Link } from 'wouter';
-import { useAuth } from '@/components/auth-provider';
+import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import GoBackButton from '@/components/ui/go-back-button';
 import TutorialOverlay from '@/components/ui/tutorial-overlay';
