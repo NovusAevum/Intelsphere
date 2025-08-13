@@ -16,20 +16,15 @@ import SettingsPage from './pages/SettingsPage';
 import ApexIntelligenceDashboard from './components/apex-intelligence-dashboard';
 import AIControlDeck from './components/ai-control-deck';
 import IntelSphere from './pages/intelsphere';
-
-function HomePage() {
-  return (
-    <div className="flex-1 flex items-center justify-center bg-gray-900">
-      <div className="text-center">
-        <h1 className="text-6xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
-          IntelSphere
-        </h1>
-        <p className="text-xl text-gray-300 mb-8">Advanced Intelligence Platform</p>
-        <p className="text-gray-400">Select a module from the navigation to begin</p>
-      </div>
-    </div>
-  );
-}
+import NeuralNetwork from './pages/neural-network';
+import SmartAIAssistant from './pages/smart-ai-assistant';
+import EnhancedAIAssistant from './pages/enhanced-ai-assistant';
+import SalesIntelligence from './pages/sales-intelligence';
+import SocialMediaIntelligence from './pages/social-media-intelligence-dashboard';
+import BusinessHub from './pages/business-hub';
+import CommandCenter from './pages/command-center';
+import LoginPage from './pages/login';
+import RegisterPage from './pages/register';
 
 export default function App() {
   return (
@@ -38,7 +33,10 @@ export default function App() {
       
       <main className="flex-1 overflow-auto">
         <Switch>
+          {/* Main Landing Page */}
           <Route path="/" component={IntelSphere} />
+          
+          {/* Core Intelligence Modules */}
           <Route path="/chat" component={AIChatPage} />
           <Route path="/business" component={BusinessIntelligencePage} />
           <Route path="/research" component={MarketResearchPage} />
@@ -46,11 +44,28 @@ export default function App() {
           <Route path="/finance" component={FinancialPage} />
           <Route path="/threats" component={ThreatIntelligencePage} />
           <Route path="/social" component={SocialIntelligencePage} />
+          
+          {/* AI & Neural Components */}
+          <Route path="/neural-network" component={NeuralNetwork} />
+          <Route path="/smart-ai" component={SmartAIAssistant} />
+          <Route path="/enhanced-ai" component={EnhancedAIAssistant} />
+          
+          {/* Business Intelligence */}
+          <Route path="/sales-intelligence" component={SalesIntelligence} />
+          <Route path="/social-media-intel" component={SocialMediaIntelligence} />
+          <Route path="/business-hub" component={BusinessHub} />
+          
+          {/* Command & Control */}
+          <Route path="/command-center" component={CommandCenter} />
           <Route path="/status" component={SystemStatusPage} />
           <Route path="/settings" component={SettingsPage} />
           <Route path="/apex" component={ApexIntelligenceDashboard} />
           <Route path="/console" component={AIControlDeck} />
           <Route path="/ai-deck" component={AIControlDeck} />
+          
+          {/* Authentication */}
+          <Route path="/login" component={LoginPage} />
+          <Route path="/register" component={RegisterPage} />
           
           {/* Fallback for unknown routes */}
           <Route>
@@ -58,6 +73,7 @@ export default function App() {
               <div className="text-center">
                 <h2 className="text-2xl font-bold text-gray-300 mb-4">Page Not Found</h2>
                 <p className="text-gray-400">The requested page could not be found.</p>
+                <p className="text-gray-400 mt-2">Return to <a href="/" className="text-blue-400 hover:text-blue-300">IntelSphere Home</a></p>
               </div>
             </div>
           </Route>
