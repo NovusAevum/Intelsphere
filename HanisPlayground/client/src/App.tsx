@@ -17,6 +17,7 @@ import ApexIntelligenceDashboard from './components/apex-intelligence-dashboard'
 import AIControlDeck from './components/ai-control-deck';
 import IntelSphere from './pages/intelsphere';
 import RoutesIndex from './pages/routes-index';
+import DynamicPageRoute from './components/DynamicPageRoute';
 
 function HomePage() {
   return (
@@ -54,7 +55,10 @@ export default function App() {
           <Route path="/apex" component={ApexIntelligenceDashboard} />
           <Route path="/console" component={AIControlDeck} />
           <Route path="/ai-deck" component={AIControlDeck} />
-          
+
+          {/* Dynamic file-based route fallback for other pages */}
+          <DynamicPageRoute />
+
           {/* Fallback for unknown routes */}
           <Route>
             <div className="flex-1 flex items-center justify-center">
