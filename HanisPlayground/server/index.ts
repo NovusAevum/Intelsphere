@@ -7,6 +7,10 @@ import express from 'express';
 import path from 'path';
 import { Pool } from '@neondatabase/serverless';
 
+// Production environment configuration
+const isProduction = process.env.NODE_ENV === 'production';
+const PORT = process.env.PORT || 3005;
+
 // Initialize database connection (optional)
 let db: Pool | null = null;
 try {
@@ -55,9 +59,49 @@ try {
 
 const app = express();
 
+// Security headers for production
+if (isProduction) {
+  app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+    next();
+  });
+  
+  // Rate limiting for production
+  const requestCounts = new Map();
+  app.use((req, res, next) => {
+    const clientIP = req.ip || req.connection.remoteAddress;
+    const now = Date.now();
+    const windowMs = 15 * 60 * 1000; // 15 minutes
+    const maxRequests = 100; // Max 100 requests per 15 minutes
+    
+    if (!requestCounts.has(clientIP)) {
+      requestCounts.set(clientIP, { count: 1, resetTime: now + windowMs });
+    } else {
+      const clientData = requestCounts.get(clientIP);
+      if (now > clientData.resetTime) {
+        clientData.count = 1;
+        clientData.resetTime = now + windowMs;
+      } else if (clientData.count >= maxRequests) {
+        return res.status(429).json({ error: 'Too many requests' });
+      } else {
+        clientData.count++;
+      }
+    }
+    next();
+  });
+}
+
 // Middleware
-app.use(express.json());
-app.use(express.static('dist/public'));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.static('dist', {
+  maxAge: isProduction ? '1y' : '0',
+  etag: true,
+  lastModified: true
+}));
 
 // Core API endpoints with fallback
 app.post('/api/chat', async (req, res) => {
@@ -326,14 +370,69 @@ app.get('/api/apex/enterprise-status', async (req, res) => {
   }
 });
 
+// Health monitoring endpoint
+app.get('/api/health/detailed', async (req, res) => {
+  const healthData = {
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    memory: process.memoryUsage(),
+    environment: process.env.NODE_ENV || 'development',
+    version: process.version,
+    platform: process.platform,
+    arch: process.arch
+  };
+  
+  res.json(healthData);
+});
+
 // Serve React app
 app.get('*', (req, res) => {
-  res.sendFile(path.join(process.cwd(), 'dist', 'public', 'index.html'));
+  res.sendFile(path.join(process.cwd(), 'dist', 'index.html'));
 });
+
+// Global error handler
+app.use((error: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error('Global error handler:', error);
+  
+  if (isProduction) {
+    res.status(500).json({ 
+      error: 'Internal server error',
+      timestamp: new Date().toISOString()
+    });
+  } else {
+    res.status(500).json({ 
+      error: error.message || 'Internal server error',
+      stack: error.stack,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({
+    error: 'Route not found',
+    path: req.path,
+    timestamp: new Date().toISOString()
+  });
+});
+
+// Production logging middleware
+if (isProduction) {
+  app.use((req, res, next) => {
+    const start = Date.now();
+    res.on('finish', () => {
+      const duration = Date.now() - start;
+      console.log(`${req.method} ${req.path} ${res.statusCode} ${duration}ms`);
+    });
+    next();
+  });
+}
 
 // Smart port allocation with stability improvements
 function startServer() {
-  let port = 3005;
+  let port = PORT;
   let serverInstance: any = null;
   
   // Cleanup any existing server instances
