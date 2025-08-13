@@ -434,6 +434,12 @@ export default function IntelSphere() {
                     Business Hub
                   </Button>
                 </Link>
+                <div className="w-px h-6 bg-slate-600"></div>
+                <Link to="/routes-index">
+                  <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white hover:bg-slate-800/50">
+                    All Routes
+                  </Button>
+                </Link>
               </div>
             </div>
 
