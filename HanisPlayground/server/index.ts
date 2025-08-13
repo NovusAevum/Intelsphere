@@ -5,6 +5,8 @@
 
 import express from 'express';
 import path from 'path';
+// Add CORS support
+import cors from 'cors';
 import { Pool } from '@neondatabase/serverless';
 import { enhanced8ModelAPIManager } from './enhanced-8-model-api-manager';
 import { ApexUnifiedCommandCenter } from './apex-unified-command-center';
@@ -23,7 +25,9 @@ const apexValidator = new ApexDeploymentValidator(db);
 
 // Middleware
 app.use(express.json());
-app.use(express.static('dist'));
+// Enable CORS for local development / cross-origin deployment
+app.use(cors());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Core API endpoints using clean separation
 app.post('/api/chat', async (req, res) => {
@@ -55,6 +59,42 @@ app.post('/api/market-research', async (req, res) => {
     res.status(500).json({ error: 'Market research service error' });
   }
 });
+
+// === IntelSphere Landing-Page API stubs ===
+// Returns simple success confirmation for unified analysis
+app.post('/api/intelsphere-unified', async (req, res) => {
+  const { query, modules } = req.body ?? {};
+  // In production this would trigger multi-module analysis. For now, respond with mock payload.
+  res.json({
+    status: 'ok',
+    query,
+    modules,
+    insights_generated: Math.floor(Math.random() * 100) + 50,
+    timestamp: new Date().toISOString(),
+  });
+});
+
+// Provides real-time metrics used by the dashboard
+app.get('/api/intelsphere-metrics', (req, res) => {
+  res.json({
+    totalAnalyses: 1200 + Math.floor(Math.random() * 50),
+    activeUsers: 80 + Math.floor(Math.random() * 20),
+    systemLoad: 30 + Math.floor(Math.random() * 20),
+    uptime: '99.9%',
+    timestamp: new Date().toISOString(),
+  });
+});
+
+// Simple AI assistant echo – replace with real LLM integration later
+app.post('/api/ai-assistant', async (req, res) => {
+  const { message } = req.body ?? {};
+  res.json({
+    response: `🤖 Echo from mock AI assistant: ${message}`,
+    model: 'mock-gpt',
+    timestamp: new Date().toISOString(),
+  });
+});
+// === End API stubs ===
 
 // Register APEX unified command center routes
 apexCommandCenter.registerUnifiedCommandRoutes(app);
