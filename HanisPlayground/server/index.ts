@@ -26,8 +26,19 @@ const apexValidator = new ApexDeploymentValidator(db);
 // Middleware
 app.use(express.json());
 // Enable CORS for local development / cross-origin deployment
-app.use(cors());
-app.use(express.static(path.join(__dirname, 'public')));
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:3005').split(',');
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+}));
+app.use(express.static(path.join(process.cwd(), 'dist')));
 
 // Core API endpoints using clean separation
 app.post('/api/chat', async (req, res) => {
