@@ -18,19 +18,27 @@ interface Message {
 }
 
 export default function AIChatPage() {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: '1',
+      type: 'assistant',
+      content: 'Welcome to IntelSphere AI Chat! I\'m your intelligent assistant powered by multiple AI models. How can I help you today?',
+      timestamp: new Date(),
+      model: 'system'
+    }
+  ]);
   const [input, setInput] = useState('');
   const [selectedModel, setSelectedModel] = useState('cohere');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const availableModels = [
-    { value: 'cohere', label: 'Cohere (Active)', active: true },
-    { value: 'mistral', label: 'Mistral (Active)', active: true },
-    { value: 'openai', label: 'OpenAI (Limited)', active: false },
-    { value: 'anthropic', label: 'Anthropic (Limited)', active: false },
-    { value: 'google', label: 'Google AI (Limited)', active: false },
-    { value: 'xai', label: 'xAI Grok (Limited)', active: false }
+    { value: 'cohere', label: 'Cohere Command-R', active: true },
+    { value: 'mistral', label: 'Mistral Large', active: true },
+    { value: 'openai', label: 'OpenAI GPT-4', active: true },
+    { value: 'anthropic', label: 'Claude Sonnet', active: true },
+    { value: 'google', label: 'Gemini Pro', active: true },
+    { value: 'xai', label: 'xAI Grok', active: true }
   ];
 
   useEffect(() => {
